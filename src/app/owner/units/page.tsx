@@ -70,7 +70,7 @@ export default function UnitListPage() {
       </div> */}
       <div className="p-4 pt-5 md:px-12 lg:px-20 mb-10">
         <div className="mb-5 flex items-end justify-between gap-3"><div><h1 className="text-2xl font-bold">Units</h1><p className="mt-1 text-sm text-slate-500">Add and organise rentable spaces.</p></div>
-          <Button onClick={() => setShowUnitModal(true)} variant="green" className="whitespace-nowrap ">
+          <Button onClick={() => setShowUnitModal(true)} variant="blue" className="whitespace-nowrap ">
             + Add Unit
           </Button>
         </div>

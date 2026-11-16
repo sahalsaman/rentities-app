@@ -18,7 +18,7 @@ export default function ManagerManagementPage() {
         {/* Header */}
         <div className="border-b border-gray-100 pb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold font-montserrat text-green-700">
+            <h1 className="text-3xl md:text-4xl font-bold font-montserrat text-blue-700">
               Manager Management
             </h1>
             <p className="text-lg text-gray-600 mt-2">
@@ -96,7 +96,7 @@ export default function ManagerManagementPage() {
               </p>
 
               {/* Invite Button */}
-              <div className="mb-5 bg-green-500 text-white rounded-lg py-2.5 flex items-center justify-center gap-2 font-semibold text-sm cursor-pointer hover:bg-green-600 transition-colors">
+              <div className="mb-5 bg-blue-500 text-white rounded-lg py-2.5 flex items-center justify-center gap-2 font-semibold text-sm cursor-pointer hover:bg-blue-600 transition-colors">
                 <UserPlus size={16} />
                 Invite New Manager
               </div>
@@ -105,7 +105,7 @@ export default function ManagerManagementPage() {
                 name="David Miller"
                 role="Property Manager"
                 status="Active"
-                color="border-green-500"
+                color="border-blue-500"
               />
 
               <ManagerCard
@@ -119,12 +119,12 @@ export default function ManagerManagementPage() {
                 name="James Chen"
                 role="Front Desk"
                 status="Active"
-                color="border-green-500"
+                color="border-blue-500"
               />
             </div>
 
             {/* Tip Box */}
-            <div className="bg-green-700 rounded-xl p-6 text-white">
+            <div className="bg-blue-700 rounded-xl p-6 text-white">
               <h4 className="font-bold font-montserrat mb-2 flex items-center gap-2">
                 <Lock className="text-yellow-300" size={16} />
                 Security Tip
@@ -147,7 +147,7 @@ function FeatureCard({ icon: Icon, title, children }: any) {
   return (
     <div className="bg-white border rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
       <h3 className="flex items-center gap-3 font-montserrat font-bold text-lg text-gray-800 mb-4 border-b pb-3">
-        <span className="w-8 h-8 flex items-center justify-center rounded-lg bg-green-100 text-green-600 text-sm">
+        <span className="w-8 h-8 flex items-center justify-center rounded-lg bg-blue-100 text-blue-600 text-sm">
           <Icon size={16} />
         </span>
         {title}
@@ -162,7 +162,7 @@ function FeatureCard({ icon: Icon, title, children }: any) {
 function ManagerCard({ name, role, status, color }: any) {
   const statusStyle =
     status === "Active"
-      ? "bg-green-100 text-green-700"
+      ? "bg-blue-100 text-blue-700"
       : "bg-yellow-100 text-yellow-700";
 
   return (
@@ -190,7 +190,7 @@ function ManagerCard({ name, role, status, color }: any) {
 function CheckItem({ children }: any) {
   return (
     <div className="flex gap-2 items-start">
-      <Check className="text-green-500 mt-0.5 flex-shrink-0" size={16} />
+      <Check className="text-blue-500 mt-0.5 flex-shrink-0" size={16} />
       <span>{children}</span>
     </div>
   );

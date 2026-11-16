@@ -160,14 +160,14 @@ select {
 .admin-page thead { @apply bg-slate-50 text-xs uppercase tracking-wider text-slate-500; }
 .admin-page th { @apply border-b border-slate-200 px-5 py-4 font-semibold; }
 .admin-page td { @apply border-b border-slate-100 px-5 py-4 text-sm text-slate-700; }
-.admin-page tbody tr { @apply transition hover:bg-emerald-50/40; }
-.admin-page input { @apply rounded-xl border-slate-200 bg-white px-4 py-3 shadow-sm outline-none transition focus:border-green-500 focus:ring-4 focus:ring-green-100; }
+.admin-page tbody tr { @apply transition hover:bg-sky-50/40; }
+.admin-page input { @apply rounded-xl border-slate-200 bg-white px-4 py-3 shadow-sm outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100; }
 .admin-page .admin-table-shell { @apply overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm; }
 .admin-page .admin-empty { @apply rounded-2xl border border-dashed border-slate-300 bg-white py-16 text-center text-sm text-slate-500; }
 
 /* Owner app: phone-first spacing, generous touch targets, and readable data. */
 .owner-surface { @apply pb-24 text-slate-800; }
-.owner-surface input:not([type="checkbox"]), .owner-surface textarea, .owner-surface select { @apply min-h-11 rounded-xl border-slate-200 bg-white px-3 text-base shadow-sm outline-none transition focus:border-green-500 focus:ring-4 focus:ring-green-100; }
+.owner-surface input:not([type="checkbox"]), .owner-surface textarea, .owner-surface select { @apply min-h-11 rounded-xl border-slate-200 bg-white px-3 text-base shadow-sm outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100; }
 .owner-surface button { -webkit-tap-highlight-color: transparent; }
 .owner-surface table { @apply overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm; }
 .owner-surface th { @apply bg-slate-50 text-xs font-semibold uppercase tracking-wide text-slate-500; }
@@ -184,3 +184,36 @@ select {
   .owner-surface .grid { row-gap: 0.75rem; }
   .owner-surface button { min-height: 2.75rem; }
 }
+
+/* Non-admin visual language: airy blue surfaces, navy text, and one vivid blue action color. */
+.owner-shell, .auth-theme, .public-site { font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif; color: #17243d; }
+.owner-shell .bg-blue-700, .owner-shell .bg-blue-800, .owner-shell .bg-blue-900,
+.owner-shell .bg-green-700, .owner-shell .bg-green-800, .owner-shell .bg-green-900,
+.auth-theme .bg-blue-700, .auth-theme .bg-blue-800, .auth-theme .bg-blue-900,
+.auth-theme .bg-green-700, .auth-theme .bg-green-800, .auth-theme .bg-green-900,
+.public-site .bg-blue-700, .public-site .bg-blue-800, .public-site .bg-blue-900,
+.public-site .bg-green-700, .public-site .bg-green-800, .public-site .bg-green-900 { background-color: #1677e8 !important; }
+.owner-shell .bg-gradient-to-br, .auth-theme .bg-gradient-to-br, .public-site .bg-gradient-to-br { background-image: linear-gradient(135deg, #eaf4ff 0%, #cfe6ff 48%, #1677e8 100%) !important; }
+.owner-shell .text-blue-700, .owner-shell .text-blue-600, .owner-shell .text-green-700, .owner-shell .text-green-600,
+.auth-theme .text-blue-700, .auth-theme .text-blue-600, .auth-theme .text-green-700, .auth-theme .text-green-600,
+.public-site .text-blue-700, .public-site .text-blue-600, .public-site .text-green-700, .public-site .text-green-600 { color: #1268ce !important; }
+.owner-shell .bg-sky-50, .auth-theme .bg-sky-50, .public-site .bg-sky-50 { background-color: #eaf4ff !important; }
+.owner-shell .text-sky-300, .auth-theme .text-sky-300 { color: #1268ce !important; }
+.owner-shell .border-blue-700, .auth-theme .border-blue-700 { border-color: #1677e8 !important; }
+.owner-shell .shadow-blue-200, .auth-theme .shadow-blue-200 { --tw-shadow-color: rgb(22 119 232 / 0.22) !important; }
+body:has(input[placeholder="e.g. Hilite"]) .bg-blue-700,
+body:has(input[placeholder="e.g. Hilite"]) .bg-green-700,
+body:has([data-slot="input-otp"]) .bg-blue-700,
+body:has([data-slot="input-otp"]) .bg-green-700 { background-color: #1677e8 !important; }
+body:has(input[placeholder="e.g. Hilite"]) .text-blue-700,
+body:has([data-slot="input-otp"]) .text-blue-700 { color: #1268ce !important; }
+
+/* Public/auth surfaces follow the reference's blue-glass visual language. */
+.public-site > section:first-of-type,
+.auth-theme section:first-of-type,
+main > div > section:first-of-type { background-image: linear-gradient(135deg, #78a7d6 0%, #4b89cf 52%, #1d72da 100%) !important; }
+.public-site > section:first-of-type .bg-blue-700, .public-site > section:first-of-type .bg-green-700 { background-color: #1476e8 !important; }
+.public-site section, .auth-theme section { border-radius: 1.5rem; }
+.public-site .shadow-2xl, .auth-theme .shadow-2xl { box-shadow: 0 24px 70px rgb(34 91 145 / 0.16) !important; }
+.public-site h1, .public-site h2, .public-site h3, .auth-theme h1, .auth-theme h2 { letter-spacing: -0.025em; }
+.public-site a, .auth-theme a { transition: color 160ms ease, opacity 160ms ease; }

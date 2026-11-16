@@ -53,7 +53,7 @@ export const metadata: Metadata = {
      siteName: "Rentities",
     images: [
       {
-        url: '../../public/logo green.png',
+        url: '../../public/logo.png',
         width: 1200,
         height: 630,
         alt: "Rentities - Rent Collection App",
@@ -114,7 +114,7 @@ export default function RootLayout({
                 "@type": "Organization",
                 name: "WEBCOS",
                 url: "https://webcos.co",
-                logo: "https://rentities.in/logo green.png",
+                logo: "https://rentities.in/app logo.png",
               },
             }),
           }}

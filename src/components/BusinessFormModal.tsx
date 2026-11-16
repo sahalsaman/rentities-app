@@ -13,19 +13,19 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { apiFetch } from "@/lib/api";
 
-interface OrganisationFormModalProps {
+interface BusinessFormModalProps {
     open: boolean;
     onClose: () => void;
     onSave: () => void;
     initialData?: any | null;
 }
 
-export default function OrganisationFormModal({
+export default function BusinessFormModal({
     open,
     onClose,
     onSave,
     initialData,
-}: OrganisationFormModalProps) {
+}: BusinessFormModalProps) {
     const [formData, setFormData] = useState({
         name: "",
         address: "",
@@ -57,7 +57,7 @@ export default function OrganisationFormModal({
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        await apiFetch(`/api/organisation`, {
+        await apiFetch(`/api/business`, {
             method: "PUT",
             body: JSON.stringify(formData),
         });
@@ -69,19 +69,19 @@ export default function OrganisationFormModal({
             <DialogContent className="max-h-[90vh] overflow-y-auto p-6">
                 <DialogHeader>
                     <DialogTitle>
-                        Edit Organisation
+                        Edit Business
                     </DialogTitle>
                 </DialogHeader>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <Label>Organisation Name</Label>
+                        <Label>Business Name</Label>
                         <Input
                             className="mt-1"
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
-                            placeholder="Enter organisation name"
+                            placeholder="Enter business name"
                             required
                         />
                     </div>
@@ -112,7 +112,7 @@ export default function OrganisationFormModal({
                         <Button type="button" variant="secondary" onClick={onClose}>
                             Cancel
                         </Button>
-                        <Button type="submit" variant="green">
+                        <Button type="submit" variant="blue">
                             {initialData ? "Update" : "Save"}
                         </Button>
                     </div>

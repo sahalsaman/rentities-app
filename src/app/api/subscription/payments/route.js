@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import connectMongoDB from "@/../database/db";
-import {  SubscriptionPaymentModel } from "@/../models/Organisation";
+import {  SubscriptionPaymentModel } from "@/../models/Business";
 
 export async function GET(req) {
   try {
@@ -25,7 +25,7 @@ export async function GET(req) {
     await connectMongoDB();
 
     const data = await SubscriptionPaymentModel.find({
-      organisationId: propertyId,
+      businessId: propertyId,
       startDate: { $gte: start, $lt: end },
     }).sort({ startDate: -1 });
 

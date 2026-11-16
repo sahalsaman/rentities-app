@@ -45,7 +45,7 @@ export default function PropertyCard({ property, currentProperty,onEdit, onDelet
               >
                 {/* <Trash2 size={16} /> */}
               </button>
-              {/* <div className="text-xs w-fit rounded bg-green-700 text-white px-2 py-1 ">{property.status}</div> */}
+              {/* <div className="text-xs w-fit rounded bg-blue-700 text-white px-2 py-1 ">{property.status}</div> */}
 
             </div>
 
@@ -64,7 +64,7 @@ export default function PropertyCard({ property, currentProperty,onEdit, onDelet
           </div> */}
         </div>
       </div>
- {currentProperty._id===property._id?     <div className='bg-green-700 text-white w-fit absolute bottom-0 right-0 rounded-br-xl rounded-tl-xl px-4 py-1 text-sm font-bold'>Selected</div>:""}
+ {currentProperty._id===property._id?     <div className='bg-blue-700 text-white w-fit absolute bottom-0 right-0 rounded-br-xl rounded-tl-xl px-4 py-1 text-sm font-bold'>Selected</div>:""}
     </div>
   );
 }

@@ -117,7 +117,7 @@ export default function OwnerDashboard() {
 
   return (
     <main className="text-gray-800 px-4 pt-5 mb-8 md:px-12 lg:px-20">
-      <div className="mb-6 rounded-2xl bg-gradient-to-r from-emerald-950 to-green-700 p-5 text-white shadow-lg md:hidden"><p className="text-xs font-semibold tracking-wider text-emerald-200">OWNER WORKSPACE</p><h1 className="mt-1 text-2xl font-bold">Your rental overview</h1><p className="mt-1 text-sm text-emerald-50/80">Everything important, at a glance.</p></div>
+      <div className="mb-6 rounded-2xl bg-gradient-to-r from-sky-950 to-blue-700 p-5 text-white shadow-lg md:hidden"><p className="text-xs font-semibold tracking-wider text-sky-200">OWNER WORKSPACE</p><h1 className="mt-1 text-2xl font-bold">Your rental overview</h1><p className="mt-1 text-sm text-sky-50/80">Everything important, at a glance.</p></div>
       <h1 className="text-2xl hidden md:block font-bold mb-6">Dashboard</h1>
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-3 lg:gap-4">
@@ -133,7 +133,7 @@ export default function OwnerDashboard() {
         {options.map((card, idx) => (
           <div key={idx} className="flex flex-col justify-center items-center gap-1 md:gap-1.5 cursor-pointer hover:scale-105 transition-transform"
             onClick={() => card.path === "BOOKING_FORM" ? setShowBookingModal(true) : card.path === "BOOKING_QR" ? openQR() : card.path==="SUPPORT"? window.open('https://wa.link/61dd4n', '_blank'):router.push(card.path)} >
-            <Button className="h-14 w-14 rounded-2xl shadow-sm md:h-20 md:w-20 hover:shadow-lg" variant="green">
+            <Button className="h-14 w-14 rounded-2xl shadow-sm md:h-20 md:w-20 hover:shadow-lg" variant="blue">
               {card.icon}
             </Button>
             <span className="text-xs md:text-sm  text-nowrap text-center">{card.title}</span>

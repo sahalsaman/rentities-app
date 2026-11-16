@@ -38,7 +38,7 @@ export default function UsersPage() {
 
   return (
     <div className="admin-page mb-10">
-      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div><p className="text-sm font-medium text-green-700">People</p><h1 className="text-2xl font-bold text-slate-900">Users</h1><p className="mt-1 text-sm text-slate-500">Manage owners, managers, and tenants in one place.</p></div>
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div><p className="text-sm font-medium text-blue-700">People</p><h1 className="text-2xl font-bold text-slate-900">Users</h1><p className="mt-1 text-sm text-slate-500">Manage owners, managers, and tenants in one place.</p></div>
         <input
           type="text"
           placeholder="Search user..."
@@ -87,7 +87,7 @@ export default function UsersPage() {
                     ) : user.disabled ? (
                       <span className="text-yellow-600 font-medium">Disabled</span>
                     ) : (
-                      <span className="text-green-600 font-medium">Active</span>
+                      <span className="text-blue-600 font-medium">Active</span>
                     )}
                   </td>
 

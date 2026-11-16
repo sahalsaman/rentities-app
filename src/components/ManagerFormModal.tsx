@@ -94,7 +94,7 @@ export default function ManagerFormModal({ open, onClose, onSave, editData }: an
                 name="countryCode" // ✅ added
                 value={formData.countryCode || ""}
                 onChange={handleChange}
-                className="w-20 h-12 px-2 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+                className="w-20 h-12 px-2 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                 style={{ maxWidth: '80px' }}
               >
                 {countryCodes.map((option) => (
@@ -123,7 +123,7 @@ export default function ManagerFormModal({ open, onClose, onSave, editData }: an
               onChange={handlePropertiesChange}
             />
           </div>
-          <Button type="submit" variant="green">{editData ? "Update" : "Save"}</Button>
+          <Button type="submit" variant="blue">{editData ? "Update" : "Save"}</Button>
         </form>
       </DialogContent>
     </Dialog>

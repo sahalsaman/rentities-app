@@ -8,14 +8,14 @@ const razorpay = new Razorpay({
   key_secret: env.RAZORPAY_KEY_SECRET,
 });
 
-export async function generateRazorpayLinkForSubscription(amount: number, organisationId: string) {
+export async function generateRazorpayLinkForSubscription(amount: number, businessId: string) {
   try {
     const options = {
       amount: amount * 100,  // In paise (e.g., 5000 → 500000)
       currency: 'INR',
       receipt: `receipt_${Date.now()}`,
       notes: {
-        userId: organisationId,
+        userId: businessId,
         purpose: "Webcos ARP Suscription Payment"
       }
     };
@@ -35,7 +35,7 @@ export async function generateRazorpayLinkForInvoice(invoiceId: string, amount: 
       currency: 'INR',
       receipt: invoiceId,
       notes: {
-        organisationId: booking?.organisationId.toString(),
+        businessId: booking?.businessId.toString(),
         propertyId: booking.propertyId.toString(),
         purpose: "Property Rent/advance"
       },

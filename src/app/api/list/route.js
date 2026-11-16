@@ -12,10 +12,10 @@ export async function GET(request) {
 
     const user = getTokenValue(request);
 
-    if (!user.organisationId) {
+    if (!user.businessId) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
-    const organisationId = user.organisationId;
+    const businessId = user.businessId;
     const { searchParams } = new URL(request.url);
     const page = searchParams.get("page");
     const propertyId = searchParams.get("propertyId");
@@ -23,7 +23,7 @@ export async function GET(request) {
 
     await connectMongoDB();
     let filter = {
-      organisationId,
+      businessId,
       propertyId,
     };
 

@@ -17,7 +17,7 @@ export default function InvoicesFinancialsPage() {
         {/* Header */}
         <div className="border-b border-gray-100 pb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold font-montserrat text-green-700">
+            <h1 className="text-3xl md:text-4xl font-bold font-montserrat text-blue-700">
               Invoices & Financials
             </h1>
             <p className="text-lg text-gray-500 mt-2">
@@ -96,7 +96,7 @@ export default function InvoicesFinancialsPage() {
 
               {/* Stats */}
               <div className="flex gap-3 mb-6">
-                <StatCard label="Paid" value="$4,250" color="text-green-600" />
+                <StatCard label="Paid" value="$4,250" color="text-blue-600" />
                 <StatCard
                   label="Overdue"
                   value="$850"
@@ -128,7 +128,7 @@ export default function InvoicesFinancialsPage() {
             </div>
 
             {/* Tip Box */}
-            <div className="bg-green-700 rounded-xl p-6 text-white">
+            <div className="bg-blue-700 rounded-xl p-6 text-white">
               <h4 className="font-bold font-montserrat mb-2 flex items-center gap-2">
                 <Lightbulb className="text-yellow-300" size={16} />
                 Accounting Tip
@@ -152,7 +152,7 @@ function FeatureCard({ icon: Icon, title, children }: any) {
   return (
     <div className="bg-white border rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
       <h3 className="flex items-center gap-3 font-montserrat font-bold text-lg text-gray-800 mb-4 border-b pb-3">
-        <span className="w-8 h-8 flex items-center justify-center rounded-lg bg-green-100 text-green-600 text-sm">
+        <span className="w-8 h-8 flex items-center justify-center rounded-lg bg-blue-100 text-blue-600 text-sm">
           <Icon size={16} />
         </span>
         {title}
@@ -166,7 +166,7 @@ function FeatureCard({ icon: Icon, title, children }: any) {
 
 function InvoiceCard({ title, amount, due, status }: any) {
   const statusStyles: any = {
-    Paid: "border-green-500 bg-green-50 text-green-700",
+    Paid: "border-blue-500 bg-blue-50 text-blue-700",
     Overdue: "border-red-500 bg-red-50 text-red-700",
     Sent: "border-yellow-500 bg-yellow-50 text-yellow-700",
   };
@@ -201,7 +201,7 @@ function StatCard({ label, value, color }: any) {
 function CheckItem({ children }: any) {
   return (
     <li className="relative pl-8">
-      <Check className="absolute left-0 top-1 text-green-500" size={16} />
+      <Check className="absolute left-0 top-1 text-blue-500" size={16} />
       {children}
     </li>
   );

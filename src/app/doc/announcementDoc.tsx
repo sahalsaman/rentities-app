@@ -20,7 +20,7 @@ export default function AnnouncementsPage() {
         {/* Header */}
         <div className="border-b border-gray-100 pb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold font-montserrat text-green-700">
+            <h1 className="text-3xl md:text-4xl font-bold font-montserrat text-blue-700">
               Announcements
             </h1>
             <p className="text-lg text-gray-500 mt-2">
@@ -108,13 +108,13 @@ export default function AnnouncementsPage() {
                 message="The fitness center has been upgraded with new treadmills. Available from today."
                 sent={45}
                 seen={42}
-                color="border-green-500"
+                color="border-blue-500"
                 icon={UserCog}
               />
             </div>
 
             {/* Tip Box */}
-            <div className="bg-green-700 rounded-xl p-6 text-white">
+            <div className="bg-blue-700 rounded-xl p-6 text-white">
               <h4 className="font-bold font-montserrat mb-2 flex items-center gap-2">
                 <Lightbulb className="text-yellow-300" size={16} />
                 Best Practice
@@ -137,7 +137,7 @@ function FeatureCard({ icon: Icon, title, children }: any) {
   return (
     <div className="bg-white border rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
       <h3 className="flex items-center gap-3 font-montserrat font-bold text-lg text-gray-800 mb-4 border-b pb-3">
-        <span className="w-8 h-8 flex items-center justify-center rounded-lg bg-green-100 text-green-600 text-sm">
+        <span className="w-8 h-8 flex items-center justify-center rounded-lg bg-blue-100 text-blue-600 text-sm">
           <Icon size={16} />
         </span>
         {title}
@@ -164,7 +164,7 @@ function MessageCard({
     <div
       className={`bg-white border-l-4 rounded-xl p-4 mb-4 shadow-sm relative ${color}`}
     >
-      <span className="absolute right-6 top-4 text-[10px] bg-green-50 text-green-600 px-2 py-0.5 rounded-full font-semibold">
+      <span className="absolute right-6 top-4 text-[10px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full font-semibold">
         {property}
       </span>
 
@@ -189,7 +189,7 @@ function MessageCard({
           Sent: {sent}
         </span>
         <span className="flex items-center gap-1">
-          <Eye className="text-green-400" size={12} />
+          <Eye className="text-blue-400" size={12} />
           Seen: {seen}
         </span>
       </div>
@@ -200,7 +200,7 @@ function MessageCard({
 function CheckItem({ children }: any) {
   return (
     <li className="relative pl-8">
-      <Check className="absolute left-0 top-1 text-green-500" size={16} />
+      <Check className="absolute left-0 top-1 text-blue-500" size={16} />
       {children}
     </li>
   );

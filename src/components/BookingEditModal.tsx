@@ -241,7 +241,7 @@ export default function BookingEditModal({ open, onClose, onSave, editData, unit
             <Button type="button" variant="secondary" onClick={onClose}>
               Cancel
             </Button>
-            <Button type="submit" className="w-full" variant="green" disabled={editData?.status === BookingStatus.CHECKED_OUT}>
+            <Button type="submit" className="w-full" variant="blue" disabled={editData?.status === BookingStatus.CHECKED_OUT}>
               {editData ? "Update" : "Submit"}
             </Button>
           </div>

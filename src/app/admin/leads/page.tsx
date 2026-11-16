@@ -32,7 +32,7 @@ export default function LeadsPage() {
   if (loading) return <PageSkeleton rows={6} />;
   return (
     <div className="admin-page mb-10">
-      <div className="mb-6 flex items-end justify-between"><div><p className="text-sm font-medium text-green-700">Pipeline</p><h1 className="text-2xl font-bold text-slate-900">Leads</h1><p className="mt-1 text-sm text-slate-500">Capture, qualify, and keep prospect conversations moving.</p></div><span className="rounded-full bg-emerald-50 px-3 py-1 text-sm font-semibold text-green-700">{leads.length} total</span>
+      <div className="mb-6 flex items-end justify-between"><div><p className="text-sm font-medium text-blue-700">Pipeline</p><h1 className="text-2xl font-bold text-slate-900">Leads</h1><p className="mt-1 text-sm text-slate-500">Capture, qualify, and keep prospect conversations moving.</p></div><span className="rounded-full bg-sky-50 px-3 py-1 text-sm font-semibold text-blue-700">{leads.length} total</span>
       </div>
 
    <div className="flex justify-between mb-4">

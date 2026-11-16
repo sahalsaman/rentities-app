@@ -166,7 +166,7 @@ export default function InvoiceFormModal({ open, onClose, onSave, editData }: Pr
             <Button type="button" variant="secondary" onClick={onClose}>
               Cancel
             </Button>
-            <Button type="submit" className="w-full" variant="green">
+            <Button type="submit" className="w-full" variant="blue">
               {editData ? "Update" : "Submit"}
             </Button>
           </div>

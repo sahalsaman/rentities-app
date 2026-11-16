@@ -3,9 +3,9 @@ import mongoose, { Schema, Types } from 'mongoose';
 
 const SelfRecieveBankOrUpiSchema = new Schema(
   {
-     organisation: {
+     business: {
       type: Types.ObjectId,
-      ref: "Organisation",
+      ref: "Business",
       required: true
     },
     paymentRecieverOption: { type: String, enum: PaymentRecieverOptions, required: true },

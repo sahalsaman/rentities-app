@@ -70,7 +70,7 @@ export default function BookingDetailPage() {
         <div className="w-full flex justify-between">
           <div className="flex items-center gap-4">
             {/* Logo (first 2 letters of firstName) */}
-            <div className="w-20 h-20 flex items-center justify-center rounded-full bg-green-600 text-white text-3xl font-semibold">
+            <div className="w-20 h-20 flex items-center justify-center rounded-full bg-blue-600 text-white text-3xl font-semibold">
 
               {booking.userId?.firstName?.slice(0, 2).toUpperCase()}
             </div>

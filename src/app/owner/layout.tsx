@@ -17,7 +17,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const pathname = usePathname();
   const [properties, setProperties] = useState<IProperty[]>([]);
   const [selectedPropertyId, setSelectedPropertyId] = useState("");
-  const [organisation, setOrganisation] = useState<any | null>(null);
+  const [business, setBusiness] = useState<any | null>(null);
   const [user, setUser] = useState<any | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -67,16 +67,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     };
   }
 
-  const fetchOrganisation = async () => {
-    const res = await apiFetch("/api/organisation");
+  const fetchBusiness = async () => {
+    const res = await apiFetch("/api/business");
     const data = await res.json();
-    setOrganisation(data);
+    setBusiness(data);
   };
 
 
   useEffect(() => {
     fetchUser()
-    fetchOrganisation();
+    fetchBusiness();
     fetchProperties();
   }, []);
 
@@ -95,34 +95,29 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
 
   return (
-    <div className="min-h-screen bg-slate-50 pb-24">
+    <div className="owner-shell min-h-screen bg-slate-50 pb-24">
       <header className="w-full border-b border-slate-200 bg-white px-4 py-3 shadow-sm md:px-12 lg:px-20">
         <div className="w-full flex justify-between items-center">
           {/* Desktop Nav */}
           <div className="mr-5 block lg:hidden">
-            <div className="flex items-center gap-2">
-              {/* <ArrowLeft className={` text-white cursor-pointer   ${pathname === "/owner/dashboard" ? "hidden" : "block"}`} onClick={() => router.back()} /> */}
-              <Image src={app_config.APP_LOGO} alt="Logo" width={32} className='cursor-pointer'
-                onClick={() => router.push('/owner/dashboard')} />
-              <span className="text-lg font-bold tracking-tight text-slate-900">Rentities</span>
+            <div className="flex items-center gap-2" 
+                onClick={() => router.push('/owner/dashboard')} >
+              <Image src={app_config.APP_LOGO} alt="Logo" height={32} className='cursor-pointer'/>
+              <Image src={app_config.LOGO_NAME} alt="Logo" height={32} className='cursor-pointer'/>
             </div>
 
           </div>
           <div className="hidden lg:flex items-center gap-4">
-            <div className="flex items-center gap-4">
-              <Image src={app_config.APP_LOGO} alt="Logo" width={30} className='cursor-pointer' />
-              <h1
-                onClick={() => router.push('/owner/dashboard')}
-                className="text-2xl font-bold text-slate-900 mr-5 cursor-pointer"
-              >
-                Rentities
-              </h1></div>
+            <div className="flex items-center gap-4" 
+                onClick={() => router.push('/owner/dashboard')}>
+              <Image src={app_config.APP_LOGO} alt="Logo" height={30} className='cursor-pointer' />
+              <Image src={app_config.LOGO_NAME} alt="Logo" height={30} className='cursor-pointer' /></div>
             {options.map((card, idx) => (
               <div
                 key={idx}
                 onClick={() => router.push(card.path)}
                 className={`cursor-pointer rounded-lg px-3 py-2 text-sm font-medium transition
-                  ${pathname === card.path ? "bg-emerald-50 text-green-700" : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"}`}
+                  ${pathname === card.path ? "bg-sky-50 text-blue-700" : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"}`}
               >
                 <span>{card.title}</span>
               </div>
@@ -154,11 +149,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     </select>
                   </div>
                 </div> :
-                  organisation?.subscription ?
-                    <Button className=" w-full text-white bg-green-700 font-semibold text-md rounded-xl px-8 py-6 hover:bg-green-100 transition" onClick={() => router.push('/owner/properties')}>
+                  business?.subscription ?
+                    <Button className=" w-full text-white bg-blue-700 font-semibold text-md rounded-xl px-8 py-6 hover:bg-blue-100 transition" onClick={() => router.push('/owner/properties')}>
                       Add Property
                     </Button> :
-                    <Button className=" w-full text-white bg-green-700 font-semibold text-md rounded-xl px-8 py-6 hover:bg-green-100 transition" onClick={() => router.push('/owner/subscription-plan')}>
+                    <Button className=" w-full text-white bg-blue-700 font-semibold text-md rounded-xl px-8 py-6 hover:bg-blue-100 transition" onClick={() => router.push('/owner/subscription-plan')}>
                       Start Free Trial
                     </Button>
                 }
@@ -166,7 +161,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <button aria-label="Notifications" className="flex h-10 w-10 items-center justify-center rounded-xl text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"><Bell size={20} /></button><div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => router.push('/owner/profile')}
-                className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-xl bg-green-900 text-white cursor-pointer transition hover:bg-green-700"
+                className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-xl bg-blue-900 text-white cursor-pointer transition hover:bg-blue-700"
               >
                 <User size={20} />
               </button>
@@ -195,21 +190,21 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               </select>
             </div>
             :
-            organisation?.subscription ?
-              <Button className=" w-full bg-green-700 text-white font-semibold text-md rounded-xl px-8 py-6 hover:bg-green-100 transition" onClick={() => router.push('/owner/properties')}>
+            business?.subscription ?
+              <Button className=" w-full bg-blue-700 text-white font-semibold text-md rounded-xl px-8 py-6 hover:bg-blue-100 transition" onClick={() => router.push('/owner/properties')}>
                 Add Property
               </Button> :
-              <Button className=" w-full bg-white text-green-700 font-semibold text-md rounded-xl px-8 py-6 hover:bg-green-100 transition" onClick={() => router.push('/owner/subscription-plan')}>
+              <Button className=" w-full bg-white text-blue-700 font-semibold text-md rounded-xl px-8 py-6 hover:bg-blue-100 transition" onClick={() => router.push('/owner/subscription-plan')}>
                 Start Free Trial
               </Button>
           }
         </div> : ""}
       </header>
-      {organisation?.subscription?.status && organisation?.subscription?.status !== SubscritptionStatus.ACTIVE ? <div className="bg-amber-100 py-2.5 px-5 text-center text-sm font-medium text-amber-900 md:px-20">
-        {organisation?.subscription?.status === SubscritptionStatus.FREE ? 'Your subscription is free' : organisation?.subscription?.status === SubscritptionStatus.EXPIRED ? 'Your subscription has expired. Please renew to continue using our services.' : organisation?.subscription?.status === SubscritptionStatus.CANCELLED ? 'Your subscription has been cancelled. Please contact support for more information.' : ''}
+      {business?.subscription?.status && business?.subscription?.status !== SubscritptionStatus.ACTIVE ? <div className="bg-amber-100 py-2.5 px-5 text-center text-sm font-medium text-amber-900 md:px-20">
+        {business?.subscription?.status === SubscritptionStatus.FREE ? 'Your subscription is free' : business?.subscription?.status === SubscritptionStatus.EXPIRED ? 'Your subscription has expired. Please renew to continue using our services.' : business?.subscription?.status === SubscritptionStatus.CANCELLED ? 'Your subscription has been cancelled. Please contact support for more information.' : ''}
       </div> : ""}
 
-      {organisation?.subscription?.status === SubscritptionStatus.EXPIRED ? <SubscriptionPlan /> : <main className="owner-surface">{children}</main>}
+      {business?.subscription?.status === SubscritptionStatus.EXPIRED ? <SubscriptionPlan /> : <main className="owner-surface">{children}</main>}
 
       {/* Mobile Bottom Menu */}
       <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-evenly border-t border-slate-200 bg-white/95 px-4 py-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] shadow-[0_-6px_20px_rgba(15,23,42,0.08)] backdrop-blur lg:hidden">
@@ -217,7 +212,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <button
             key={idx}
             onClick={() => router.push(item.path)}
-            className={`flex min-w-0 flex-1 flex-col gap-1 items-center rounded-xl py-1.5 text-[10px] font-medium ${pathname === item.path ? "bg-emerald-50 text-green-700" : "text-slate-500"
+            className={`flex min-w-0 flex-1 flex-col gap-1 items-center rounded-xl py-1.5 text-[10px] font-medium ${pathname === item.path ? "bg-sky-50 text-blue-700" : "text-slate-500"
               }`}
           >
             {item.icon}

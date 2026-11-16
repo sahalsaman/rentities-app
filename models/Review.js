@@ -2,7 +2,7 @@ import mongoose, { Schema, Types } from 'mongoose';
 
 const ReviewSchema = new Schema(
   {
-    organisationId: { type: Types.ObjectId, ref: "Organisation", required: true },
+    businessId: { type: Types.ObjectId, ref: "Business", required: true },
     bookingId: { type: Types.ObjectId, ref: "Booking", required: true },
     propertyId: { type: Types.ObjectId, ref: "Property", required: true },
     unitId: { type: Types.ObjectId, ref: "Unit", required: true },

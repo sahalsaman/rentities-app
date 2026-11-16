@@ -4,7 +4,7 @@ import connectMongoDB from "@/../database/db";
 import PropertyModel from "@/../models/Property";
 import { getTokenValue } from "@/utils/tokenHandler";
 import { SubscritptionStatus, UserRoles } from "@/utils/contants";
-import { OrganisationModel } from "../../../../models/Organisation";
+import { BusinessModel } from "../../../../models/Business";
 import { deleteFromCloudinary, uploadToCloudinary } from "@/utils/upload_image";
 import { env } from "../../../../environment";
 
@@ -15,7 +15,7 @@ export async function GET(request) {
   try {
     const user = getTokenValue(request);
 
-    if (!user?.organisationId && user?.role !== UserRoles.ADMIN) {
+    if (!user?.businessId && user?.role !== UserRoles.ADMIN) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
     if (!user.role) {
@@ -27,11 +27,11 @@ export async function GET(request) {
     await connectMongoDB();
 
     if (user.role == UserRoles.ADMIN) {
-      let properties = await PropertyModel.find().populate('organisationId', 'name').lean();
+      let properties = await PropertyModel.find().populate('businessId', 'name').lean();
       return NextResponse.json(properties, { status: 200 });
     }
     const filter = {
-      organisationId: user.organisationId,
+      businessId: user.businessId,
       deleted: false,
       disabled: false,
     }
@@ -64,7 +64,7 @@ export async function GET(request) {
 // POST new property
 export async function POST(request) {
   const user = getTokenValue(request);
-  if (!user?.organisationId && user?.role !== UserRoles.ADMIN) {
+  if (!user?.businessId && user?.role !== UserRoles.ADMIN) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
 
@@ -73,9 +73,9 @@ export async function POST(request) {
 
   try {
 
-    const organisation = await OrganisationModel.findById(user.organisationId)
-    if (!organisation?.subscription || organisation?.subscription?.status === SubscritptionStatus.EXPIRED) {
-      return NextResponse.json({ message: "Organisation subscription expired" }, { status: 403 });
+    const business = await BusinessModel.findById(user.businessId)
+    if (!business?.subscription || business?.subscription?.status === SubscritptionStatus.EXPIRED) {
+      return NextResponse.json({ message: "Business subscription expired" }, { status: 403 });
     }
 
     if (!body.selctedSelfRecieveBankOrUpi) {
@@ -99,7 +99,7 @@ export async function POST(request) {
 
     const property = await PropertyModel.create({
       ...body,
-      organisationId: user.organisationId,
+      businessId: user.businessId,
     });
     return NextResponse.json(
       { message: "Property added", property },
@@ -129,7 +129,7 @@ export async function PUT(request) {
   const body = await request.json();
   try {
     const existinProperty = await PropertyModel.findOne(
-      { _id: id, organisationId: user.organisationId }
+      { _id: id, businessId: user.businessId }
     );
     if (!existinProperty) {
       return NextResponse.json({ message: "Not found " }, { status: 404 });
@@ -166,7 +166,7 @@ export async function PUT(request) {
     }
 
     const updated = await PropertyModel.findOneAndUpdate(
-      { _id: id, organisationId: user.organisationId }, // ensure ownership
+      { _id: id, businessId: user.businessId }, // ensure ownership
       body,
       { new: true }
     );
@@ -198,7 +198,7 @@ export async function DELETE(request) {
     await connectMongoDB();
     const deleted = await PropertyModel.findOneAndDelete({
       _id: id,
-      organisationId: user.organisationId, // ensure ownership
+      businessId: user.businessId, // ensure ownership
     });
     if (!deleted) {
       return NextResponse.json({ message: "Not found or not authorized" }, { status: 404 });

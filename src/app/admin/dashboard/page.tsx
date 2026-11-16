@@ -13,7 +13,7 @@ export default function OwnerDashboard() {
   const [loader, setLoader] = useState(true);
 
   const [status, setStatus] = useState({
-    organisationCount: 0,
+    businessCount: 0,
     vendorCount: 0,
     userCount: 0,
     propertyCount: 0,
@@ -33,7 +33,7 @@ export default function OwnerDashboard() {
       if (!res.ok) throw new Error("Failed to fetch dashboard status");
       const data = await res.json();
       setStatus({
-        organisationCount: data.organisationCount,
+        businessCount: data.businessCount,
         vendorCount: data.vendorCount,
         userCount: data.userCount,
         propertyCount: data.propertyCount,
@@ -56,7 +56,7 @@ export default function OwnerDashboard() {
   if (loader) return <DashboardSkeleton />;
 
   const mix = [
-    { label: "Organisations", value: status.organisationCount, color: "bg-emerald-500" },
+    { label: "Businesss", value: status.businessCount, color: "bg-sky-500" },
     { label: "Properties", value: status.propertyCount, color: "bg-cyan-500" },
     { label: "Bookings", value: status.bookingCount, color: "bg-violet-500" },
   ];
@@ -67,7 +67,7 @@ export default function OwnerDashboard() {
       <div className="mb-7"><h1 className="text-3xl font-bold text-slate-900">Platform overview</h1><p className="mt-1 text-sm text-slate-500">Your platform performance at a glance.</p></div>
 
       <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
-        <DashboardCard title="Organisations" value={status?.organisationCount} icon={Building} color={"slate-900"}/>
+        <DashboardCard title="Businesss" value={status?.businessCount} icon={Building} color={"slate-900"}/>
         <DashboardCard title="Properties" value={status?.propertyCount} icon={Building2} color={"slate-900"}/>
         <DashboardCard title="Users" value={status?.userCount} icon={Users} color={"slate-900"}/>
         <DashboardCard title="Bookings" value={status?.bookingCount} icon={ReceiptText} color={"slate-900"}/>

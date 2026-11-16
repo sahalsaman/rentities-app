@@ -36,7 +36,7 @@ export default function PropertyFormModal({
   onSave
 }: PropertyFormModalProps) {
 const [formData, setFormData] = useState<IProperty>({
-  organisationId: '', // optional now, but safe to include
+  businessId: '', // optional now, but safe to include
   name: '',
   description: '',
   address: '',
@@ -101,7 +101,7 @@ const [formData, setFormData] = useState<IProperty>({
   function resetForm() {
     setFormData(
       {
-        organisationId: '', 
+        businessId: '',
         name: '',
         description: '',
         address: '',
@@ -327,7 +327,7 @@ const [formData, setFormData] = useState<IProperty>({
                 <button
                   type="button"
                   onClick={() => router.push("/owner/bank-upi-list")}
-                  className="px-3 py-1 bg-green-700 text-xs text-white rounded hover:bg-green-800"
+                  className="px-3 py-1 bg-blue-700 text-xs text-white rounded hover:bg-blue-800"
                 >
                   Add Bank/UPI
                 </button>
@@ -457,7 +457,7 @@ const [formData, setFormData] = useState<IProperty>({
             <Button type="button" variant="secondary" onClick={onClose}>
               Cancel
             </Button>
-            <Button type="submit" className='w-full' variant="green">
+            <Button type="submit" className='w-full' variant="blue">
               {initialData ? 'Update' : 'Submit'}
             </Button>
           </div>

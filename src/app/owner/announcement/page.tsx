@@ -80,7 +80,7 @@ export default function Announcements() {
           {/* <p className="text-gray-600">Capacity: {unit.capacity}</p>
           <p className="text-gray-600">Price: ${unit.price}</p> */}
         </div>
-        <Button variant="green" onClick={() => setShowAnnouncementModal(true)}>Add</Button>
+        <Button variant="blue" onClick={() => setShowAnnouncementModal(true)}>Add</Button>
       </div>
 
       {/* Announcement List */}

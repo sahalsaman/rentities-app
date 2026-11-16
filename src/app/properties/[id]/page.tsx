@@ -59,7 +59,7 @@ export default function PropertyDetailPage() {
         <h1 className="text-3xl font-bold text-red-600 mb-4">404 - Property Not Found</h1>
         <p className="text-gray-600">The property you are looking for does not exist.</p>
         <Link href="/properties">
-          <button className="mt-6 bg-green-700 text-white px-6 py-2 rounded-xl">
+          <button className="mt-6 bg-blue-700 text-white px-6 py-2 rounded-xl">
             Go back to Properties
           </button>
         </Link>
@@ -97,7 +97,7 @@ export default function PropertyDetailPage() {
         </div>
         <Link href="/auth/login" onClick={() => setMenuOpen(false)}>Login</Link>
         <Link href="/auth/signup">
-          <button className="bg-green-700 text-white w-full py-2 rounded-xl">Get Started</button>
+          <button className="bg-blue-700 text-white w-full py-2 rounded-xl">Get Started</button>
         </Link>
       </div>
     );
@@ -108,11 +108,10 @@ export default function PropertyDetailPage() {
       {/* Header */}
       <header className="flex justify-between items-center px-4 md:px-24 py-4 shadow-md bg-white sticky top-0 z-50">
         <a className="flex items-center gap-3" href="/">
-          <Image src={app_config.APP_LOGO} alt="Logo" width={32} height={32} />
-          <h1 className="text-xl md:text-3xl font-bold text-green-700">{app_config?.APP_NAME}</h1>
+          <Image src={app_config.LOGO_WITH_NAME} alt="Logo"  height={32} />
         </a>
         <button className="md:hidden" onClick={() => setMenuOpen(true)}>
-          <Menu className="h-6 w-6 text-green-700" />
+          <Menu className="h-6 w-6 text-blue-700" />
         </button>
       </header>
 
@@ -123,13 +122,13 @@ export default function PropertyDetailPage() {
             <div>
               <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900">{name}</h1>
               <p className="flex items-center text-lg text-gray-600 mt-1">
-                <MapPin size={18} className="mr-1 text-green-600" />
+                <MapPin size={18} className="mr-1 text-blue-600" />
                 {address}, {city}, {state}, {country}
               </p>
             </div>
             {firstUnit && (
               <div className="mt-4 md:mt-0 text-right">
-                <p className="text-4xl font-bold text-green-700">₹{firstUnit.amount}</p>
+                <p className="text-4xl font-bold text-blue-700">₹{firstUnit.amount}</p>
                 <p className="text-gray-500 text-sm">per {firstUnit.frequency}</p>
               </div>
             )}
@@ -164,7 +163,7 @@ export default function PropertyDetailPage() {
                   <ul className="grid grid-cols-2 gap-4 text-gray-600">
                     {amenities.map((a: any, i: string) => (
                       <li key={i} className="flex items-center">
-                        <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <svg className="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                         </svg>
                         {a}
@@ -199,7 +198,7 @@ export default function PropertyDetailPage() {
                         <button
                           disabled={unit.status !== UnitStatus.AVAILABLE}
                           className={`w-full py-2 mt-4 rounded-lg text-white font-semibold transition text-sm ${unit.status === UnitStatus.AVAILABLE
-                            ? "bg-green-600 hover:bg-green-700"
+                            ? "bg-blue-600 hover:bg-blue-700"
                             : "bg-gray-400 cursor-not-allowed"
                             }`}
                         >
@@ -219,10 +218,10 @@ export default function PropertyDetailPage() {
                 <h3 className="text-2xl font-bold text-gray-800 mb-4">Interested?</h3>
                 <p className="text-gray-600 mb-6">Contact the owner to know more.</p>
                 <div className="space-y-3">
-                  <button className="bg-green-600 hover:bg-green-700 text-white w-full py-3 rounded-xl text-lg font-semibold">
+                  <button className="bg-blue-600 hover:bg-blue-700 text-white w-full py-3 rounded-xl text-lg font-semibold">
                     Call Owner
                   </button>
-                  <button className="bg-white border border-green-600 text-green-600 w-full py-3 rounded-xl text-lg font-semibold hover:bg-green-50">
+                  <button className="bg-white border border-blue-600 text-blue-600 w-full py-3 rounded-xl text-lg font-semibold hover:bg-blue-50">
                     Send Message
                   </button>
                 </div>

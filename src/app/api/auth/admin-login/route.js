@@ -3,7 +3,7 @@ import connectMongoDB from "@/../database/db";
 import { NextResponse } from "next/server";
 import { setTokenValue } from "@/utils/tokenHandler";
 import { UserRoles } from "@/utils/contants";
-import { OrganisationModel } from "../../../../../models/Organisation";
+import { BusinessModel } from "../../../../../models/Business";
 import crypto from "crypto";
 
 function matchesPassword(password, storedPassword) {
@@ -42,8 +42,8 @@ export async function POST(req) {
   }
 
 
-  const org = await OrganisationModel.findById(user.organisationId);
-  user.organisationId = org;
+  const org = await BusinessModel.findById(user.businessId);
+  user.businessId = org;
 
   const token = setTokenValue(user);
 

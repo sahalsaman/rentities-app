@@ -5,7 +5,7 @@ import { env } from "../../environment";
  export interface IPayload  {
     id: string;
     role: string;
-    organisationId:string;
+    businessId:string;
     subscriptionPlan:string;
   };
 
@@ -14,8 +14,8 @@ export function setTokenValue(user:any){
   const payload:IPayload = {
     id: user._id,
     role: user.role,
-    organisationId:user.organisationId?._id,
-    subscriptionPlan:user.organisationId?.subscription?.plan,
+    businessId:user.businessId?._id,
+    subscriptionPlan:user.businessId?.subscription?.plan,
   };
 
   return  jwt.sign(payload, env.JWT_SECRET, {

@@ -24,7 +24,7 @@ const UserSchema = new Schema(
     },
     // owner or manager of the properties
     properties: [{ type: Types.ObjectId, ref: "Property" }],
-    organisationId: {type: Types.ObjectId,ref: "Organisation",},
+    businessId: {type: Types.ObjectId,ref: "Business",},
 
     // tenant details
     address: { type: String },

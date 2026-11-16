@@ -16,7 +16,7 @@ export default function AdditionalFeaturesPage() {
         {/* Header */}
         <div className="border-b border-gray-100 pb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold font-montserrat text-green-700">
+            <h1 className="text-3xl md:text-4xl font-bold font-montserrat text-blue-700">
               Additional Features
             </h1>
             <p className="text-lg text-gray-500 mt-2">
@@ -41,7 +41,7 @@ export default function AdditionalFeaturesPage() {
             title="Quick Booking Creation"
             description="Create new reservations instantly from the dashboard. Streamlined flow for walk-ins or phone bookings without navigating complex menus."
             tags={["One-Tap Access", "Guest Lookup", "Price Override", "Instant Confirm"]}
-            color="green"
+            color="blue"
           />
 
           <FeatureCard
@@ -70,14 +70,14 @@ export default function AdditionalFeaturesPage() {
 function FeatureCard({ icon: Icon, title, description, tags, color }: any) {
   const colorMap: Record<string, string> = {
     sky: "bg-sky-50 text-sky-700 border-sky-100 ring-sky-500/20",
-    green: "bg-green-50 text-green-700 border-green-100 ring-green-500/20",
+    blue: "bg-blue-50 text-blue-700 border-blue-100 ring-blue-500/20",
     purple: "bg-purple-50 text-purple-700 border-purple-100 ring-purple-500/20",
     red: "bg-rose-50 text-rose-700 border-rose-100 ring-rose-500/20",
   };
 
   const iconColorMap: Record<string, string> = {
     sky: "bg-sky-100 text-sky-600",
-    green: "bg-green-100 text-green-600",
+    blue: "bg-blue-100 text-blue-600",
     purple: "bg-purple-100 text-purple-600",
     red: "bg-rose-100 text-rose-600",
   };

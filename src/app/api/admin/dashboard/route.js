@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectMongoDB from "@/../database/db";
-import {OrganisationModel} from "../../../../../models/Organisation";
+import {BusinessModel} from "../../../../../models/Business";
 import BookingModel from "../../../../../models/Booking";
 import UserModel from "../../../../../models/User";
 import PropertyModel from "../../../../../models/Property";
@@ -17,7 +17,7 @@ export async function GET(request) {
 
     await connectMongoDB();
 
-    const organisationCount = await OrganisationModel.countDocuments({
+    const businessCount = await BusinessModel.countDocuments({
       disabled: false,
       deleted: false,
     });
@@ -46,7 +46,7 @@ export async function GET(request) {
 
 
     return NextResponse.json({
-      organisationCount,
+      businessCount,
       vendorCount,
       userCount,
       propertyCount,

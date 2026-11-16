@@ -108,7 +108,7 @@ export default function UnitDetailPage() {
         <div className="flex justify-between  items-center  mb-5">
           <h1 className="text-2xl font-bold">Bookings</h1>
           {/* Booking Button */}
-          {unit.status === UnitStatus.AVAILABLE || unit.status === UnitStatus.PARTIALLY_BOOKED ? <Button onClick={() => setShowBookingModal(true)} variant="green" className="whitespace-nowrap">
+          {unit.status === UnitStatus.AVAILABLE || unit.status === UnitStatus.PARTIALLY_BOOKED ? <Button onClick={() => setShowBookingModal(true)} variant="blue" className="whitespace-nowrap">
             Add Booking
           </Button> : ""}
         </div>

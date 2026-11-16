@@ -4,12 +4,12 @@ import UnitModel from "@/../models/Unit";
 import BookingModel from "@/../models/Booking";
 import { getTokenValue } from "@/utils/tokenHandler";
 import { SubscritptionStatus } from "@/utils/contants";
-import { OrganisationModel } from "../../../../models/Organisation";
+import { BusinessModel } from "../../../../models/Business";
 
 
 export async function GET(request) {
   const user = getTokenValue(request);
-  if (!user?.organisationId) {
+  if (!user?.businessId) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
 
@@ -25,7 +25,7 @@ export async function GET(request) {
 
      let filter = {
       propertyId,
-      organisationId: user?.organisationId,
+      businessId: user?.businessId,
       disabled: false,
       deleted: false
     };
@@ -70,9 +70,9 @@ export async function POST(request) {
   const body = await request.json();
   await connectMongoDB();
 
-  const organisation = await OrganisationModel.findById(user.organisationId)
-  if (!organisation?.subscription || organisation?.subscription?.status === SubscritptionStatus.EXPIRED) {
-    return NextResponse.json({ message: "Organisation subscription expired" }, { status: 403 });
+  const business = await BusinessModel.findById(user.businessId)
+  if (!business?.subscription || business?.subscription?.status === SubscritptionStatus.EXPIRED) {
+    return NextResponse.json({ message: "Business subscription expired" }, { status: 403 });
   }
 
   if (body.isMultipleUnit) {
@@ -80,7 +80,7 @@ export async function POST(request) {
 
     const newUnits = [];
     for (let i = 0; i < (body.numberOfUnits || 1); i++) {
-      const unitData = { ...body, organisationId: user.organisationId, name: `Unit - ${i + 1}` };
+      const unitData = { ...body, businessId: user.businessId, name: `Unit - ${i + 1}` };
       delete unitData.isMultipleUnit;
       delete unitData.numberOfUnits;
       const unit = await UnitModel.create(unitData);
@@ -92,7 +92,7 @@ export async function POST(request) {
 
 
 
-  const unit = await UnitModel.create({ ...body, organisationId: user.organisationId });
+  const unit = await UnitModel.create({ ...body, businessId: user.businessId });
   return NextResponse.json(unit, { status: 201 });
 }
 
@@ -104,7 +104,7 @@ export async function PUT(request) {
   const id = new URL(request.url).searchParams.get("id");
   const body = await request.json();
   await connectMongoDB();
-  const updated = await UnitModel.findOneAndUpdate({ _id: id, organisationId: user.organisationId }, body, { new: true });
+  const updated = await UnitModel.findOneAndUpdate({ _id: id, businessId: user.businessId }, body, { new: true });
   return NextResponse.json(updated);
 }
 
@@ -115,6 +115,6 @@ export async function DELETE(request) {
 
   const id = new URL(request.url).searchParams.get("id");
   await connectMongoDB();
-  await UnitModel.findOneAndDelete({ _id: id, organisationId: user.organisationId });
+  await UnitModel.findOneAndDelete({ _id: id, businessId: user.businessId });
   return NextResponse.json({ message: "Unit deleted" });
 }

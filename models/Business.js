@@ -3,7 +3,7 @@ import { SubscriptionBillingCycle, SubscritptionPaymentStatus, SubscritptionPlan
 
 const SubscriptionPaymentSchema = new Schema(
   {
-    organisationId: { type: Types.ObjectId, ref: "Organisation", required: true },
+    businessId: { type: Types.ObjectId, ref: "Business", required: true },
     plan: { type: String, required: true },
     status: { type: String, enum: Object.values(SubscritptionPaymentStatus)},
     startDate: { type: Date, required: true },
@@ -57,7 +57,7 @@ const vendorRazerpayAccountSchema = new Schema({
   { timestamps: true }
 );
 
-const OrganisationSchema = new Schema(
+const BusinessSchema = new Schema(
   {
     name: { type: String, required: true },
     address: String,
@@ -75,7 +75,7 @@ const OrganisationSchema = new Schema(
   { timestamps: true }
 );
 
-const OrganisationModel = mongoose.models.Organisation || mongoose.model("Organisation", OrganisationSchema);
+const BusinessModel = mongoose.models.Business || mongoose.model("Business", BusinessSchema);
 const SubscriptionPaymentModel = mongoose.models.SubscriptionPayment || mongoose.model("SubscriptionPayment", SubscriptionPaymentSchema);
 
-export { OrganisationModel, SubscriptionPaymentModel };
+export { BusinessModel, SubscriptionPaymentModel };

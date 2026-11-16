@@ -71,7 +71,7 @@ export default function PropertiesPage() {
         <Link className="border-b pb-8" href="#contact" onClick={() => setMenuOpen(false)}>Contact</Link>
         <Link className="border-b pb-8" href="/auth/login" onClick={() => setMenuOpen(false)}>Login</Link>
         <Link href="/auth/signup">
-          <button className="bg-green-700 text-white w-full py-2 rounded-xl">Get Started</button>
+          <button className="bg-blue-700 text-white w-full py-2 rounded-xl">Get Started</button>
         </Link>
       </div>
     );
@@ -82,7 +82,7 @@ export default function PropertiesPage() {
       <header className="flex justify-between items-center px-4 md:px-24 py-4 shadow-md bg-white sticky top-0 z-50">
         <a className="flex items-center gap-3" href="/">
           <Image src={app_config.APP_LOGO} alt="Logo" className="w-6 h-6 sm:w-8 sm:h-8 cursor-pointer" />
-          <h1 className="text-xl md:text-3xl font-bold text-green-700">{app_config?.APP_NAME}</h1>
+          <h1 className="text-xl md:text-3xl font-bold text-blue-700">{app_config?.APP_NAME}</h1>
         </a>
         <nav className="hidden md:flex space-x-4 items-center text-sm md:text-base">
           <Link href="#setup-guide">Setup Guide</Link>
@@ -91,17 +91,17 @@ export default function PropertiesPage() {
           <Link href="#faq">FAQ</Link>
           <Link href="#contact">Contact</Link>
           <Link href="/auth/signup">
-            <button className="bg-green-700 px-4 py-3 rounded-xl text-white text-sm">Get Started</button>
+            <button className="bg-blue-700 px-4 py-3 rounded-xl text-white text-sm">Get Started</button>
           </Link>
           <Link href="/auth/login">Login</Link>
         </nav>
         <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)}>
-          <Menu className="h-6 w-6 text-green-700" />
+          <Menu className="h-6 w-6 text-blue-700" />
         </button>
       </header>
 
       {/* Banner */}
-      <div className="relative h-64 bg-gradient-to-br from-green-500 to-green-700">
+      <div className="relative h-64 bg-gradient-to-br from-blue-500 to-blue-700">
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center text-white text-3xl font-bold">
           <h1 className="mb-5">Find Your Perfect Rental Property</h1>
         </div>
@@ -132,7 +132,7 @@ export default function PropertiesPage() {
           </div>
           <button
             onClick={handleSearch}
-            className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-xl flex items-center"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl flex items-center"
           >
             <Search className="mr-2" size={18} /> Search
           </button>

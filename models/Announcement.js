@@ -3,7 +3,7 @@ import mongoose, { Schema, Types } from 'mongoose';
 
 const AnnouncementSchema = new Schema(
   {
-    organisationId: { type: Types.ObjectId, ref: "Organisation", required: true },
+    businessId: { type: Types.ObjectId, ref: "Business", required: true },
     propertyId: { type: Types.ObjectId, ref: "Property"},
     title: { type: String, required: true },
     message: { type: String, required: true },

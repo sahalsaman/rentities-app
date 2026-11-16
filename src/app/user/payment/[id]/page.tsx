@@ -154,9 +154,9 @@ export default function UserBookingPayPage() {
       <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
       <div className="w-full max-w-[500px] relateive bg-white ">
         {/* Header */}
-        <div className="p-6 pb-10 flex justify-between items-center bg-green-700 text-white">
+        <div className="p-6 pb-10 flex justify-between items-center bg-blue-700 text-white">
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-full bg-white text-green-700 flex items-center justify-center text-lg font-medium">
+            <div className="w-10 h-10 rounded-full bg-white text-blue-700 flex items-center justify-center text-lg font-medium">
               {booking.userId?.firstName ? booking.userId?.firstName[0].toUpperCase() : "U"}
             </div>
             <div>
@@ -197,7 +197,7 @@ export default function UserBookingPayPage() {
                       className="flex justify-between items-center border-b pb-3 mb-3"
                     >
                       <div className="flex items-center gap-4">
-                        <div className="bg-green-700 text-white px-3 py-2 rounded-md text-center">
+                        <div className="bg-blue-700 text-white px-3 py-2 rounded-md text-center">
                           <div className="text-lg font-bold">
                             {new Date(i.createdAt).getDate()}
                           </div>
@@ -217,7 +217,7 @@ export default function UserBookingPayPage() {
                       </div>
                       <div className="flex flex-col gap-1">
                         <Button
-                          className="bg-green-700 hover:bg-green-800 flex-1"
+                          className="bg-blue-700 hover:bg-blue-800 flex-1"
                           onClick={() => handlePayOnline(i._id, i.amount)}
                         >
                           {booking?.propertyId?.is_paymentRecieveSelf ? '' : '💳'} Pay online
@@ -266,7 +266,7 @@ export default function UserBookingPayPage() {
                       </div>
                       <div className="text-right">
                         <p className="font-semibold">₹{item.amount}</p>
-                        {/* <button className="text-green-700 text-sm font-medium mt-1 flex items-center gap-1">
+                        {/* <button className="text-blue-700 text-sm font-medium mt-1 flex items-center gap-1">
                           <Download size={16} /> Receipt
                         </button> */}
                         <p className="text-xs" style={{ fontSize: ".6rem" }}>{formatDate(item.paidAt ?? item.updatedAt)}</p>

@@ -1,6 +1,6 @@
 // Load all models once
 import "./Property";
-import "./Organisation";
+import "./Business";
 import "./Unit";
 import "./User";
 import "./Invoice";
@@ -10,7 +10,7 @@ import "./Review";
 
 // Re-export if needed
 export * from "./Property";
-export * from "./Organisation";
+export * from "./Business";
 export * from "./Unit";
 export * from "./User";
 export * from "./Invoice";

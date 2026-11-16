@@ -7,11 +7,11 @@ import { ArrowRight, BadgeIndianRupee, Building, ChevronRight, CircleDollarSign,
 import { UserRoles } from "@/utils/contants";
 import { IUser } from "@/app/types";
 import { useRouter } from "next/navigation";
-import EditOrganisationDialog from "@/components/OrganisationEditDialog";
+import EditBusinessDialog from "@/components/BusinessEditDialog";
 import toast from "react-hot-toast";
 
 export default function PropertiesPage() {
-  const [organisation, setOrganisation] = useState<any | null>(null);
+  const [business, setBusiness] = useState<any | null>(null);
   const [orgModalOpen, setOrgModalOpen] = useState(false);
   const [user, setUser] = useState<IUser | null>(null);
   const router = useRouter();
@@ -25,20 +25,20 @@ export default function PropertiesPage() {
 
   useEffect(() => {
     fetchUser();
-    fetchOrganisation();
+    fetchBusiness();
   }, []);
 
-  const fetchOrganisation = async () => {
-    const res = await apiFetch("/api/organisation");
+  const fetchBusiness = async () => {
+    const res = await apiFetch("/api/business");
     const data = await res.json();
-    setOrganisation(data);
+    setBusiness(data);
   };
 
   const breadcrumbItems = [
     { label: "Home", href: "/owner" },
-    { label: "Organisation" },
+    { label: "Business" },
   ];
-  if (!organisation) return <FullscreenLoader />;
+  if (!business) return <FullscreenLoader />;
 
   const ownerOptions = [
     {
@@ -75,11 +75,11 @@ export default function PropertiesPage() {
         <div className="w-full flex justify-between ">
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 bg-blue-200 rounded-md flex items-center justify-center text-gray-500 text-2xl">
-              {organisation?.name?.charAt(0).toUpperCase()}
+              {business?.name?.charAt(0).toUpperCase()}
             </div>
             <div >
-              <h1 className="text-2xl md:text-3xl font-bold">{organisation?.name}</h1>
-              <p className="text-sm">Organisation</p>
+              <h1 className="text-2xl md:text-3xl font-bold">{business?.name}</h1>
+              <p className="text-sm">Business</p>
             </div>
           </div>
           <Button size="icon" variant="outline" onClick={() => { setOrgModalOpen(true) }} >
@@ -87,8 +87,8 @@ export default function PropertiesPage() {
           </Button>
         </div>
         <div className="mt-1">
-          {organisation?.address ? <p className="flex gap-1 items-center"><MapPin size={14} />{organisation?.address}</p> : ""}
-          {organisation?.website ? <p className="flex gap-1 items-center"><Globe size={14} />{organisation?.website}</p> : ""}
+          {business?.address ? <p className="flex gap-1 items-center"><MapPin size={14} />{business?.address}</p> : ""}
+          {business?.website ? <p className="flex gap-1 items-center"><Globe size={14} />{business?.website}</p> : ""}
         </div>
       </div>
       <div className=" p-1 md:pt-10 md:px-32 mb-10">
@@ -110,12 +110,12 @@ export default function PropertiesPage() {
         </div>
 
       </div>
-      <EditOrganisationDialog
+      <EditBusinessDialog
         open={orgModalOpen}
         onClose={() => setOrgModalOpen(false)}
-        organisation={organisation}
+        business={business}
         onUpdated={() => {
-          fetchOrganisation()
+          fetchBusiness()
           toast.success("Updated successfully!")
         }}
       />

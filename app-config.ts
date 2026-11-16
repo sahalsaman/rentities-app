@@ -1,10 +1,12 @@
-import logo from "./public/logo.png"
-import logo_green from "./public/logo green.png"
+import logo from "./public/app logo.png"
+import logo_name from "./public/logo name.png"
+import logo_with_name from "./public/logowithname.png"
 
 export const app_config = {
     APP_NAME: "Rentities",
-    APP_LOGO: logo_green,
-    APP_LOGO_DARK_THEME: logo,
+    APP_LOGO: logo,
+    LOGO_WITH_NAME: logo_with_name,
+    LOGO_NAME: logo_name,
     PUBLIC_BASE_URL: "https://rentities.in",
     PUBLIC_URL: "www.rentities.in",
     EMAIL: "hello@rentities.in",

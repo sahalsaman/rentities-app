@@ -167,13 +167,13 @@ export const FLAT_TYPES = ["1BHK", "2BHK", "3BHK", "4BHK", "5BHK"];
 // utils/statusColors.ts
 export const statusColorMap: Record<string, string> = {
   // 🏠 Property Status
-  Active: "bg-green-100 text-green-800",
+  Active: "bg-blue-100 text-blue-800",
   Inactive: "bg-gray-100 text-gray-800",
   Pending: "bg-yellow-100 text-yellow-800",
   Draft: "bg-slate-100 text-slate-800",
 
   // 🛏️ Unit Status
-  Available: "bg-green-100 text-green-800",
+  Available: "bg-blue-100 text-blue-800",
   "Partially Occupied": "bg-yellow-100 text-yellow-800",
   Occupied: "bg-red-100 text-red-800",
   Maintenance: "bg-orange-100 text-orange-800",
@@ -183,11 +183,11 @@ export const statusColorMap: Record<string, string> = {
   // Pending: "bg-yellow-100 text-yellow-800", repeated
   Confirmed: "bg-blue-100 text-blue-800",
   Cancelled: "bg-gray-200 text-gray-800",
-  "Checked-In": "bg-green-100 text-green-800",
+  "Checked-In": "bg-blue-100 text-blue-800",
   "Checked-Out": "bg-purple-100 text-purple-800",
 
   // 💰 Invoice Status
-  Paid: "bg-green-100 text-green-800",
+  Paid: "bg-blue-100 text-blue-800",
   PendingInvoice: "bg-yellow-100 text-yellow-800",
   Overdue: "bg-red-100 text-red-800",
   Balance: "bg-blue-100 text-blue-800",

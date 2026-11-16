@@ -61,7 +61,7 @@ export default function PropertiesPage() {
               <tr>
                 <th className="px-4 py-3 text-left">Name</th>
                 <th className="px-4 py-3 text-left">Category</th>
-                <th className="px-4 py-3 text-left">Organisation</th>
+                <th className="px-4 py-3 text-left">Business</th>
                 <th className="px-4 py-3 text-left">Status</th>
                 <th className="px-4 py-3 text-left">Actions</th>
               </tr>
@@ -75,7 +75,7 @@ export default function PropertiesPage() {
                     <p className="text-xs">{pro?.address}</p>
                   </td>
                   <td className="px-4 py-3">{pro.category || "—"}</td>
-                  <td className="px-4 py-3">{pro.organisationId?.name || "—"}</td>
+                  <td className="px-4 py-3">{pro.businessId?.name || "—"}</td>
 
                   <td className="px-4 py-3">
                     {pro.deleted ? (
@@ -83,7 +83,7 @@ export default function PropertiesPage() {
                     ) : pro.disabled ? (
                       <span className="text-yellow-600 font-medium">Disabled</span>
                     ) : (
-                      <span className="text-green-600 font-medium">Active</span>
+                      <span className="text-blue-600 font-medium">Active</span>
                     )}
                   </td>
 

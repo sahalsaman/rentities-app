@@ -75,7 +75,7 @@ export default function Invoices() {
       className={`rounded-full py-1 px-2.5 border text-sm shadow-sm cursor-pointer transition-all 
         ${
           selectedFilter === item.value
-            ? "bg-green-700 text-white border-green-700"
+            ? "bg-blue-700 text-white border-blue-700"
             : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
         }`}
     >

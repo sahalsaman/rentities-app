@@ -20,7 +20,7 @@ export default function BookingsPage() {
         {/* Header */}
         <div className="border-b border-gray-100 pb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold font-montserrat text-green-700">
+            <h1 className="text-3xl md:text-4xl font-bold font-montserrat text-blue-700">
               Bookings System
             </h1>
             <p className="text-lg text-gray-600 mt-2">
@@ -122,7 +122,7 @@ export default function BookingsPage() {
             </div>
 
             {/* Tip Box */}
-            <div className="bg-green-700 rounded-xl p-6 text-white">
+            <div className="bg-blue-700 rounded-xl p-6 text-white">
               <h4 className="font-bold font-montserrat mb-2 flex items-center gap-2">
                 <Zap className="text-yellow-300" size={16} />
                 Quick Tip
@@ -149,7 +149,7 @@ function FeatureCard({
   return (
     <div className="bg-white border rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
       <h3 className="flex items-center gap-3 font-montserrat font-bold text-lg text-gray-800 mb-4 border-b pb-3">
-        <span className="w-8 h-8 flex items-center justify-center rounded-lg bg-green-100 text-green-600 text-sm">
+        <span className="w-8 h-8 flex items-center justify-center rounded-lg bg-blue-100 text-blue-600 text-sm">
           <Icon size={16} />
         </span>
         {title}
@@ -169,7 +169,7 @@ function BookingCard({
   status,
 }: any) {
   const statusStyles: any = {
-    Confirmed: "bg-green-100 text-green-700 border-green-500",
+    Confirmed: "bg-blue-100 text-blue-700 border-blue-500",
     Pending: "bg-yellow-100 text-yellow-700 border-yellow-500",
     Cancelled: "bg-red-100 text-red-700 border-red-500",
   };
@@ -205,7 +205,7 @@ function BookingCard({
 function CheckItem({ children }: any) {
   return (
     <li className="relative pl-8">
-      <Check className="absolute left-0 top-1 text-green-500" size={16} />
+      <Check className="absolute left-0 top-1 text-blue-500" size={16} />
       {children}
     </li>
   );

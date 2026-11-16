@@ -20,7 +20,7 @@ export default function DashboardCard({ title, value, icon: Icon, onClick,color 
     >
       <CardContent className=" max-sm:p-0">
         <div className="flex items-center justify-between md:mb-4 mb-1">
-          {Icon && <Icon className="h-9 w-9 rounded-xl bg-green-700 p-2 text-white" />}
+          {Icon && <Icon className="h-9 w-9 rounded-xl bg-blue-700 p-2 text-white" />}
           <p className="mt-1 text-xl font-bold text-slate-900 sm:text-2xl">{value}</p>
         </div>
         <CardTitle className="text-sm font-medium text-slate-500">{title}</CardTitle>

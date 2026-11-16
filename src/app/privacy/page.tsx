@@ -9,7 +9,7 @@ export default function PrivacyPolicy() {
   return (
     <main className="min-h-screen bg-gray-50 text-gray-800 md:py-20 md:px-6">
       <div className="max-w-4xl mx-auto bg-white p-8 md:p-10 rounded-2xl shadow">
-        <h1 className="text-4xl font-bold text-green-700 mb-6">Privacy Policy</h1>
+        <h1 className="text-4xl font-bold text-blue-700 mb-6">Privacy Policy</h1>
         <p className="mb-4 text-gray-600">
           At <strong>{app_config?.APP_NAME}</strong>, your privacy is our priority. This Privacy Policy
           explains how we collect, use, and protect your personal data when you use our
@@ -50,7 +50,7 @@ export default function PrivacyPolicy() {
 
         <p className="mt-10 text-gray-600">
           For any privacy-related questions, contact us at{" "}
-          <a href="mailto:info@webcos.co" className="text-green-700 underline">
+          <a href="mailto:info@webcos.co" className="text-blue-700 underline">
             info@webcos.co
           </a>
           .

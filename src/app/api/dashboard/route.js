@@ -10,7 +10,7 @@ export async function GET(request) {
   try {
     const user = getTokenValue(request);
 
-    if (!user?.organisationId) {
+    if (!user?.businessId) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
@@ -23,24 +23,24 @@ export async function GET(request) {
     await connectMongoDB();
 
     const unitCount = await UnitModel.countDocuments({
-      organisationId: user.organisationId,
+      businessId: user.businessId,
       propertyId: prop
     });
 
     const availableUnitsCount = await UnitModel.countDocuments({
-      organisationId: user.organisationId,
+      businessId: user.businessId,
       status: UnitStatus.AVAILABLE,
       propertyId: prop
     });
 
     const enrollmentsCount = await BookingModel.countDocuments({
-      organisationId: user.organisationId,
+      businessId: user.businessId,
       status: BookingStatus.CHECKED_IN,
       propertyId: prop
     });
 
     const noticePeriod = await BookingModel.countDocuments({
-      organisationId: user.organisationId,
+      businessId: user.businessId,
       status: BookingStatus.CHECKED_IN,
       checkOut: { $gt: new Date() },
       propertyId: prop
@@ -55,7 +55,7 @@ export async function GET(request) {
     // Total Invoice Amount (This Month)
     const totalInvoices = await InvoiceModel.find(
       {
-        organisationId: user.organisationId,
+        businessId: user.businessId,
         propertyId: prop,
         deleted: false,
         createdAt: { $gte: startOfMonth, $lt: endOfMonth },

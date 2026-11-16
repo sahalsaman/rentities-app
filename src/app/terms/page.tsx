@@ -9,7 +9,7 @@ export default function TermsOfService() {
   return (
     <main className="min-h-screen bg-gray-50 text-gray-800 md:py-20 md:px-6">
       <div className="max-w-4xl mx-auto bg-white p-8 md:p-10 rounded-2xl shadow">
-        <h1 className="text-4xl font-bold text-green-700 mb-6">Terms of Service</h1>
+        <h1 className="text-4xl font-bold text-blue-700 mb-6">Terms of Service</h1>
         <p className="mb-4 text-gray-600">
           Welcome to <strong>{app_config?.APP_NAME}</strong>. By accessing or using our platform,
           you agree to comply with the following terms and conditions.
@@ -54,7 +54,7 @@ export default function TermsOfService() {
 
         <p className="mt-10 text-gray-600">
           For support or questions, contact us at{" "}
-          <a href="mailto:info@webcos.co" className="text-green-700 underline">
+          <a href="mailto:info@webcos.co" className="text-blue-700 underline">
             info@webcos.co
           </a>
           .

@@ -87,14 +87,14 @@ export default function SubscriptionPlan() {
               className={`bg-white p-4 sm:p-6 rounded-xl shadow-lg md:shadow-2xl shadow-gray-200 border-2  relative overflow-hidden`}
               onClick={() => { setSelectedPlan(plan); setOpenDetailPopup(true); }}
             >{activeSub?.plan == plan?.name ?
-              <div className="absolute top-0 right-0 bg-green-700 text-white text-xs font-bold px-2 py-1 rounded-bl-xl">
+              <div className="absolute top-0 right-0 bg-blue-700 text-white text-xs font-bold px-2 py-1 rounded-bl-xl">
                 CURRENT PLAN
               </div>
               : ""
               }
               <div className="flex justify-between items-center">
                 <div className="">
-                  <h3 className="text-md md:text-2xl font-semibold text-green-700">{plan.name}</h3>
+                  <h3 className="text-md md:text-2xl font-semibold text-blue-700">{plan.name}</h3>
                   <p className="text-gray-500 text-sm sm:text-base">{plan.features[0] == "14 days free trial" ? plan.features[1] : plan.features[0]}</p>
                   <p className="text-gray-500 text-sm sm:text-base">{plan.features[0] == "14 days free trial" ? plan.features[2] : plan.features[1]}</p>
                 </div>
@@ -113,12 +113,12 @@ export default function SubscriptionPlan() {
 
       <Dialog open={openDetailPopup} onOpenChange={setOpenDetailPopup}>
         <DialogContent>
-          <DialogTitle className="text-xl md:text-2xl font-bold text-green-700">{selectedPlan?.name}</DialogTitle>
+          <DialogTitle className="text-xl md:text-2xl font-bold text-blue-700">{selectedPlan?.name}</DialogTitle>
           <div
             className={`bg-white  ${selectedPlan?.borderColor} relative overflow-hidden`}
           >
             {selectedPlan?.highlight && (
-              <div className="absolute top-0 right-0 bg-green-700 text-white text-xs font-bold px-2 py-1 rounded-bl-xl">
+              <div className="absolute top-0 right-0 bg-blue-700 text-white text-xs font-bold px-2 py-1 rounded-bl-xl">
                 POPULAR
               </div>
             )}
@@ -134,7 +134,7 @@ export default function SubscriptionPlan() {
                 <ul className="space-y-2 sm:space-y-3 text-left text-sm sm:text-base">
                   {selectedPlan?.features.map((feature: any, i: any) => (
                     <li key={i} className="flex items-start space-x-2 text-gray-700">
-                      <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                      <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 flex-shrink-0 mt-0.5" />
                       <span className="leading-relaxed">{feature}</span>
                     </li>
                   ))}
@@ -144,7 +144,7 @@ export default function SubscriptionPlan() {
 
             {selectedPlan?.id != "arp_subscription_trial" ? <button
               onClick={() => handlePlanSelect(selectedPlan)}
-              className={`${selectedPlan?.buttonStyle} bg-green-700 text-white font-semibold w-full py-3 px-4 sm:px-6 rounded-xl text-sm sm:text-base transition-all duration-200 hover:shadow-md active:scale-95 disabled:opacity-50`}
+              className={`${selectedPlan?.buttonStyle} bg-blue-700 text-white font-semibold w-full py-3 px-4 sm:px-6 rounded-xl text-sm sm:text-base transition-all duration-200 hover:shadow-md active:scale-95 disabled:opacity-50`}
               disabled={loading}>
               {loading ? "Processing..." : selectedPlan?.buttonText}
             </button> : ""}

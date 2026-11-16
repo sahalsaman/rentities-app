@@ -166,7 +166,7 @@ export default function ProfilePage() {
                     />
                 </div>
 
-                <Button type="submit" variant="green" className="w-full">
+                <Button type="submit" variant="blue" className="w-full">
                     Update
                 </Button>
             </form>
@@ -180,7 +180,7 @@ export default function ProfilePage() {
                             name="countryCode" // ✅ added
                             value={newCountryCode}
                             onChange={(e) => setNewCountryCode(e.target.value)}
-                            className="w-20 h-12 px-2 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+                            className="w-20 h-12 px-2 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                             style={{ maxWidth: '80px' }}
                         >
                             {countryCodes.map((option) => (
@@ -201,7 +201,7 @@ export default function ProfilePage() {
                     </div>
                 </div>
 
-                <Button type="submit" variant="green" className="w-full" >
+                <Button type="submit" variant="blue" className="w-full" >
                     Change Phone number
                 </Button>
             </form>
@@ -220,7 +220,7 @@ export default function ProfilePage() {
                         onChange={(e) => setOtp(e.target.value)}
                         maxLength={6}
                     />
-                    <Button variant="green" onClick={handleVerifyOtp}>
+                    <Button variant="blue" onClick={handleVerifyOtp}>
                         Verify OTP
                     </Button>
 

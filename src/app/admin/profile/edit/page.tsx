@@ -166,7 +166,7 @@ export default function ProfilePage() {
                     />
                 </div>
 
-                <Button type="submit" variant="green" className="w-full">
+                <Button type="submit" variant="blue" className="w-full">
                     Update
                 </Button>
             </form>
@@ -201,7 +201,7 @@ export default function ProfilePage() {
                     </div>
                 </div>
 
-                <Button type="submit" variant="green" className="w-full" >
+                <Button type="submit" variant="blue" className="w-full" >
                     Change Phone number
                 </Button>
             </form>
@@ -220,7 +220,7 @@ export default function ProfilePage() {
                         onChange={(e) => setOtp(e.target.value)}
                         maxLength={6}
                     />
-                    <Button variant="green" onClick={handleVerifyOtp}>
+                    <Button variant="blue" onClick={handleVerifyOtp}>
                         Verify OTP
                     </Button>
 

@@ -67,7 +67,7 @@ export default function InvoiceCard({ invoice, onEdit, onDelete, property }: Pro
             </span>
           </div>
           <div className="flex gap-2">
-            {invoice.status !== InvoiceStatus.PAID && <Button size="icon" variant="green" onClick={() => sendToWhatsappMesaage(invoice,property)}>
+            {invoice.status !== InvoiceStatus.PAID && <Button size="icon" variant="blue" onClick={() => sendToWhatsappMesaage(invoice,property)}>
               <Send className="w-4 h-4" />
             </Button>}
             <Button size="icon" variant="outline" onClick={() => onEdit(invoice)}>

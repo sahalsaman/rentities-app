@@ -4,7 +4,7 @@ import InvoiceModel from "@/../models/Invoice";
 import { BookingStatus, InvoiceStatus, RentAmountType, UnitStatus, SubscritptionStatus, SubscritptionPaymentStatus } from "@/utils/contants";
 import { sendInvoiceToWhatsApp } from "@/utils/sendToWhatsApp";
 import { NextResponse } from "next/server";
-import { OrganisationModel, SubscriptionPaymentModel } from "../../../../models/Organisation";
+import { BusinessModel, SubscriptionPaymentModel } from "../../../../models/Business";
 import { calculateDueDate, calculateNextBillingdate } from "@/utils/functions";
 import UnitModel from "../../../../models/Unit";
 
@@ -16,7 +16,7 @@ export async function GET() {
     await generateInvoice()
     // send overdue message
     await sendOverdueMessage()
-    // daily collected mount payout to organisation
+    // daily collected mount payout to business
 
     await handleCheckout()
 
@@ -44,12 +44,12 @@ const generateInvoice = async () => {
     disabled: false,
     status: BookingStatus.CHECKED_IN,
     nextBillingDate: { $gte: startOfDay, $lte: endOfDay },
-  }).populate('organisationId').populate('propertyId').populate('userId');
+  }).populate('businessId').populate('propertyId').populate('userId');
 
   for (const booking of bookings) {
 
     const lastInvoice = await InvoiceModel.findOne({
-      organisationId: booking.organisationId,
+      businessId: booking.businessId,
       bookingId: booking._id,
       propertyId: booking.propertyId,
     }).sort({ createdAt: -1 });
@@ -65,7 +65,7 @@ const generateInvoice = async () => {
     const dueDate = calculateDueDate(booking?.frequency)
 
       const invoiceCount = await InvoiceModel.find({
-      organisationId: booking.organisationId,
+      businessId: booking.businessId,
       bookingId: booking._id,
       propertyId: booking.propertyId,
     }).countDocuments();
@@ -74,7 +74,7 @@ const generateInvoice = async () => {
 
     let new_amount = booking.amount + carryForwarded
     const newInvoice = await InvoiceModel.create({
-      organisationId: booking.organisationId?._id,
+      businessId: booking.businessId?._id,
       bookingId: booking._id,
       propertyId: booking.propertyId,
       unitId: booking.unitId,
@@ -189,7 +189,7 @@ const generateSubscriptionPayment = async () => {
 
     console.log("🚀 Running Subscription Cron Job...");
 
-    const organisations = await OrganisationModel.find({
+    const businesss = await BusinessModel.find({
       disabled: false,
       deleted: false,
       "subscription.status": SubscritptionStatus.ACTIVE,
@@ -203,14 +203,14 @@ const generateSubscriptionPayment = async () => {
     const monthStart = new Date(currentYear, currentMonth, 1);
     const monthEnd = new Date(currentYear, currentMonth + 1, 1);
 
-    for (const org of organisations) {
+    for (const org of businesss) {
       const sub = org.subscription;
 
       if (!sub) continue;
 
       // 1️⃣ Count invoices created this month
       const noOfBookings = await InvoiceModel.countDocuments({
-        organisationId: org._id,
+        businessId: org._id,
         createdAt: { $gte: monthStart, $lt: monthEnd },
         type: RentAmountType.RENT,
       });
@@ -221,7 +221,7 @@ const generateSubscriptionPayment = async () => {
 
       // 3️⃣ Create subscription payment entry
       await SubscriptionPaymentModel.create({
-        organisationId: org._id,
+        businessId: org._id,
         plan: sub.plan,
         status: SubscritptionPaymentStatus.PENDING,
         startDate: monthStart,
@@ -233,7 +233,7 @@ const generateSubscriptionPayment = async () => {
       });
 
       // 4️⃣ Update next billing date
-      await OrganisationModel.updateOne(
+      await BusinessModel.updateOne(
         { _id: org._id },
         {
           $set: {

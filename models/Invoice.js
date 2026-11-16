@@ -4,7 +4,7 @@ import { type } from 'os';
 
 const InvoiceSchema = new Schema(
   {
-    organisationId: { type: Types.ObjectId, ref: "Organisation", required: true },
+    businessId: { type: Types.ObjectId, ref: "Business", required: true },
     bookingId: { type: Types.ObjectId, ref: "Booking", required: true },
     propertyId: { type: Types.ObjectId, ref: "Property", required: true },
     unitId: { type: Types.ObjectId, ref: "Unit", required: true },
@@ -30,7 +30,7 @@ const InvoiceSchema = new Schema(
 
 // Indexes for performance (e.g., quick lookups by invoiceId or status)
 InvoiceSchema.index({ invoiceId: 1 });
-InvoiceSchema.index({ organisationId: 1, status: 1 });
+InvoiceSchema.index({ businessId: 1, status: 1 });
 InvoiceSchema.index({ bookingId: 1 });
 
 const InvoiceModel = mongoose.models.Invoice || mongoose.model('Invoice', InvoiceSchema);

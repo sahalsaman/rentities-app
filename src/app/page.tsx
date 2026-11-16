@@ -78,7 +78,7 @@ export default function Home() {
           onClick={() => setIsOpen(!isOpen)}
         >
           <span>{question}</span>
-          <span className="text-green-700">{isOpen ? '−' : '+'}</span>
+          <span className="text-blue-700">{isOpen ? '−' : '+'}</span>
         </button>
         {isOpen && (
           <p className="mt-2 text-gray-600 p-2 pl-4 transition-all duration-300 ease-in-out">
@@ -107,7 +107,7 @@ export default function Home() {
         <Link className="border-b pb-6" href="#contact" onClick={() => setMenuOpen(false)}>Contact</Link>
         <Link className="border-b pb-6" href="/auth/login" onClick={() => setMenuOpen(false)}>Login</Link>
         <Link href="/auth/signup">
-          <button className="bg-green-700 text-white w-full py-3 text-lg rounded-xl">Get Started</button>
+          <button className="bg-blue-700 text-white w-full py-3 text-lg rounded-xl">Get Started</button>
         </Link>
       </div>)
   }
@@ -116,13 +116,12 @@ export default function Home() {
 
 
   return (
-    <main className="min-h-screen bg-white text-gray-800 ">
+    <main className="public-site min-h-screen bg-white text-gray-800 ">
       {/* Navbar */}
 
       <header className="flex justify-between items-center px-4 md:px-24 py-5  shadow-md bg-white sticky top-0 z-50">
         <div className="flex items-center gap-3">
-          <Image src={app_config.APP_LOGO} alt="Logo" className='w-6 h-6 sm:w-8 sm:h-8 cursor-pointer' />
-          <h1 className="text-xl md:text-3xl font-bold text-green-700">{app_config?.APP_NAME}</h1>
+          <Image src={app_config.LOGO_WITH_NAME} alt="Logo" height={32} className=' cursor-pointer' />
         </div>
         <nav className="hidden md:flex space-x-4 md:space-x-6 items-center text-sm md:text-base">
           <Link href="#setup-guide">Setup Guide</Link>
@@ -131,19 +130,19 @@ export default function Home() {
           <Link href="#faq">FAQ</Link>
           <Link href="#contact">Contact</Link>
           <Link href="/auth/signup">
-            <button className="bg-green-700 px-4 py-3 rounded-xl text-white text-sm ">Get Started</button>
+            <button className="bg-blue-700 px-4 py-3 rounded-xl text-white text-sm ">Get Started</button>
           </Link>
           <Link href="/auth/login">Login</Link>
         </nav>
         <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)}>
-          <Menu className="h-6 w-6 text-green-700" />
+          <Menu className="h-6 w-6 text-blue-700" />
         </button>
       </header>
 
       {/* Hero Section */}
       {/* For the hero section, you could animate the text elements individually on page load (not scroll)
           or use a parallax effect on the background image. */}
-      <section className={`relative bg-green-700 bg-gradient-to-br from-green-900 to-green-600 text-white overflow-hidden py-8 md:py-18 px-6 text-center md:text-left`}  >
+      <section className={`relative bg-blue-700 bg-gradient-to-br from-blue-900 to-blue-600 text-white overflow-hidden py-8 md:py-18 px-6 text-center md:text-left`}  >
         <div className="max-w-6xl mx-auto z-10 flex flex-col-reverse md:flex-row justify-between items-center gap-10">
           <div className="">
             {/* Example: Initial fade-in for hero text on page load */}
@@ -153,7 +152,7 @@ export default function Home() {
               transition={{ duration: 0.4, delay: 0 }}
               className="text-4xl md:text-6xl font-extrabold leading-tight mb-4 animate-fade-in-up"
             >
-              Discover & Manage  <span className="text-lime-300">Your Rental Assets Effortlessly</span>
+              Discover & Manage  <span className="text-sky-100">Your Rental Assets Effortlessly</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -169,7 +168,7 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0 }}
-                  className="bg-white text-green-700 font-semibold rounded-full px-8 py-3 hover:bg-green-100 transition"
+                  className="bg-white text-blue-700 font-semibold rounded-full px-8 py-3 hover:bg-blue-100 transition"
                 >
                   Start Free
                 </motion.button>
@@ -179,7 +178,7 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0 }}
-                  className="bg-green-700 border border-white text-white font-semibold rounded-full px-8 py-3 hover:bg-green-100 hover:text-green-700 transition"
+                  className="bg-blue-700 border border-white text-white font-semibold rounded-full px-8 py-3 hover:bg-blue-100 hover:text-blue-700 transition"
                 >
                   Setup Guide
                 </motion.button>
@@ -201,7 +200,7 @@ export default function Home() {
       {/* Setup Guide Section */}
       <section id="setup-guide" className="py-12 md:py-24 px-6 w-full ">
         <div className="max-w-6xl mx-auto w-full ">
-          <h2 className="text-4xl font-bold mb-6 text-center text-green-700">Quick Start Setup Guide</h2>
+          <h2 className="text-4xl font-bold mb-6 text-center text-blue-700">Quick Start Setup Guide</h2>
           <p className="text-xl text-gray-600 mb-12 text-center ">
             Follow these simple steps to get your first property listed and automated in minutes!
           </p>
@@ -235,13 +234,13 @@ export default function Home() {
                 viewport={{ once: true, amount: 0.5 }} // Trigger once when 50% of item is visible
                 transition={{ duration: 0.5, delay: index * 0.1 }} // Stagger delay for each card
                 className="flex flex-col items-center text-center p-8 bg-white rounded-xl shadow-2xl
-              shadow-gray-200 transition duration-300 hover:shadow-green-300/50"
+              shadow-gray-200 transition duration-300 hover:shadow-blue-300/50"
               >
-                <div className="w-14 h-14 bg-green-700 rounded-full flex items-center justify-center mb-4 shadow-lg">
+                <div className="w-14 h-14 bg-blue-700 rounded-full flex items-center justify-center mb-4 shadow-lg">
                   {item.icon}
                 </div>
                 <p className="text-sm font-bold text-gray-500 uppercase">Step {item.step}</p>
-                <h3 className="text-xl font-bold mt-1 mb-3 text-green-800">{item.title}</h3>
+                <h3 className="text-xl font-bold mt-1 mb-3 text-blue-800">{item.title}</h3>
                 <p className="text-gray-600 text-sm">{item.description}</p>
               </motion.div>
             ))}
@@ -261,7 +260,7 @@ export default function Home() {
             className="w-full md:w-1/2 text-center md:text-left"
           >
             <h2 className="text-5xl font-extrabold mb-4 text-gray-700  inline-block">Why Choose </h2>
-            <h2 className="text-5xl font-extrabold mb-8 text-green-700  inline-block pb-1 pl-3"> {app_config?.APP_NAME} ?</h2>
+            <h2 className="text-5xl font-extrabold mb-8 text-blue-700  inline-block pb-1 pl-3"> {app_config?.APP_NAME} ?</h2>
             <p className="text-xl text-gray-600 mb-10 leading-relaxed">
               We're more than just software. We're your partner in maximizing **Return on Investment (ROI)** by replacing manual, error-prone tasks with intelligent automation.
             </p>
@@ -283,22 +282,22 @@ export default function Home() {
           <div className="space-y-8 text-gray-700 grid  grid-cols-1 md:grid-cols-2">
             {[
               {
-                icon: <Zap className="w-6 h-6 text-green-600" />,
+                icon: <Zap className="w-6 h-6 text-blue-600" />,
                 text: <span className="text-lg font-bold">1-Click Maintenance Control:</span>,
                 detail: "Tenants log issues in 30 seconds. Managers assign vendors and track progress from initial report to invoice payment, all automated."
               },
               {
-                icon: <DollarSign className="w-6 h-6 text-green-600" />,
+                icon: <DollarSign className="w-6 h-6 text-blue-600" />,
                 text: <span className="text-lg font-bold">Financial Automation:</span>,
                 detail: "Automated rent collection (ACH/Card), expense tracking, and **one-click 1099 generation** ensures flawless accounting every time."
               },
               {
-                icon: <ShieldCheck className="w-6 h-6 text-green-600" />,
+                icon: <ShieldCheck className="w-6 h-6 text-blue-600" />,
                 text: <span className="text-lg font-bold">High-Security Document Vault:</span>,
                 detail: "Military-grade cloud storage for leases and sensitive data, coupled with **role-based access** for maximum security."
               },
               {
-                icon: <TrendingUp className="w-6 h-6 text-green-600" />,
+                icon: <TrendingUp className="w-6 h-6 text-blue-600" />,
                 text: <span className="text-lg font-bold">Unmatched Transparency & Growth:</span>,
                 detail: "Dedicated Owner Portals and instant, customizable reports give you the data needed to make **smart portfolio decisions**."
               }
@@ -311,7 +310,7 @@ export default function Home() {
                 transition={{ duration: 0.5, delay: index * 0.15 }}
                 className="flex items-start gap-4 p-2"
               >
-                <div className="p-2 bg-green-100 rounded-full">{item.icon}</div>
+                <div className="p-2 bg-blue-100 rounded-full">{item.icon}</div>
                 <div>
                   {item.text}
                   <p className="text-base text-gray-600 mt-1">{item.detail}</p>
@@ -341,12 +340,12 @@ export default function Home() {
               className={`bg-white p-8 rounded-xl shadow-2xl shadow-gray-200 border-2 ${plan.borderColor} relative`}
             >
               {plan.highlight && (
-                <div className="absolute top-0 right-0 bg-green-700 text-white text-xs font-bold px-3 py-1 rounded-bl-xl">
+                <div className="absolute top-0 right-0 bg-blue-700 text-white text-xs font-bold px-3 py-1 rounded-bl-xl">
                   POPULAR
                 </div>
               )}
 
-              <h3 className="text-2xl font-bold text-green-700 mb-4">{plan.name}</h3>
+              <h3 className="text-2xl font-bold text-blue-700 mb-4">{plan.name}</h3>
               <p className="text-5xl font-extrabold mb-2">{plan.price}</p>
               <p className="text-gray-500 mb-6">{plan.period}</p>
               {/* <p className="text-gray-600 mb-6">{plan.description}</p> */}
@@ -354,7 +353,7 @@ export default function Home() {
               <ul className="space-y-3 text-left mb-8">
                 {plan.features.map((feature: any, i: any) => (
                   <li key={i} className="flex items-center space-x-2 text-gray-700">
-                    <CheckCircle className="w-5 h-5 min-w-5 text-green-500" />
+                    <CheckCircle className="w-5 h-5 min-w-5 text-blue-500" />
                     <span>{feature}</span>
                   </li>
                 ))}
@@ -394,7 +393,7 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section id="stats" className="py-12 md:py-24 bg-green-700 bg-gradient-to-br from-green-600 to-green-800 text-center">
+      <section id="stats" className="py-12 md:py-24 bg-blue-700 bg-gradient-to-br from-blue-600 to-blue-800 text-center">
         <div className="flex flex-col md:flex-row justify-center items-center gap-10 md:gap-30 text-white max-w-4xl mx-auto">
           {app_values.map((stat, index) => (
             <motion.div
@@ -417,7 +416,7 @@ export default function Home() {
       {/* Reviews Section */}
       <section id="reviews" className="py-16 md:py-24  px-6">
         <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-green-700 mb-4">What Our Users Say</h2>
+          <h2 className="text-4xl font-bold text-blue-700 mb-4">What Our Users Say</h2>
           <p className="text-lg text-gray-600 mb-12">
             Real stories from property owners and managers using {app_config.APP_NAME}.
           </p>
@@ -430,7 +429,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 0.5, delay: index * 0.15 }}
-                className="bg-white p-8 rounded-2xl shadow-lg text-left flex flex-col justify-between hover:shadow-green-200 transition"
+                className="bg-white p-8 rounded-2xl shadow-lg text-left flex flex-col justify-between hover:shadow-blue-200 transition"
               >
                 <p className="text-gray-700 italic mb-6">“{item.review}”</p>
                 <div>
@@ -477,7 +476,7 @@ export default function Home() {
       {/* Contact Section */}
       <section id="contact" className="py-16 md:py-24 bg-white px-6 overflow-hidden">
         <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-green-700 mb-4">Get in Touch</h2>
+          <h2 className="text-4xl font-bold text-blue-700 mb-4">Get in Touch</h2>
           <p className="text-lg text-gray-600 mb-12">
             Have questions, feedback, or partnership inquiries? We'd love to hear from you!
           </p>
@@ -492,8 +491,8 @@ export default function Home() {
               className="text-left space-y-6"
             >
               <div className="flex items-center gap-4">
-                <div className="bg-green-100 p-3 rounded-full">
-                  <PhoneIcon className="w-6 h-6 text-green-700" />
+                <div className="bg-blue-100 p-3 rounded-full">
+                  <PhoneIcon className="w-6 h-6 text-blue-700" />
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold">Phone</h3>
@@ -502,8 +501,8 @@ export default function Home() {
               </div>
 
               <div className="flex items-center gap-4">
-                <div className="bg-green-100 p-3 rounded-full">
-                  <MailIcon className="w-6 h-6 text-green-700" />
+                <div className="bg-blue-100 p-3 rounded-full">
+                  <MailIcon className="w-6 h-6 text-blue-700" />
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold">Email</h3>
@@ -512,8 +511,8 @@ export default function Home() {
               </div>
 
               <div className="flex items-center gap-4">
-                <div className="bg-green-100 p-3 rounded-full">
-                  <MapPinIcon className="w-6 h-6 text-green-700" />
+                <div className="bg-blue-100 p-3 rounded-full">
+                  <MapPinIcon className="w-6 h-6 text-blue-700" />
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold">Address</h3>
@@ -539,7 +538,7 @@ export default function Home() {
                   placeholder="Your Name"
                   value={form.name}
                   onChange={handleChange}
-                  className="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-green-600 focus:outline-none"
+                  className="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-blue-600 focus:outline-none"
                   required
                 />
               </div>
@@ -552,7 +551,7 @@ export default function Home() {
                   placeholder="Your Email"
                   value={form.email}
                   onChange={handleChange}
-                  className="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-green-600 focus:outline-none"
+                  className="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-blue-600 focus:outline-none"
                   required
                 />
               </div>
@@ -565,7 +564,7 @@ export default function Home() {
                   placeholder="Your Phone Number"
                   value={form.phone}
                   onChange={handleChange}
-                  className="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-green-600 focus:outline-none"
+                  className="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-blue-600 focus:outline-none"
                 />
               </div>
 
@@ -577,7 +576,7 @@ export default function Home() {
                   placeholder="Write your message here..."
                   value={form.message}
                   onChange={handleChange}
-                  className="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-green-600 focus:outline-none"
+                  className="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-blue-600 focus:outline-none"
                   required
                 ></textarea>
               </div>
@@ -585,7 +584,7 @@ export default function Home() {
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full cursor-pointer ${loading ? "bg-green-400" : "bg-green-700 hover:bg-green-800"
+                className={`w-full cursor-pointer ${loading ? "bg-blue-400" : "bg-blue-700 hover:bg-blue-800"
                   } text-white font-semibold py-3 rounded-xl transition`}
               >
                 {loading ? "Sending..." : "Send Message"}
@@ -598,7 +597,7 @@ export default function Home() {
 
 
       {/* CTA Section */}
-      <section className="py-20 px-10 bg-green-700 text-white text-center">
+      <section className="py-20 px-10 bg-blue-700 text-white text-center">
         <div className="max-w-2xl mx-auto">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
@@ -614,7 +613,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.6 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl mb-8 text-green-100 px-2"
+            className="text-xl mb-8 text-blue-100 px-2"
           >
             Join thousands of landlords and managers simplifying their workflows and maximizing their profit today.
           </motion.p>
@@ -624,7 +623,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.6 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="rounded-full text-md px-8 py-4 bg-white text-green-700 font-semibold hover:bg-green-100 transition shadow-lg transform hover:scale-105"
+              className="rounded-full text-md px-8 py-4 bg-white text-blue-700 font-semibold hover:bg-blue-100 transition shadow-lg transform hover:scale-105"
             >
               Create Your Free Account
             </motion.button>
@@ -650,20 +649,20 @@ export default function Home() {
             <div>
               <h3 className="text-sm font-semibold text-gray-900 tracking-wider uppercase">Company</h3>
               <ul role="list" className="mt-4 space-y-4">
-                <li><a href="#" className="text-base text-gray-500 hover:text-green-700">About Us</a></li>
-                <li><a href="#" className="text-base text-gray-500 hover:text-green-700">Careers</a></li>
-                <li><a href="#" className="text-base text-gray-500 hover:text-green-700">Blog</a></li>
-                <li><a href="#" className="text-base text-gray-500 hover:text-green-700">Pricing</a></li>
+                <li><a href="#" className="text-base text-gray-500 hover:text-blue-700">About Us</a></li>
+                <li><a href="#" className="text-base text-gray-500 hover:text-blue-700">Careers</a></li>
+                <li><a href="#" className="text-base text-gray-500 hover:text-blue-700">Blog</a></li>
+                <li><a href="#" className="text-base text-gray-500 hover:text-blue-700">Pricing</a></li>
               </ul>
             </div>
 
             <div>
               <h3 className="text-sm font-semibold text-gray-900 tracking-wider uppercase">Support</h3>
               <ul role="list" className="mt-4 space-y-4">
-                <li><a href="#" className="text-base text-gray-500 hover:text-green-700">Help Center</a></li>
-                <li><a href="#" className="text-base text-gray-500 hover:text-green-700">Documentation</a></li>
-                <li><a href="#" className="text-base text-gray-500 hover:text-green-700">Contact Sales</a></li>
-                <li><a href="#" className="text-base text-gray-500 hover:text-green-700">Report a Bug</a></li>
+                <li><a href="#" className="text-base text-gray-500 hover:text-blue-700">Help Center</a></li>
+                <li><a href="#" className="text-base text-gray-500 hover:text-blue-700">Documentation</a></li>
+                <li><a href="#" className="text-base text-gray-500 hover:text-blue-700">Contact Sales</a></li>
+                <li><a href="#" className="text-base text-gray-500 hover:text-blue-700">Report a Bug</a></li>
               </ul>
             </div>
 
@@ -678,8 +677,8 @@ export default function Home() {
               </p>
 
               <div className="flex space-x-6 order-1 md:order-2">
-                <a href="/privacy" className="text-base text-gray-500 hover:text-green-700">Privacy Policy</a>
-                <a href="/terms" className="text-base text-gray-500 hover:text-green-700">Terms of Service</a>
+                <a href="/privacy" className="text-base text-gray-500 hover:text-blue-700">Privacy Policy</a>
+                <a href="/terms" className="text-base text-gray-500 hover:text-blue-700">Terms of Service</a>
               </div>
             </div>
           </div>

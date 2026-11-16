@@ -46,9 +46,9 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="bg-green-700 bg-gradient-to-br from-green-700 to-green-900 h-[100vh]">
+    <div className="bg-blue-700 bg-gradient-to-br from-blue-700 to-blue-900 h-[100vh]">
       <div className="h-3/12 flex justify-center items-center sm:hidden ">
-        <Image src={app_config.APP_LOGO_DARK_THEME} alt="Logo" width={50} />
+        <Image src={app_config.LOGO_WITH_NAME} alt="Logo" height={50} />
       </div>
 
       <div className="sm:flex justify-center items-center w-full h-9/12 sm:h-fit bg-white sm:bg-transparent rounded-tl-2xl rounded-tr-2xl sm:pt-32">
@@ -56,7 +56,7 @@ export default function AdminLoginPage() {
           <div className="w-full max-w-[450px] h-full px-6 sm:p-10">
             <div className="space-y-6 w-full">
               <div className="text-center mb-10">
-                <h2 className="text-3xl font-bold text-green-700 mb-2">
+                <h2 className="text-3xl font-bold text-blue-700 mb-2">
                   <span className="text-gray-600 font-light text-2xl">Admin</span>
                   <br />Login
                 </h2>
@@ -87,7 +87,7 @@ export default function AdminLoginPage() {
 
               <Button
                 onClick={sendOtp}
-                variant={"green"}
+                variant={"blue"}
                 className="w-full py-3 font-semibold h-12"
                 loading={buttonLoader}
               >
@@ -97,11 +97,11 @@ export default function AdminLoginPage() {
 
             <p className="text-xs text-gray-500 text-center mt-10">
               By logging in, you agree to our{" "}
-              <a href="/privacy" className="text-green-600 hover:underline">
+              <a href="/privacy" className="text-blue-600 hover:underline">
                 Privacy Policy
               </a>{" "}
               and{" "}
-              <a href="/terms" className="text-green-600 hover:underline">
+              <a href="/terms" className="text-blue-600 hover:underline">
                 Terms of Service
               </a>.
             </p>

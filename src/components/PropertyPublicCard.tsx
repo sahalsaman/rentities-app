@@ -15,7 +15,7 @@ export default function PropertyPublicCard({ property }: { property: any }) {
           height={250}
           className="rounded-t-2xl object-cover w-full h-48"
         />
-        <span className="absolute top-3 left-3 bg-green-700 text-white text-xs font-semibold px-3 py-1 rounded-full">
+        <span className="absolute top-3 left-3 bg-blue-700 text-white text-xs font-semibold px-3 py-1 rounded-full">
           For Rental
         </span>
       </div>

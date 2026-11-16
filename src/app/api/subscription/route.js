@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import connectMongoDB from "@/../database/db";
-import { OrganisationModel } from "@/../models/Organisation";
+import { BusinessModel } from "@/../models/Business";
 import { env } from "../../../../environment";
 import { subscription_plans } from "@/utils/data";
 import { getTokenValue } from "@/utils/tokenHandler";
@@ -12,10 +12,10 @@ export async function GET(req) {
   await connectMongoDB();
   const user = getTokenValue(req);
 
-  if (!user?.organisationId)
+  if (!user?.businessId)
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 
-  const org = await OrganisationModel.findById(user.organisationId);
+  const org = await BusinessModel.findById(user.businessId);
   return NextResponse.json(org?.subscription || { message: "Not Activated" });
 }
 
@@ -25,7 +25,7 @@ export async function PUT(req) {
     await connectMongoDB();
     const user = getTokenValue(req);
 
-    if (!user?.organisationId)
+    if (!user?.businessId)
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 
     const { plan } = await req.json();
@@ -44,8 +44,8 @@ export async function PUT(req) {
       paymentMethod: TransactionType.RAZORPAY,
     };
 
-    await OrganisationModel.findByIdAndUpdate(
-      user.organisationId,
+    await BusinessModel.findByIdAndUpdate(
+      user.businessId,
       { subscription },
       { new: true }
     );

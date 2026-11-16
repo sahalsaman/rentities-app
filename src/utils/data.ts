@@ -154,8 +154,8 @@ export const subscription_plans = [
     ],
     buttonText: "Choose Pro",
     buttonLink: "/subscription?plan=pro",
-    buttonStyle: "bg-green-700 text-white hover:bg-green-600",
-    borderColor: "border-green-700",
+    buttonStyle: "bg-blue-700 text-white hover:bg-blue-600",
+    borderColor: "border-blue-700",
     highlight: true,
   },
 ];

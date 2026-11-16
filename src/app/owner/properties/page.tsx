@@ -13,7 +13,7 @@ export default function PropertiesPage() {
   const [addEditOpen, setAddEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState<any | null>(null);
-  const [organisation, setOrganisation] = useState<any | null>(null);
+  const [business, setBusiness] = useState<any | null>(null);
   const current_property = localStorageServiceSelectedOptions.getItem()?.property
 
   const fetchProperties = async () => {
@@ -22,15 +22,15 @@ export default function PropertiesPage() {
     setProperties(data);
   };
 
-  const fetchOrganisation = async () => {
-    const res = await apiFetch("/api/organisation");
+  const fetchBusiness = async () => {
+    const res = await apiFetch("/api/business");
     const data = await res.json();
-    setOrganisation(data);
+    setBusiness(data);
   };
 
   useEffect(() => {
     fetchProperties();
-    fetchOrganisation()
+    fetchBusiness()
   }, []);
 
   const breadcrumbItems = [
@@ -39,8 +39,8 @@ export default function PropertiesPage() {
   ];
   return (
     <div className="p-4 pt-5 md:px-12 lg:px-20 mb-10">
-      <div className="mb-6 flex items-end justify-between gap-3"><div><p className="text-sm font-medium text-green-700">Your portfolio</p><h1 className="text-2xl font-bold">Properties</h1><p className="mt-1 text-sm text-slate-500">Manage spaces your tenants call home.</p></div>
-        {organisation?.subscription && <Button onClick={() => { setAddEditOpen(true); setSelectedProperty(null); }} variant="green">
+      <div className="mb-6 flex items-end justify-between gap-3"><div><p className="text-sm font-medium text-blue-700">Your portfolio</p><h1 className="text-2xl font-bold">Properties</h1><p className="mt-1 text-sm text-slate-500">Manage spaces your tenants call home.</p></div>
+        {business?.subscription && <Button onClick={() => { setAddEditOpen(true); setSelectedProperty(null); }} variant="blue">
           <span className="hidden sm:inline">Add Property</span><span className="sm:hidden">+ Add</span>
         </Button>}
       </div>

@@ -20,7 +20,7 @@ export default function PaymentsPage() {
   }, []);
 
   const filteredOrgs = payments?.filter((payment: any) =>
-    `${payment.organisationId?.name || ""} ${payment.plan || ""}`.toLowerCase().includes(search.toLowerCase())
+    `${payment.businessId?.name || ""} ${payment.plan || ""}`.toLowerCase().includes(search.toLowerCase())
   );
 
   const totalPages = Math.ceil(filteredOrgs.length / itemsPerPage);
@@ -39,7 +39,7 @@ export default function PaymentsPage() {
 
   return (
     <div className="admin-page mb-10">
-      <div className="mb-6 flex items-end justify-between"><div><p className="text-sm font-medium text-green-700">Revenue</p><h1 className="text-2xl font-bold text-slate-900">Subscription payments</h1><p className="mt-1 text-sm text-slate-500">Track platform subscription activity and payment health.</p></div><span className="rounded-full bg-emerald-50 px-3 py-1 text-sm font-semibold text-green-700">{payments.length} total</span>
+      <div className="mb-6 flex items-end justify-between"><div><p className="text-sm font-medium text-blue-700">Revenue</p><h1 className="text-2xl font-bold text-slate-900">Subscription payments</h1><p className="mt-1 text-sm text-slate-500">Track platform subscription activity and payment health.</p></div><span className="rounded-full bg-sky-50 px-3 py-1 text-sm font-semibold text-blue-700">{payments.length} total</span>
       </div>
 
       {/* Search */}
@@ -64,13 +64,13 @@ export default function PaymentsPage() {
           <table className="min-w-full border border-gray-200 rounded-lg">
             <thead className="bg-gray-100">
               <tr>
-                <th className="px-4 py-3 text-left">Organisation</th><th className="px-4 py-3 text-left">Plan</th><th className="px-4 py-3 text-left">Amount</th><th className="px-4 py-3 text-left">Method</th><th className="px-4 py-3 text-left">Status</th><th className="px-4 py-3 text-left">Started</th>
+                <th className="px-4 py-3 text-left">Business</th><th className="px-4 py-3 text-left">Plan</th><th className="px-4 py-3 text-left">Amount</th><th className="px-4 py-3 text-left">Method</th><th className="px-4 py-3 text-left">Status</th><th className="px-4 py-3 text-left">Started</th>
               </tr>
             </thead>
 
             <tbody>
               {paginatedOrgs.map((payment) => (
-                <tr key={payment._id} className="border-b hover:bg-gray-50 transition"><td className="px-4 py-3 font-medium">{payment.organisationId?.name || "—"}</td><td className="px-4 py-3 capitalize">{payment.plan || "—"}</td><td className="px-4 py-3 font-semibold">₹{Number(payment.total_price || payment.plan_price || 0).toLocaleString("en-IN")}</td><td className="px-4 py-3 capitalize">{payment.paymentMethod || "—"}</td><td className="px-4 py-3"><span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${statusColorMap[payment.status ?? ""] || "bg-slate-100 text-slate-700"}`}>{payment.status || "Pending"}</span></td><td className="px-4 py-3">{payment.startDate ? new Date(payment.startDate).toLocaleDateString("en-IN") : "—"}</td>
+                <tr key={payment._id} className="border-b hover:bg-gray-50 transition"><td className="px-4 py-3 font-medium">{payment.businessId?.name || "—"}</td><td className="px-4 py-3 capitalize">{payment.plan || "—"}</td><td className="px-4 py-3 font-semibold">₹{Number(payment.total_price || payment.plan_price || 0).toLocaleString("en-IN")}</td><td className="px-4 py-3 capitalize">{payment.paymentMethod || "—"}</td><td className="px-4 py-3"><span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${statusColorMap[payment.status ?? ""] || "bg-slate-100 text-slate-700"}`}>{payment.status || "Pending"}</span></td><td className="px-4 py-3">{payment.startDate ? new Date(payment.startDate).toLocaleDateString("en-IN") : "—"}</td>
                 </tr>
               ))}
             </tbody>

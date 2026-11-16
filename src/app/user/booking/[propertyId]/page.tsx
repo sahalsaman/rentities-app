@@ -57,7 +57,7 @@ export default function UserByProperty() {
 
     return (
 
-        <div className="bg-green-700 bg-gradient-to-br from-green-700 to-green-900 ">
+        <div className="bg-blue-700 bg-gradient-to-br from-blue-700 to-blue-900 ">
             <div className="h-60 flex justify-center items-center">
                 <h2 className="text-3xl font-bold text-white text-center mb-4 ">Welcome to {app_config?.APP_NAME}</h2>
             </div>
@@ -66,8 +66,8 @@ export default function UserByProperty() {
                     <div className="w-full max-w-[450px] flex flex-col gap-5 items-center justify-between h-full bg-white py-10 px-5 rounded-4xl sm:shadow-2xl mt-5">
                         <div className="flex items-center gap-2 mb-5">   <Building2 size={24} />
                             <h2 className="text-lg font-bold text-center">{property?.name}</h2></div>
-                        <Button variant="green" className="w-full py-10 text-2xl font-bold shadow-lg" onClick={() => setShowBookingModal(true)}>Check In</Button>
-                        <Button variant="green" className="w-full py-10 text-2xl font-bold shadow-lg" onClick={() => setShowCheckoutModal(true)}>Check Out</Button>
+                        <Button variant="blue" className="w-full py-10 text-2xl font-bold shadow-lg" onClick={() => setShowBookingModal(true)}>Check In</Button>
+                        <Button variant="blue" className="w-full py-10 text-2xl font-bold shadow-lg" onClick={() => setShowCheckoutModal(true)}>Check Out</Button>
                         <p className="text-xs text-gray-500 text-center mt-10">
                             Powered by ARP
                         </p>

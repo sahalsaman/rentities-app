@@ -133,7 +133,7 @@ export default function CheckoutModal({ open, onClose, onSave, editData, unitDat
                 name="whatsappCountryCode" // ✅ added
                 value={formData.whatsappCountryCode || ""}
                 onChange={handleChange}
-                className="h-12 w-20 px-2 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+                className="h-12 w-20 px-2 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                 style={{ maxWidth: '80px' }}
               >
                 {countryCodes.map((option) => (
@@ -202,7 +202,7 @@ export default function CheckoutModal({ open, onClose, onSave, editData, unitDat
             <Button type="button" variant="secondary" onClick={onClose}>
               Cancel
             </Button>
-            <Button type="submit" className="w-full" variant="green">
+            <Button type="submit" className="w-full" variant="blue">
               Check out
             </Button>
           </div>

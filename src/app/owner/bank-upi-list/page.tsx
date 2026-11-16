@@ -47,7 +47,7 @@ export default function BanksPage() {
             setAddEditOpen(true);
             setSelectedBank(null);
           }}
-          variant="green"
+          variant="blue"
         >
           Add Bank / UPI
         </Button>

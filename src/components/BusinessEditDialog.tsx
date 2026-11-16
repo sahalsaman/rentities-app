@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 interface Props {
   open: boolean;
   onClose: () => void;
-  organisation: {
+  business: {
     _id: string;
     name: string;
     address?: string;
@@ -18,10 +18,10 @@ interface Props {
   onUpdated?: () => void; // optional callback after update
 }
 
-export default function EditOrganisationDialog({ open, onClose, organisation, onUpdated }: Props) {
-  const [name, setName] = useState(organisation?.name || "");
-  const [address, setAddress] = useState(organisation?.address || "");
-  const [website, setWebsite] = useState(organisation?.website || "");
+export default function EditBusinessDialog({ open, onClose, business, onUpdated }: Props) {
+  const [name, setName] = useState(business?.name || "");
+  const [address, setAddress] = useState(business?.address || "");
+  const [website, setWebsite] = useState(business?.website || "");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -35,14 +35,14 @@ export default function EditOrganisationDialog({ open, onClose, organisation, on
     setError("");
 
     try {
-      const res = await fetch("/api/organisation", {
+      const res = await fetch("/api/business", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, address, website }),
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Failed to update organisation");
+      if (!res.ok) throw new Error(data.error || "Failed to update business");
 
       onUpdated?.();
       onClose();
@@ -57,13 +57,13 @@ export default function EditOrganisationDialog({ open, onClose, organisation, on
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Edit Organisation</DialogTitle>
+          <DialogTitle>Edit Business</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-4 mt-4">
           <div>
             <Label>Name*</Label>
-            <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Organisation name" />
+            <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Business name" />
           </div>
 
           <div>

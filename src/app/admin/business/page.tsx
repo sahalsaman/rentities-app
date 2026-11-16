@@ -4,22 +4,22 @@ import { apiFetch } from "@/lib/api";
 import { PageSkeleton } from "@/components/Loader";
 import { statusColorMap } from "@/utils/contants";
 
-export default function OrganisationsPage() {
-  const [organisations, setOrganisations] = useState<any[]>([]);
+export default function BusinesssPage() {
+  const [businesss, setBusinesss] = useState<any[]>([]);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const itemsPerPage = 10;
 
-  const fetchOrganisations = async () => {
-    try { const res = await apiFetch("/api/organisation"); const data = await res.json(); setOrganisations(data || []); } finally { setLoading(false); }
+  const fetchBusinesss = async () => {
+    try { const res = await apiFetch("/api/business"); const data = await res.json(); setBusinesss(data || []); } finally { setLoading(false); }
   };
 
   useEffect(() => {
-    fetchOrganisations();
+    fetchBusinesss();
   }, []);
 
-  const filteredOrgs = organisations?.filter((org: any) =>
+  const filteredOrgs = businesss?.filter((org: any) =>
     org.name.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -32,7 +32,7 @@ export default function OrganisationsPage() {
 
   const breadcrumbItems = [
     { label: "Home", href: "/owner" },
-    { label: "Organisations" },
+    { label: "Businesss" },
   ];
 
   if (loading) return <PageSkeleton rows={6} />;
@@ -40,10 +40,10 @@ export default function OrganisationsPage() {
   return (
     <div className="admin-page mb-10">
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-        <div><p className="text-sm font-medium text-green-700">Platform directory</p><h1 className="text-2xl font-bold text-slate-900">Organisations</h1><p className="mt-1 text-sm text-slate-500">Review every workspace on your platform.</p></div><span className="rounded-full bg-emerald-50 px-3 py-1 text-sm font-semibold text-green-700">{organisations.length} total</span>
+        <div><p className="text-sm font-medium text-blue-700">Platform directory</p><h1 className="text-2xl font-bold text-slate-900">Businesss</h1><p className="mt-1 text-sm text-slate-500">Review every workspace on your platform.</p></div><span className="rounded-full bg-sky-50 px-3 py-1 text-sm font-semibold text-blue-700">{businesss.length} total</span>
         <input
           type="text"
-          placeholder="Search organisation..."
+          placeholder="Search business..."
           className="w-full sm:w-72"
           value={search}
           onChange={(e) => {
@@ -55,7 +55,7 @@ export default function OrganisationsPage() {
 
       {/* Table */}
       {paginatedOrgs.length === 0 ? (
-        <p className="admin-empty">No organisations found.</p>
+        <p className="admin-empty">No businesss found.</p>
       ) : (
         <div className="admin-table-shell">
           <table className="min-w-full border border-gray-200 rounded-lg">
@@ -101,7 +101,7 @@ export default function OrganisationsPage() {
                     ) : org.disabled ? (
                       <span className="text-yellow-600 font-medium">Disabled</span>
                     ) : (
-                      <span className="text-green-600 font-medium">Active</span>
+                      <span className="text-blue-600 font-medium">Active</span>
                     )}
                   </td>
 
