@@ -33,7 +33,7 @@ export default function UnitManagementPage() {
           <div className="w-full xl:w-[45%] relative flex justify-center items-center py-6">
             {/* Blobs */}
             <div className="absolute w-72 h-72 bg-blue-200 rounded-full blur-3xl opacity-60 -top-10 -left-10" />
-            <div className="absolute w-52 h-52 bg-lime-200 rounded-full blur-3xl opacity-60 bottom-10 right-10" />
+            <div className="absolute w-52 h-52 bg-sky-200 rounded-full blur-3xl opacity-60 bottom-10 right-10" />
 
             {/* App */}
             <div className="relative bg-white rounded-2xl shadow-2xl border-8 border-slate-700 w-full max-w-sm overflow-hidden z-10">

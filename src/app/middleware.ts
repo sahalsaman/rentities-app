@@ -17,13 +17,13 @@ export function middleware(request: NextRequest) {
 
     const pathname = request.nextUrl.pathname;
     if (pathname.startsWith("/admin") && role !== UserRoles.ADMIN)
-      return NextResponse.redirect(new URL("/login", request.url));
-    if (pathname.startsWith("/owner") && role !== UserRoles.OWNER)
-      return NextResponse.redirect(new URL("/login", request.url));
+      return NextResponse.redirect(new URL("/auth/admin-login", request.url));
+    if (pathname.startsWith("/owner") && role !== UserRoles.OWNER && role !== UserRoles.MANAGER)
+      return NextResponse.redirect(new URL("/auth/login", request.url));
     if (pathname.startsWith("/user") && role !== UserRoles.USER)
-      return NextResponse.redirect(new URL("/login", request.url));
+      return NextResponse.redirect(new URL("/auth/login", request.url));
   } catch (err) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.redirect(new URL("/auth/login", request.url));
   }
 
   return NextResponse.next();

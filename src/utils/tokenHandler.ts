@@ -10,12 +10,13 @@ import { env } from "../../environment";
   };
 
 export function setTokenValue(user:any){
-  
+  const business = user.businessId;
+  const businessId = business?._id ?? business;
   const payload:IPayload = {
-    id: user._id,
+    id: String(user._id),
     role: user.role,
-    businessId:user.businessId?._id,
-    subscriptionPlan:user.businessId?.subscription?.plan,
+    businessId: businessId ? String(businessId) : "",
+    subscriptionPlan: business?.subscription?.plan,
   };
 
   return  jwt.sign(payload, env.JWT_SECRET, {

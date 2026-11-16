@@ -35,7 +35,7 @@ export default function PropertyManagementPage() {
           <div className="w-full xl:w-[45%] relative flex justify-center items-center py-6">
             {/* Blobs */}
             <div className="absolute w-72 h-72 bg-blue-200 rounded-full blur-3xl opacity-60 -top-6 -right-6" />
-            <div className="absolute w-52 h-52 bg-lime-200 rounded-full blur-3xl opacity-60 bottom-6 left-6" />
+            <div className="absolute w-52 h-52 bg-sky-200 rounded-full blur-3xl opacity-60 bottom-6 left-6" />
 
             {/* App Card */}
             <div className="relative bg-white rounded-2xl shadow-2xl border border-gray-200 w-full max-w-sm h-auto overflow-hidden flex flex-col z-10">
