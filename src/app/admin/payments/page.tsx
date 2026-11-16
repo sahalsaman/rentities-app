@@ -1,28 +1,26 @@
 "use client";
 import { useState, useEffect } from "react";
 import { apiFetch } from "@/lib/api";
-import Breadcrumbs from "@/components/Breadcrumbs";
-import { FullscreenLoader } from "@/components/Loader";
+import { PageSkeleton } from "@/components/Loader";
 import { statusColorMap } from "@/utils/contants";
 
 export default function PaymentsPage() {
   const [payments, setPayments] = useState<any[]>([]);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
   const itemsPerPage = 10;
 
   const fetchPayments = async () => {
-    const res = await apiFetch("/api/payment");
-    const data = await res.json();
-    setPayments(data || []);
+    try { const res = await apiFetch("/api/admin/payments"); const data = await res.json(); setPayments(data || []); } finally { setLoading(false); }
   };
 
   useEffect(() => {
     fetchPayments();
   }, []);
 
-  const filteredOrgs = payments?.filter((org: any) =>
-    org.name.toLowerCase().includes(search.toLowerCase())
+  const filteredOrgs = payments?.filter((payment: any) =>
+    `${payment.organisationId?.name || ""} ${payment.plan || ""}`.toLowerCase().includes(search.toLowerCase())
   );
 
   const totalPages = Math.ceil(filteredOrgs.length / itemsPerPage);
@@ -37,14 +35,11 @@ export default function PaymentsPage() {
     { label: "Payments" },
   ];
 
-  if (!payments) return <FullscreenLoader />;
+  if (loading) return <PageSkeleton rows={6} />;
 
   return (
-    <div className="p-5 md:pt-10 md:px-32 mb-10">
-      <Breadcrumbs items={breadcrumbItems} />
-
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Subscription Payments</h1>
+    <div className="admin-page mb-10">
+      <div className="mb-6 flex items-end justify-between"><div><p className="text-sm font-medium text-green-700">Revenue</p><h1 className="text-2xl font-bold text-slate-900">Subscription payments</h1><p className="mt-1 text-sm text-slate-500">Track platform subscription activity and payment health.</p></div><span className="rounded-full bg-emerald-50 px-3 py-1 text-sm font-semibold text-green-700">{payments.length} total</span>
       </div>
 
       {/* Search */}
@@ -63,61 +58,19 @@ export default function PaymentsPage() {
 
       {/* Table */}
       {paginatedOrgs.length === 0 ? (
-        <p className="text-center text-gray-500 mt-10">No payments found.</p>
+        <p className="admin-empty">No payments found.</p>
       ) : (
-        <div className="overflow-x-auto">
+        <div className="admin-table-shell">
           <table className="min-w-full border border-gray-200 rounded-lg">
             <thead className="bg-gray-100">
               <tr>
-                <th className="px-4 py-3 text-left">Name</th>
-                <th className="px-4 py-3 text-left">Owner</th>
-                <th className="px-4 py-3 text-left">Subcription Type & Status</th>
-                <th className="px-4 py-3 text-left">Bookings & Balance</th>
-                <th className="px-4 py-3 text-left">Status</th>
-                <th className="px-4 py-3 text-left">Actions</th>
+                <th className="px-4 py-3 text-left">Organisation</th><th className="px-4 py-3 text-left">Plan</th><th className="px-4 py-3 text-left">Amount</th><th className="px-4 py-3 text-left">Method</th><th className="px-4 py-3 text-left">Status</th><th className="px-4 py-3 text-left">Started</th>
               </tr>
             </thead>
 
             <tbody>
-              {paginatedOrgs.map((org) => (
-                <tr key={org._id} className="border-b hover:bg-gray-50 transition">
-                  <td className="px-4 py-3">
-                    <p>{org.name}</p>
-                    <p className="text-xs">{org.address || "—"}</p>
-                  </td>
-
-                  <td className="px-4 py-3">
-                    <p> {org.owner?.firstName || "—"}
-                      {" " + org.owner?.lastName || "—"}</p>
-                    <p className="text-xs"> {org.owner?.countryCode || "—"}
-                      {" " + org.owner?.phone || "—"}</p>
-                  </td>
-                  <td className="px-4 py-3">
-                    <p> {org.subscription?.plan || "—"} -
-                      {" " + org.subscription?.unitPrice || "—"}</p>
-                    <div>  <span className={`px-2 py-1 rounded-md text-xs font-medium ${statusColorMap[org.subscription?.status ?? ""] || "bg-gray-100 text-gray-800"
-                      }`}>
-                      {org.subscription?.status}
-                    </span>
-                    </div>
-                  </td>
-                  <td className="px-4 py-3"></td>
-
-                  <td className="px-4 py-3">
-                    {org.deleted ? (
-                      <span className="text-red-500 font-medium">Deleted</span>
-                    ) : org.disabled ? (
-                      <span className="text-yellow-600 font-medium">Disabled</span>
-                    ) : (
-                      <span className="text-green-600 font-medium">Active</span>
-                    )}
-                  </td>
-
-                  <td className="px-4 py-3">
-                    <button className="px-3 py-1 text-sm bg-black text-white rounded">
-                      View
-                    </button>
-                  </td>
+              {paginatedOrgs.map((payment) => (
+                <tr key={payment._id} className="border-b hover:bg-gray-50 transition"><td className="px-4 py-3 font-medium">{payment.organisationId?.name || "—"}</td><td className="px-4 py-3 capitalize">{payment.plan || "—"}</td><td className="px-4 py-3 font-semibold">₹{Number(payment.total_price || payment.plan_price || 0).toLocaleString("en-IN")}</td><td className="px-4 py-3 capitalize">{payment.paymentMethod || "—"}</td><td className="px-4 py-3"><span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${statusColorMap[payment.status ?? ""] || "bg-slate-100 text-slate-700"}`}>{payment.status || "Pending"}</span></td><td className="px-4 py-3">{payment.startDate ? new Date(payment.startDate).toLocaleDateString("en-IN") : "—"}</td>
                 </tr>
               ))}
             </tbody>

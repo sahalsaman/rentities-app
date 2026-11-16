@@ -3,7 +3,7 @@ import { SelfRecieveBankOrUpiModel } from "../../../../../models/SelfRecieveBank
 import connectMongoDB from "../../../../../database/db";
 import { env } from "../../../../../environment";
 import { PaymentRecieverOptions } from "@/utils/contants";
-import { updateImgbbImage } from "@/utils/upload_image";
+import { deleteFromCloudinary, updateCloudinaryImage } from "@/utils/upload_image";
 
 export async function GET(req, { params }) {
   try {
@@ -28,7 +28,7 @@ export async function PUT(req, context) {
     if (!bank) return NextResponse.json({ message: "Bank not found" }, { status: 404 });
 
     if (body.qrImage && body.paymentRecieverOption === PaymentRecieverOptions.UPIQR) {
-      const image = await updateImgbbImage(bank.image?.delete_url, body.qrImage, env.IMAGE_UPI_QR);
+      const image = await updateCloudinaryImage(bank.image?.delete_url, body.qrImage, env.IMAGE_UPI_QR);
       body.value = image?.url
       body.image = image
     }
@@ -51,7 +51,7 @@ export async function DELETE(req, context) {
     if (!bank) return NextResponse.json({ message: "Bank not found" }, { status: 404 });
 
     if (bank.value && bank.paymentRecieverOption === PaymentRecieverOptions.UPIQR) {
-      await deleteFromImgbb(bank.value);
+      await deleteFromCloudinary(bank.image?.delete_url);
     }
 
     await SelfRecieveBankOrUpiModel.findByIdAndDelete(params.id);

@@ -7,7 +7,6 @@ import { IBooking, IInvoice } from "@/app/types";
 import InvoiceFormModal from "../../../../../components/InvoiceFormModal";
 import InvoiceCard from "../../../../../components/InvoiceCard";
 import { apiFetch } from "@/lib/api";
-import Breadcrumbs from "@/components/Breadcrumbs";
 import localStorageServiceSelectedOptions from "@/utils/localStorageHandler";
 import { Edit, Pencil, Trash } from "lucide-react";
 import DeleteConfirmModal from "@/components/DeleteConfirmModal";
@@ -68,7 +67,6 @@ export default function BookingDetailPage() {
     <div >
       {/* Booking Header */}
       <div className="flex flex-col justify-between items-start  gap-6 mb-6 bg-slate-50 p-8  shadow-sm border md:px-32 px-5 pt-5">
-        <Breadcrumbs items={breadcrumbItems} />
         <div className="w-full flex justify-between">
           <div className="flex items-center gap-4">
             {/* Logo (first 2 letters of firstName) */}

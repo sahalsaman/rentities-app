@@ -5,7 +5,6 @@ import PropertyCard from "../../../components/PropertyCard";
 import PropertyFormModal from "../../../components/PropertyFormModal";
 import DeleteConfirmModal from "../../../components/DeleteConfirmModal";
 import { apiFetch } from "@/lib/api";
-import Breadcrumbs from "@/components/Breadcrumbs";
 import { FullscreenLoader } from "@/components/Loader";
 import localStorageServiceSelectedOptions from "@/utils/localStorageHandler";
 
@@ -38,15 +37,11 @@ export default function PropertiesPage() {
     { label: "Home", href: "/owner" },
     { label: "Properties" },
   ];
-  if (!properties.length) return <FullscreenLoader />;
-
   return (
-    <div className=" p-5 md:pt-10 md:px-32 mb-10">
-      <Breadcrumbs items={breadcrumbItems} />
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Properties</h1>
+    <div className="p-4 pt-5 md:px-12 lg:px-20 mb-10">
+      <div className="mb-6 flex items-end justify-between gap-3"><div><p className="text-sm font-medium text-green-700">Your portfolio</p><h1 className="text-2xl font-bold">Properties</h1><p className="mt-1 text-sm text-slate-500">Manage spaces your tenants call home.</p></div>
         {organisation?.subscription && <Button onClick={() => { setAddEditOpen(true); setSelectedProperty(null); }} variant="green">
-          Add Property
+          <span className="hidden sm:inline">Add Property</span><span className="sm:hidden">+ Add</span>
         </Button>}
       </div>
 
@@ -61,7 +56,7 @@ export default function PropertiesPage() {
 
           />
         )) : (
-          <p className="text-gray-500">No properties.</p>
+          <div className="col-span-full rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center"><p className="font-semibold text-slate-800">No properties yet</p><p className="mt-1 text-sm text-slate-500">Add your first property to start managing units and bookings.</p></div>
         )}
       </div>
 

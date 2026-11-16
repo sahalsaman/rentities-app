@@ -11,7 +11,7 @@ const UserSchema = new Schema(
     firstName: { type: String, required: true },
     lastName: { type: String },
     countryCode: { type: String, required: true, default: "+91" },
-    phone: { type: String, required: true, unique: true, index: true },
+    phone: { type: String, required: function () { return this.role !== UserRoles.ADMIN; }, unique: true, sparse: true, index: true },
     email: { type: String },
     otp: { type: String },
     otpExpireTime: { type: Date },

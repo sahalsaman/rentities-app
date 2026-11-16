@@ -1,7 +1,7 @@
 'use client';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import { User, XIcon, Home, Building2, Store, Building, Lamp, } from 'lucide-react'; // icons
+import { User, Home, Building2, Store, Building, Lamp, Bell, Users, ReceiptText, BriefcaseBusiness, BedIcon } from 'lucide-react';
 import localStorageServiceSelectedOptions from '@/utils/localStorageHandler';
 import Image from 'next/image';
 import { apiFetch } from '@/lib/api';
@@ -22,18 +22,19 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const options = [
-    { title: 'Dashboard', path: '/owner/dashboard' },
-    { title: 'Organisation', path: '/owner/organisation' },
-    { title: 'Properties', path: '/owner/properties' },
-    { title: 'Units / Rooms', path: '/owner/units' },
+    { title: 'Home', path: '/owner/dashboard' },
+    { title: 'Invoices', path: '/owner/invoices' },
+    { title: 'Units', path: '/owner/units' },
+    { title: 'Tenants', path: '/owner/tenants' },
+    { title: 'Business', path: '/owner/business' },
   ]
 
   const mobileMenu = [
-    { title: 'Dashboard', path: '/owner/dashboard', icon: <Home size={22} /> },
-    { title: 'Units/Rooms', path: '/owner/units', icon: <Lamp size={21} /> },
-    { title: 'Properties', path: '/owner/properties', icon: <Building size={22} /> },
-    { title: 'Organisation', path: '/owner/organisation', icon: <Building2 size={22} /> },
-    // { title: 'Profile', path: '/owner/profile', icon: <UserCircle size={21} /> },
+    { title: 'Home', path: '/owner/dashboard', icon: <Home size={21} /> },
+    { title: 'Invoices', path: '/owner/invoices', icon: <ReceiptText size={21} /> },
+    { title: 'Units', path: '/owner/units', icon: <BedIcon size={21} /> },
+    { title: 'Tenants', path: '/owner/tenants', icon: <Users size={21} /> },
+    { title: 'Business', path: '/owner/business', icon: <BriefcaseBusiness size={21} /> },
   ];
 
   const fetchUser = async () => {
@@ -94,26 +95,25 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
 
   return (
-    <div className="min-h-screen pb-24">
-      <div className=" w-full bg-cover bg-center bg-green-700 md:px-32 px-5  py-5">
+    <div className="min-h-screen bg-slate-50 pb-24">
+      <header className="w-full border-b border-slate-200 bg-white px-4 py-3 shadow-sm md:px-12 lg:px-20">
         <div className="w-full flex justify-between items-center">
           {/* Desktop Nav */}
-          <div className=" mr-5  block lg:hidden">
-            <div
-              className=" flex items-center gap-3"
-            >
+          <div className="mr-5 block lg:hidden">
+            <div className="flex items-center gap-2">
               {/* <ArrowLeft className={` text-white cursor-pointer   ${pathname === "/owner/dashboard" ? "hidden" : "block"}`} onClick={() => router.back()} /> */}
-              <Image src={app_config.APP_LOGO_DARK_THEME} alt="Logo" width={30} className='cursor-pointer'
+              <Image src={app_config.APP_LOGO} alt="Logo" width={32} className='cursor-pointer'
                 onClick={() => router.push('/owner/dashboard')} />
+              <span className="text-lg font-bold tracking-tight text-slate-900">Rentities</span>
             </div>
 
           </div>
           <div className="hidden lg:flex items-center gap-4">
             <div className="flex items-center gap-4">
-              <Image src={app_config.APP_LOGO_DARK_THEME} alt="Logo" width={30} className='cursor-pointer' />
+              <Image src={app_config.APP_LOGO} alt="Logo" width={30} className='cursor-pointer' />
               <h1
                 onClick={() => router.push('/owner/dashboard')}
-                className="text-3xl font-bold text-white mr-5 cursor-pointer"
+                className="text-2xl font-bold text-slate-900 mr-5 cursor-pointer"
               >
                 Rentities
               </h1></div>
@@ -121,27 +121,27 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <div
                 key={idx}
                 onClick={() => router.push(card.path)}
-                className={`cursor-pointer hover:border-b-white text-white font-light 
-                  ${pathname === card.path ? "border-b-1 border-white text-green-300" : ""}`}
+                className={`cursor-pointer rounded-lg px-3 py-2 text-sm font-medium transition
+                  ${pathname === card.path ? "bg-emerald-50 text-green-700" : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"}`}
               >
                 <span>{card.title}</span>
               </div>
             ))}
           </div>
           {/* Profile Dropdown */}
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-2 md:gap-5">
 
             {user?.role == UserRoles.OWNER ?
               <div className='hidden md:block'>
                 {properties?.length ? <div >
                   {/* <p className='text-white'>Current Property</p> */}
-                  <div className='w-full  bg-green-800 border-green-800 border rounded-md flex items-center justify-between pr-2'>
-                    <Building className='ml-4 text-white' />
+                  <div className='w-full rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-between pr-2'>
+                    <Building className='ml-4 text-slate-500' />
                     <select
                       name="frequency"
                       value={selectedPropertyId || ""}
                       onChange={handleChange}
-                      className=" text-white focus:outline-none hover:border-b-white border-0 outline-0 pr-2"
+                      className="bg-transparent text-slate-700 focus:outline-none border-0 outline-0 pr-2"
                       style={{ minWidth: "220px", border: "0px", height: "48px" }}
                       required
                     >
@@ -155,18 +155,18 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   </div>
                 </div> :
                   organisation?.subscription ?
-                    <Button className=" w-full bg-white text-green-700 font-semibold text-md rounded-xl px-8 py-6 hover:bg-green-100 transition" onClick={() => router.push('/owner/properties')}>
+                    <Button className=" w-full text-white bg-green-700 font-semibold text-md rounded-xl px-8 py-6 hover:bg-green-100 transition" onClick={() => router.push('/owner/properties')}>
                       Add Property
                     </Button> :
-                    <Button className=" w-full bg-white text-green-700 font-semibold text-md rounded-xl px-8 py-6 hover:bg-green-100 transition" onClick={() => router.push('/owner/subscription-plan')}>
+                    <Button className=" w-full text-white bg-green-700 font-semibold text-md rounded-xl px-8 py-6 hover:bg-green-100 transition" onClick={() => router.push('/owner/subscription-plan')}>
                       Start Free Trial
                     </Button>
                 }
               </div> : ""}
-            <div className="relative" ref={dropdownRef}>
+            <button aria-label="Notifications" className="flex h-10 w-10 items-center justify-center rounded-xl text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"><Bell size={20} /></button><div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => router.push('/owner/profile')}
-                className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-green-900 text-white cursor-pointer"
+                className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-xl bg-green-900 text-white cursor-pointer transition hover:bg-green-700"
               >
                 <User size={20} />
               </button>
@@ -174,15 +174,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </div>
         </div>
 
-        {user?.role == UserRoles.OWNER ? <div className='block md:hidden mt-2'>
+        {user?.role == UserRoles.OWNER ? <div className='block md:hidden mt-3'>
           {properties?.length ?
-            <div className='w-full  bg-green-800 border-green-800 border rounded-md flex items-center justify-between pr-2'>
-              <Building className='ml-3 text-white' />
+            <div className='w-full rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-between pr-2'>
+              <Building className='ml-3 text-slate-500' />
               <select
                 name="frequency"
                 value={selectedPropertyId || ""}
                 onChange={handleChange}
-                className=" text-white focus:outline-none hover:border-b-white border-0 outline-0 pr-2"
+                className="bg-transparent text-slate-700 focus:outline-none border-0 outline-0 pr-2"
                 style={{ minWidth: "220px", border: "0px", height: "48px" }}
                 required
               >
@@ -196,7 +196,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </div>
             :
             organisation?.subscription ?
-              <Button className=" w-full bg-white text-green-700 font-semibold text-md rounded-xl px-8 py-6 hover:bg-green-100 transition" onClick={() => router.push('/owner/properties')}>
+              <Button className=" w-full bg-green-700 text-white font-semibold text-md rounded-xl px-8 py-6 hover:bg-green-100 transition" onClick={() => router.push('/owner/properties')}>
                 Add Property
               </Button> :
               <Button className=" w-full bg-white text-green-700 font-semibold text-md rounded-xl px-8 py-6 hover:bg-green-100 transition" onClick={() => router.push('/owner/subscription-plan')}>
@@ -204,20 +204,20 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               </Button>
           }
         </div> : ""}
-      </div>
-      {organisation?.subscription?.status && organisation?.subscription?.status !== SubscritptionStatus.ACTIVE ? <div className=" bg-amber-300 py-2 md:px-32 px-5 flex items-center justify-between text-sm">
+      </header>
+      {organisation?.subscription?.status && organisation?.subscription?.status !== SubscritptionStatus.ACTIVE ? <div className="bg-amber-100 py-2.5 px-5 text-center text-sm font-medium text-amber-900 md:px-20">
         {organisation?.subscription?.status === SubscritptionStatus.FREE ? 'Your subscription is free' : organisation?.subscription?.status === SubscritptionStatus.EXPIRED ? 'Your subscription has expired. Please renew to continue using our services.' : organisation?.subscription?.status === SubscritptionStatus.CANCELLED ? 'Your subscription has been cancelled. Please contact support for more information.' : ''}
       </div> : ""}
 
-      {organisation?.subscription?.status === SubscritptionStatus.EXPIRED ? <SubscriptionPlan /> : <main>{children}</main>}
+      {organisation?.subscription?.status === SubscritptionStatus.EXPIRED ? <SubscriptionPlan /> : <main className="owner-surface">{children}</main>}
 
       {/* Mobile Bottom Menu */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-md flex justify-evenly py-4 lg:hidden">
+      <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-evenly border-t border-slate-200 bg-white/95 px-4 py-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] shadow-[0_-6px_20px_rgba(15,23,42,0.08)] backdrop-blur lg:hidden">
         {mobileMenu.map((item, idx) => (
           <button
             key={idx}
             onClick={() => router.push(item.path)}
-            className={`flex flex-col gap-1 items-center text-xs ${pathname === item.path ? "text-green-600" : "text-gray-500"
+            className={`flex min-w-0 flex-1 flex-col gap-1 items-center rounded-xl py-1.5 text-[10px] font-medium ${pathname === item.path ? "bg-emerald-50 text-green-700" : "text-slate-500"
               }`}
           >
             {item.icon}

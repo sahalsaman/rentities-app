@@ -7,7 +7,6 @@ import { IUnit, IBooking } from "@/app/types";
 import BookingCard from "../../../../components/BookingCard";
 import BookingAddEditModal from "../../../../components/BookingFormModal";
 import { apiFetch } from "@/lib/api";
-import Breadcrumbs from "@/components/Breadcrumbs";
 import localStorageServiceSelectedOptions from "@/utils/localStorageHandler";
 import { Edit, Pencil, ReceiptIndianRupee, Trash } from "lucide-react";
 import UnitAddEditModal from "@/components/UnitFormModal";
@@ -58,7 +57,6 @@ export default function UnitDetailPage() {
     <div >
       {/* Unit Header */}
       <div className="flex flex-col justify-between items-start  gap-6 mb-6 bg-slate-50 p-8 pt-5 shadow-sm border md:px-32 px-5">
-        <Breadcrumbs items={breadcrumbItems} />
         <div className="w-full flex justify-between">
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 bg-blue-200 rounded-md flex items-center justify-center text-gray-500 text-2xl">

@@ -152,3 +152,35 @@ select {
 .clip-path-slide-2 {
   clip-path: polygon(25% 0%, 100% 0, 100% 100%, 0% 100%);
 }
+
+/* SaaS administration data screens */
+.admin-page { @apply mx-auto max-w-7xl; }
+.admin-page [role="navigation"] { @apply hidden; }
+.admin-page table { @apply min-w-full overflow-hidden rounded-2xl border-0 bg-white shadow-sm; }
+.admin-page thead { @apply bg-slate-50 text-xs uppercase tracking-wider text-slate-500; }
+.admin-page th { @apply border-b border-slate-200 px-5 py-4 font-semibold; }
+.admin-page td { @apply border-b border-slate-100 px-5 py-4 text-sm text-slate-700; }
+.admin-page tbody tr { @apply transition hover:bg-emerald-50/40; }
+.admin-page input { @apply rounded-xl border-slate-200 bg-white px-4 py-3 shadow-sm outline-none transition focus:border-green-500 focus:ring-4 focus:ring-green-100; }
+.admin-page .admin-table-shell { @apply overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm; }
+.admin-page .admin-empty { @apply rounded-2xl border border-dashed border-slate-300 bg-white py-16 text-center text-sm text-slate-500; }
+
+/* Owner app: phone-first spacing, generous touch targets, and readable data. */
+.owner-surface { @apply pb-24 text-slate-800; }
+.owner-surface input:not([type="checkbox"]), .owner-surface textarea, .owner-surface select { @apply min-h-11 rounded-xl border-slate-200 bg-white px-3 text-base shadow-sm outline-none transition focus:border-green-500 focus:ring-4 focus:ring-green-100; }
+.owner-surface button { -webkit-tap-highlight-color: transparent; }
+.owner-surface table { @apply overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm; }
+.owner-surface th { @apply bg-slate-50 text-xs font-semibold uppercase tracking-wide text-slate-500; }
+.owner-surface td { @apply text-sm text-slate-700; }
+@media (max-width: 767px) {
+  .owner-surface > * { max-width: 100%; }
+  .owner-surface .overflow-x-auto { @apply -mx-1 rounded-xl; }
+  .owner-surface table { min-width: 620px; }
+  .owner-surface h1 { @apply text-xl leading-tight; }
+  .owner-surface h2 { @apply text-lg leading-tight; }
+  .owner-surface h1 + p { display: none; }
+  .owner-surface p { @apply leading-5; }
+  .owner-surface input:not([type="checkbox"]), .owner-surface textarea, .owner-surface select { @apply text-base; }
+  .owner-surface .grid { row-gap: 0.75rem; }
+  .owner-surface button { min-height: 2.75rem; }
+}

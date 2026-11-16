@@ -1,19 +1,17 @@
 "use client";
 import { useState, useEffect } from "react";
 import { apiFetch } from "@/lib/api";
-import Breadcrumbs from "@/components/Breadcrumbs";
-import { FullscreenLoader } from "@/components/Loader";
+import { PageSkeleton } from "@/components/Loader";
 
 export default function UsersPage() {
   const [users, setUsers] = useState<any[]>([]);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
   const itemsPerPage = 10;
 
   const fetchUsers = async () => {
-    const res = await apiFetch("/api/admin/user");
-    const data = await res.json();
-    setUsers(data || []);
+    try { const res = await apiFetch("/api/admin/user"); const data = await res.json(); setUsers(data || []); } finally { setLoading(false); }
   };
 
   useEffect(() => {
@@ -36,22 +34,15 @@ export default function UsersPage() {
     { label: "Users" },
   ];
 
-  if (!users) return <FullscreenLoader />;
+  if (loading) return <PageSkeleton rows={6} />;
 
   return (
-    <div className="p-5 md:pt-10 md:px-32 mb-10">
-      <Breadcrumbs items={breadcrumbItems} />
-
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Users</h1>
-      </div>
-
-      {/* Search */}
-      <div className="mb-4">
+    <div className="admin-page mb-10">
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div><p className="text-sm font-medium text-green-700">People</p><h1 className="text-2xl font-bold text-slate-900">Users</h1><p className="mt-1 text-sm text-slate-500">Manage owners, managers, and tenants in one place.</p></div>
         <input
           type="text"
           placeholder="Search user..."
-          className="border px-3 py-2 rounded w-full md:w-1/3"
+          className="w-full sm:w-72"
           value={search}
           onChange={(e) => {
             setSearch(e.target.value);
@@ -62,9 +53,9 @@ export default function UsersPage() {
 
       {/* Table */}
       {paginatedOrgs.length === 0 ? (
-        <p className="text-center text-gray-500 mt-10">No users found.</p>
+        <p className="admin-empty">No users found.</p>
       ) : (
-        <div className="overflow-x-auto">
+        <div className="admin-table-shell">
           <table className="min-w-full border border-gray-200 rounded-lg">
             <thead className="bg-gray-100">
               <tr>

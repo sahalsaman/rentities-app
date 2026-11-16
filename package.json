@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "seed:saas-admin": "node scripts/seed-saas-admin.mjs",
+    "verify:saas-admin": "node scripts/verify-saas-admin.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",

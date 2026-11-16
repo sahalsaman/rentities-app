@@ -104,25 +104,23 @@ export default function OwnerDashboard() {
   };
 
   const options = [
-    { title: 'Bookings', path: '/owner/bookings', icon: <Calendar className="w-6 h-6 md:w-10 md:h-10 min-w-6 min-h-6" /> },
-    { title: 'Invoices', path: '/owner/invoices', icon: <NotepadTextDashed className="w-6 h-6 md:w-10 md:h-10 min-w-6 min-h-6" /> },
-    { title: 'Broadcast', path: '/owner/announcement', icon: <MessageCircleMore className="w-6 h-6 md:w-10 md:h-10 min-w-6 min-h-6" /> },
-    { title: 'Managers', path: '/owner/managers', icon: <Users className="w-6 h-6 md:w-10 md:h-10 min-w-6 min-h-6" /> },
-
     { title: 'New Booking', path: 'BOOKING_FORM', icon: <PlusIcon className="w-6 h-6 md:w-10 md:h-10 min-w-6 min-h-6" /> },
-
     { title: 'Booking QR', path: 'BOOKING_QR', icon: <QrCodeIcon className="w-6 h-6 md:w-10 md:h-10 min-w-6 min-h-6" /> }, { title: 'Subscription', path: '/owner/subscription-plan', icon: <Crown className="w-6 h-6 md:w-10 md:h-10 min-w-6 min-h-6" /> },
-    { title: 'Support', path: 'SUPPORT', icon: <Headset className="w-6 h-6 md:w-10 md:h-10 min-w-6 min-h-6" /> },
+    { title: 'Units', path: '/owner/units', icon: <Building2 className="w-6 h-6 md:w-10 md:h-10 min-w-6 min-h-6" /> },
+    { title: 'Broadcast', path: '/owner/announcement', icon: <MessageCircleMore className="w-6 h-6 md:w-10 md:h-10 min-w-6 min-h-6" /> },
+    { title: 'Complaints', path: '/owner/announcement', icon: <Paperclip className="w-6 h-6 md:w-10 md:h-10 min-w-6 min-h-6" /> },
+    { title: 'Notices', path: '/owner/announcement', icon: <NotepadTextDashed className="w-6 h-6 md:w-10 md:h-10 min-w-6 min-h-6" /> },
+    { title: 'Finance', path: '/owner/payments', icon: <BadgeDollarSign className="w-6 h-6 md:w-10 md:h-10 min-w-6 min-h-6" /> },
   ];
 
   if (loader) return <FullscreenLoader />;
 
   return (
-    <main className=" bg-white text-gray-800 pt-8 md:px-32 px-5 mb-10 ">
-
+    <main className="text-gray-800 px-4 pt-5 mb-8 md:px-12 lg:px-20">
+      <div className="mb-6 rounded-2xl bg-gradient-to-r from-emerald-950 to-green-700 p-5 text-white shadow-lg md:hidden"><p className="text-xs font-semibold tracking-wider text-emerald-200">OWNER WORKSPACE</p><h1 className="mt-1 text-2xl font-bold">Your rental overview</h1><p className="mt-1 text-sm text-emerald-50/80">Everything important, at a glance.</p></div>
       <h1 className="text-2xl hidden md:block font-bold mb-6">Dashboard</h1>
 
-      <div className="grid grid-cols-2  lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-3 lg:gap-4">
         <DashboardCard title="Total Units" value={status?.total_units} icon={Building2} />
         <DashboardCard title="Available Units" value={status?.available_units} icon={Lamp} />
         <DashboardCard title="Notice Period" value={status?.noticePeriod} icon={Paperclip} />
@@ -131,11 +129,11 @@ export default function OwnerDashboard() {
         <DashboardCard title="Monthly Received" value={`${current_property?.currency ?? ""}${status?.totalReceivedAmount?.toLocaleString()}`} icon={BadgeDollarSign} />
       </div>
 
-      <div className="  grid grid-cols-4 md:grid-cols-8 gap-4 md:gap-8 mt-8 md:mt-20">
+      <h2 className="mt-8 text-base font-bold text-slate-800 md:mt-16">Quick actions</h2><div className="grid grid-cols-4 gap-3 mt-4 md:grid-cols-8 md:gap-8">
         {options.map((card, idx) => (
           <div key={idx} className="flex flex-col justify-center items-center gap-1 md:gap-1.5 cursor-pointer hover:scale-105 transition-transform"
             onClick={() => card.path === "BOOKING_FORM" ? setShowBookingModal(true) : card.path === "BOOKING_QR" ? openQR() : card.path==="SUPPORT"? window.open('https://wa.link/61dd4n', '_blank'):router.push(card.path)} >
-            <Button className="h-15 w-15 md:h-20 md:w-20  hover:shadow-lg " variant="green">
+            <Button className="h-14 w-14 rounded-2xl shadow-sm md:h-20 md:w-20 hover:shadow-lg" variant="green">
               {card.icon}
             </Button>
             <span className="text-xs md:text-sm  text-nowrap text-center">{card.title}</span>

@@ -1,121 +1,30 @@
 'use client';
+
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
-import { Building, Building2, FormInput, Home, Lamp, NotepadText, Tags, User, Users,  } from 'lucide-react'; 
+import { useEffect, useState } from 'react';
+import { BarChart3, Building2, ChevronDown, CreditCard, LayoutDashboard, LogOut, Menu, MessageSquareText, ShieldCheck, Tags, UserRound, Users, X } from 'lucide-react';
 import Image from 'next/image';
-import { apiFetch } from '@/lib/api';
 import { app_config } from '../../../app-config';
 import { UserRoles } from '@/utils/contants';
 
+const navigation = [
+  { title: 'Overview', path: '/admin/dashboard', icon: LayoutDashboard }, { title: 'Organisations', path: '/admin/organisations', icon: Building2 },
+  { title: 'Properties', path: '/admin/properties', icon: BarChart3 }, { title: 'Users', path: '/admin/users', icon: Users },
+  { title: 'Payments', path: '/admin/payments', icon: CreditCard }, { title: 'Enquiries', path: '/admin/enquiries', icon: MessageSquareText }, { title: 'Leads', path: '/admin/leads', icon: Tags },
+];
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const [user, setUser] = useState<any | null>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  const options = [
-    { title: 'Dashboard', path: '/admin/dashboard' },
-    { title: 'Organisations', path: '/admin/organisations' },
-    { title: 'Properties', path: '/admin/properties' },
-    { title: 'Users', path: '/admin/users' },
-    { title: 'Payments', path: '/admin/payments' },
-    { title: 'Enquies', path: '/admin/enquiries' },
-    { title: 'Leads', path: '/admin/leads' },
-  ]
-
-    const mobileMenu = [
-    { title: 'Dashboard', path: '/admin/dashboard', icon: <Home size={22} /> },
-    { title: 'Organisations', path: '/admin/organisations', icon: <Building2 size={22} /> },
-    { title: 'Users', path: '/admin/users', icon: <Users size={21} /> },
-    { title: 'Enquiries', path: '/admin/enquiries', icon: <NotepadText size={22} /> },
-    { title: 'Leads', path: '/admin/leads', icon: <Tags size={22} /> },
-  ];
-
-  const fetchUser = async () => {
-    try {
-      const res = await apiFetch("/api/me");
-      const data = await res.json();
-      setUser(data)
-     if(data.role !== UserRoles.ADMIN) router.push('/');
-    }
-    catch (err) {
-      console.log(err);
-    }
-  };
-
-
-  useEffect(() => {
-    fetchUser()
-  }, []);
-
-
-
-
-  return (
-    <div className="min-h-screen pb-24">
-      <div className=" w-full bg-cover bg-center bg-black md:px-32 px-5  py-5">
-        <div className="w-full flex justify-between items-center">
-          {/* Desktop Nav */}
-          <div className=" mr-5  block lg:hidden">
-            <div
-              className=" flex items-center gap-3"
-            >
-              {/* <ArrowLeft className={` text-white cursor-pointer   ${pathname === "/admin/dashboard" ? "hidden" : "block"}`} onClick={() => router.back()} /> */}
-              <Image src={app_config.APP_LOGO_DARK_THEME} alt="Logo" width={30} className='cursor-pointer'
-                onClick={() => router.push('/admin/dashboard')} />
-            </div>
-
-          </div>
-          <div className="hidden lg:flex items-center gap-4">
-            <div className="flex items-center gap-4">
-              <Image src={app_config.APP_LOGO_DARK_THEME} alt="Logo" width={30} className='cursor-pointer' />
-              <h1
-                onClick={() => router.push('/admin/dashboard')}
-                className="text-3xl font-bold text-white mr-5 cursor-pointer"
-              >
-               Admin
-              </h1></div>
-            {options.map((card, idx) => (
-              <div
-                key={idx}
-                onClick={() => router.push(card.path)}
-                className={`cursor-pointer hover:border-b-white text-white font-light 
-                  ${pathname === card.path ? "border-b-1 border-white text-green-300" : ""}`}
-              >
-                <span>{card.title}</span>
-              </div>
-            ))}
-          </div>
-          {/* Profile Dropdown */}
-          <div className="flex items-center gap-8">
-
-            <div className="relative" ref={dropdownRef}>
-              <button
-                onClick={() => router.push('/admin/profile')}
-                className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-slate-800 text-white cursor-pointer"
-              >
-                <User size={20} />
-              </button>
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <main>{children}</main>
-     {/* Mobile Bottom Menu */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-md flex justify-evenly py-4 lg:hidden">
-        {mobileMenu.map((item, idx) => (
-          <button
-            key={idx}
-            onClick={() => router.push(item.path)}
-            className={`flex flex-col gap-1 items-center text-xs text-gray-500 p-2 rounded-xl ${pathname === item.path ? "bg-gray-100 " : ""
-              }`}
-          >
-            {item.icon}
-            <span>{item.title}</span>
-          </button>
-        ))}
-      </div>
-    </div>
-  );
+  const router = useRouter(); const pathname = usePathname();
+  const [user, setUser] = useState<any>(null); const [mobileOpen, setMobileOpen] = useState(false); const [profileOpen, setProfileOpen] = useState(false);
+  useEffect(() => { const fetchUser = async () => { try { const response = await fetch('/api/me', { credentials: 'include' }); if (response.status === 401 || response.status === 403) return router.replace('/auth/admin-login'); if (!response.ok) return; const data = await response.json(); if (data.role !== UserRoles.ADMIN) return router.replace('/'); setUser(data); } catch (error) { console.error('Unable to restore admin session:', error); } }; fetchUser(); }, [router]);
+  const logout = async () => { await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' }); router.replace('/auth/admin-login'); router.refresh(); };
+  const navigate = (path: string) => { setMobileOpen(false); router.push(path); };
+  const sidebar = (mobile = false) => <aside className={`${mobile ? 'w-72' : 'hidden lg:flex w-72'} shrink-0 flex-col bg-slate-950 text-slate-200`}>
+    <button onClick={() => navigate('/admin/dashboard')} className="flex items-center gap-3 px-7 py-7 text-left"><Image src={app_config.APP_LOGO_DARK_THEME} alt="Rentities" width={34} height={34} /><span className="text-xl font-bold text-white">Rentities</span></button>
+    <div className="mx-5 rounded-xl border border-emerald-400/20 bg-emerald-400/10 px-4 py-3"><div className="flex items-center gap-2 text-emerald-300"><ShieldCheck size={17} /><span className="text-xs font-semibold tracking-wide">SAAS ADMIN</span></div><p className="mt-1 text-xs text-slate-400">Platform control center</p></div>
+    <nav className="mt-7 flex-1 space-y-1 px-4"><p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">Workspace</p>{navigation.map(({ title, path, icon: Icon }) => { const active = pathname === path; return <button key={path} onClick={() => navigate(path)} className={`flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition ${active ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-900/40' : 'hover:bg-slate-800 hover:text-white'}`}><Icon size={19} /><span>{title}</span></button>; })}</nav>
+    <div className="border-t border-slate-800 p-4"><button onClick={() => navigate('/admin/profile')} className="flex w-full items-center gap-3 rounded-xl p-2 text-left hover:bg-slate-800"><span className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-500 font-bold text-white">{user?.firstName?.[0]?.toUpperCase() || 'A'}</span><span className="min-w-0 flex-1"><span className="block truncate text-sm font-medium text-white">{user?.firstName || 'Administrator'}</span><span className="block truncate text-xs text-slate-400">{user?.email || 'SaaS Admin'}</span></span></button></div>
+  </aside>;
+  const pageTitle = navigation.find((item) => item.path === pathname)?.title || 'Admin';
+  return <div className="min-h-screen bg-slate-50 lg:flex">{sidebar()}{mobileOpen && <div className="fixed inset-0 z-50 flex lg:hidden"><button aria-label="Close navigation" className="flex-1 bg-slate-950/60" onClick={() => setMobileOpen(false)} />{sidebar(true)}<button aria-label="Close navigation" className="absolute right-4 top-4 rounded-lg p-2 text-white" onClick={() => setMobileOpen(false)}><X /></button></div>}<div className="min-w-0 flex-1"><header className="sticky top-0 z-30 flex h-18 items-center justify-between border-b border-slate-200 bg-white/95 px-5 backdrop-blur lg:px-8"><div className="flex items-center gap-3"><button className="rounded-lg p-2 text-slate-600 hover:bg-slate-100 lg:hidden" onClick={() => setMobileOpen(true)}><Menu /></button><div><p className="text-xs font-medium text-slate-500">SaaS Administration</p><h1 className="text-lg font-bold text-slate-900">{pageTitle}</h1></div></div><div className="relative"><button onClick={() => setProfileOpen((open) => !open)} className="flex items-center gap-2 rounded-xl border border-slate-200 px-2 py-1.5 hover:bg-slate-50"><span className="hidden text-right sm:block"><span className="block text-sm font-semibold text-slate-800">{user?.firstName || 'Administrator'}</span><span className="block text-xs text-slate-500">Platform Admin</span></span><span className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-900 text-white"><UserRound size={17} /></span><ChevronDown size={16} className="text-slate-500" /></button>{profileOpen && <div className="absolute right-0 mt-2 w-48 overflow-hidden rounded-xl border border-slate-200 bg-white py-1 shadow-xl"><button onClick={() => navigate('/admin/profile')} className="flex w-full items-center gap-2 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50"><UserRound size={16} /> Profile</button><button onClick={logout} className="flex w-full items-center gap-2 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50"><LogOut size={16} /> Sign out</button></div>}</div></header><main className="p-5 lg:p-8">{children}</main></div></div>;
 }

@@ -93,7 +93,7 @@ export default function ManagerPage() {
   if (loader) return <FullscreenLoader />;
 
   return (
-    <div className="p-5 md:pt-10 md:px-32 mb-10">
+    <div className="p-4 pt-5 md:px-12 lg:px-20 mb-10">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Managers</h1>
         {role !== UserRoles.MANAGER ? <Button variant="green" onClick={() => setOpenModal(true)}>Add Manager</Button> : ""}

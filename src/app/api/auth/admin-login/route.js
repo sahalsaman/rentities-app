@@ -4,14 +4,28 @@ import { NextResponse } from "next/server";
 import { setTokenValue } from "@/utils/tokenHandler";
 import { UserRoles } from "@/utils/contants";
 import { OrganisationModel } from "../../../../../models/Organisation";
+import crypto from "crypto";
+
+function matchesPassword(password, storedPassword) {
+  if (!storedPassword) return false;
+  if (storedPassword.startsWith("scrypt$")) {
+    const [, salt, expected] = storedPassword.split("$");
+    const actual = crypto.scryptSync(password, salt, 64).toString("hex");
+    return crypto.timingSafeEqual(Buffer.from(actual, "hex"), Buffer.from(expected, "hex"));
+  }
+  // Allows existing legacy admin records to log in until their password is reset.
+  const provided = Buffer.from(password);
+  const stored = Buffer.from(storedPassword);
+  return provided.length === stored.length && crypto.timingSafeEqual(provided, stored);
+}
 
 export async function POST(req) {
   await connectMongoDB();
 
   const { username, password } = await req.json();
 
-  const user = await UserModel.findOne({ username, password })
-  if (!user) {
+  const user = await UserModel.findOne({ $or: [{ username }, { email: username }] });
+  if (!user || !matchesPassword(password, user.password)) {
     return NextResponse.json({ message: "User not found" }, { status: 404 });
   }
 
@@ -33,11 +47,11 @@ export async function POST(req) {
 
   const token = setTokenValue(user);
 
-  return new NextResponse(JSON.stringify({ message: "Login successful", role: user.role }), {
-    status: 200,
-    headers: {
-      "Set-Cookie": `ARP_Token=${token}; HttpOnly; Path=/; Max-Age=604800; SameSite=Strict; Secure`,
-    },
-  });
+  const response = NextResponse.json({ message: "Login successful", role: user.role });
+  // A Secure cookie is silently discarded by browsers on http://localhost.
+  // Detect the actual request protocol instead of trusting a custom NODE_ENV value.
+  const secure = new URL(req.url).protocol === "https:" || req.headers.get("x-forwarded-proto") === "https";
+  response.cookies.set("ARP_Token", token, { httpOnly: true, path: "/", maxAge: 604800, sameSite: "lax", secure });
+  return response;
 }
 

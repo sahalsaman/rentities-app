@@ -1,13 +1,12 @@
 "use client";
 
 import api, { login } from "@/lib/api";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { UserRoles } from "@/utils/contants";
-import { app_config } from "../../../../app-config";
 import { Button } from "@/components/ui/button";
+import { AuthFrame } from "@/components/auth/AuthFrame";
 
 export default function VerifyOTPPage() {
   const [phone, setPhone] = useState("");
@@ -77,81 +76,5 @@ export default function VerifyOTPPage() {
     setOtp(value);
   };
 
-  return (
-    <div className="bg-green-700 bg-gradient-to-br from-green-700 to-green-900 h-[100vh]">
-      <div className="h-3/12 flex justify-center items-center ">
-        <Image src={app_config.APP_LOGO_DARK_THEME} alt="Logo" width={50} className='cursor-pointer block sm:hidden' />
-      </div>
-      <div className="sm:flex justify-center items-center w-full h-9/12 sm:h-fit bg-white sm:bg-transparent rounded-tl-2xl rounded-tr-2xl" >
-        <div className="pt-20 sm:pt-0 w-full sm:w-fit  bg-white rounded-4xl sm:shadow-2xl">
-          <div className="w-full max-w-[450px]  h-full px-6 sm:p-10 ">
-            <div className="space-y-4 w-full">
-              <div className="text-center mb-8">
-
-                <h2 className="text-3xl font-bold text-green-700 mb-2">Verify Your OTP</h2>
-                <p className="text-sm text-gray-600">
-                  {countryCode && phone
-                    ? `We’ve sent an OTP via Whatsapp to ${countryCode}${phone}`
-                    : "We’ve sent an OTP to your phone number"}
-                </p>
-              </div>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  verifyOtp();
-                }}
-                className="space-y-4"
-              >
-                <div>
-                  <InputOTP
-                    maxLength={6}
-                    value={otp}
-                    onChange={handleOtpChange}
-                    className="w-full"
-                  >
-                    <InputOTPGroup className="w-full flex justify-center">
-                      <InputOTPSlot index={0} className="border-gray-300" />
-                      <InputOTPSlot index={1} className="border-gray-300" />
-                      <InputOTPSlot index={2} className="border-gray-300" />
-                      <InputOTPSlot index={3} className="border-gray-300" />
-                      <InputOTPSlot index={4} className="border-gray-300" />
-                      <InputOTPSlot index={5} className="border-gray-300" />
-                    </InputOTPGroup>
-                  </InputOTP>
-                </div>
-
-                <Button
-                  type="submit"
-                  variant={"green"}
-                  className="w-full  py-3 transition duration-200  font-semibold h-12"
-                  loading={buttonLoader}
-                >
-                  Verify OTP
-                </Button>
-              </form>
-
-              <p className="text-sm text-gray-600 text-center">
-                Didn’t receive it?{" "}
-                <a onClick={resendOtp} className="text-green-600 hover:underline cursor-pointer">
-                  Resend OTP
-                </a>
-              </p>
-
-            </div>
-            <p className="text-xs text-gray-500 text-center mt-10">
-              By logging in, you agree to our{" "}
-              <a href="/privacy" target="_blank" className="text-green-600 hover:underline">
-                Privacy Policy
-              </a>{" "}
-              and{" "}
-              <a href="/terms" target="_blank" className="text-green-600 hover:underline">
-                Terms of Service
-              </a>.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  );
+  return <AuthFrame eyebrow="One more step" title="Verify your number" description={countryCode && phone ? `We sent a 6-digit code to WhatsApp at ${countryCode} ${phone}.` : "We sent a 6-digit code to your WhatsApp number."}><form onSubmit={(event) => { event.preventDefault(); verifyOtp(); }} className="space-y-6"><div className="rounded-2xl border border-emerald-100 bg-emerald-50 p-5"><p className="mb-4 text-center text-sm font-medium text-green-800">Enter your verification code</p><InputOTP maxLength={6} value={otp} onChange={handleOtpChange} className="w-full"><InputOTPGroup className="flex w-full justify-center gap-1.5"><InputOTPSlot index={0} className="rounded-lg border-slate-200" /><InputOTPSlot index={1} className="rounded-lg border-slate-200" /><InputOTPSlot index={2} className="rounded-lg border-slate-200" /><InputOTPSlot index={3} className="rounded-lg border-slate-200" /><InputOTPSlot index={4} className="rounded-lg border-slate-200" /><InputOTPSlot index={5} className="rounded-lg border-slate-200" /></InputOTPGroup></InputOTP></div><Button type="submit" variant="green" className="h-[52px] w-full rounded-xl text-base font-semibold shadow-lg shadow-green-200" loading={buttonLoader}>Verify and sign in</Button></form><p className="mt-6 text-center text-sm text-slate-600">Didn’t receive the code? <button type="button" onClick={resendOtp} className="font-semibold text-green-700 hover:underline">Resend OTP</button></p><a href="/auth/login" className="mt-4 block text-center text-sm text-slate-500 hover:text-green-700">Use a different number</a></AuthFrame>;
 }

@@ -5,7 +5,7 @@ import PropertyModel from "@/../models/Property";
 import { getTokenValue } from "@/utils/tokenHandler";
 import { SubscritptionStatus, UserRoles } from "@/utils/contants";
 import { OrganisationModel } from "../../../../models/Organisation";
-import { deleteFromImgbb, uploadToImgbb } from "@/utils/upload_image";
+import { deleteFromCloudinary, uploadToCloudinary } from "@/utils/upload_image";
 import { env } from "../../../../environment";
 
 
@@ -15,7 +15,7 @@ export async function GET(request) {
   try {
     const user = getTokenValue(request);
 
-    if (!user.organisationId) {
+    if (!user?.organisationId && user?.role !== UserRoles.ADMIN) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
     if (!user.role) {
@@ -64,7 +64,7 @@ export async function GET(request) {
 // POST new property
 export async function POST(request) {
   const user = getTokenValue(request);
-  if (!user?.organisationId) {
+  if (!user?.organisationId && user?.role !== UserRoles.ADMIN) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
 
@@ -86,7 +86,7 @@ export async function POST(request) {
       const uploadedImages = [];
 
       for (const image of body.new_images) {
-        const uploaded = await uploadToImgbb(image, env.IMAGE_PROPERTIES);
+        const uploaded = await uploadToCloudinary(image, env.IMAGE_PROPERTIES);
         if (uploaded?.url) {
           uploadedImages.push(uploaded);
         }
@@ -138,7 +138,7 @@ export async function PUT(request) {
       const uploadedImages = [];
 
       for (const image of body.new_images) {
-        const uploaded = await uploadToImgbb(image, env.IMAGE_PROPERTIES);
+        const uploaded = await uploadToCloudinary(image, env.IMAGE_PROPERTIES);
         if (uploaded?.url) {
           uploadedImages.push(uploaded);
         }
@@ -154,7 +154,7 @@ export async function PUT(request) {
 
       if (deletedImages.length) {
         for (const img of deletedImages) {
-          await deleteFromImgbb(img.delete_url);
+          await deleteFromCloudinary(img.delete_url);
         }
       }
 

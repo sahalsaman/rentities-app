@@ -11,7 +11,7 @@ export async function GET(request) {
   try {
     const user = getTokenValue(request);
 
-    if (!user?.organisationId) {
+    if (user?.role !== UserRoles.ADMIN) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 

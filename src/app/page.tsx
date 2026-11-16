@@ -218,7 +218,7 @@ export default function Home() {
                 step: 2,
                 title: "List Your First Property",
                 icon: <Building2 className="w-8 h-8 text-white" />,
-                description: "Enter property details, add photos, and define units/rooms with their specific rates."
+                description: "Enter property details, add photos, and define units with their specific rates."
               },
               {
                 step: 3,

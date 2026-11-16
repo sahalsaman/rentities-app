@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { apiFetch } from "@/lib/api";
 import { FullscreenLoader } from "@/components/Loader";
-import { ArrowRight, BadgeIndianRupee, Building, ChevronRight, CircleDollarSign, Crown, Edit, Globe, Landmark, MapPin, Receipt } from "lucide-react";
+import { ArrowRight, BadgeIndianRupee, Building, ChevronRight, CircleDollarSign, Crown, Edit, Globe, Landmark, MapPin, Receipt, Users } from "lucide-react";
 import { UserRoles } from "@/utils/contants";
 import { IUser } from "@/app/types";
 import { useRouter } from "next/navigation";
@@ -45,6 +45,10 @@ export default function PropertiesPage() {
       title: "Properties",
       path: "/owner/properties",
       icon: <Building className="w-6 h-6 md:w-8 md:h-8 min-w-6 min-h-6" />,
+    },  {
+      title: "Managers",
+      path: "/owner/properties",
+      icon: <Users className="w-6 h-6 md:w-8 md:h-8 min-w-6 min-h-6" />,
     },
     {
       title: "Bank & UPI Details",

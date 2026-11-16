@@ -1,19 +1,17 @@
 "use client";
 import { useState, useEffect } from "react";
 import { apiFetch } from "@/lib/api";
-import Breadcrumbs from "@/components/Breadcrumbs";
+import { PageSkeleton } from "@/components/Loader";
 
 export default function EnquiryPage() {
   const [enquiries, setEnquiries] = useState<any[]>([]);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
   const size = 10;
 
   const fetchEnquiries = async () => {
-    const res = await apiFetch("/api/enquiry");
-    const data = await res.json();
-
-    setEnquiries(Array?.isArray(data) ? data : []);
+    try { const res = await apiFetch("/api/enquiry"); const data = await res.json(); setEnquiries(Array?.isArray(data) ? data : []); } finally { setLoading(false); }
   };
 
   useEffect(() => {
@@ -27,12 +25,10 @@ export default function EnquiryPage() {
   const totalPages = Math.ceil(filtered.length / size);
   const paginated = filtered.slice((page - 1) * size, page * size);
 
+  if (loading) return <PageSkeleton rows={6} />;
   return (
-    <div className="p-5 md:pt-10 md:px-32 mb-10">
-      <Breadcrumbs items={[{ label: "Home", href: "/owner" }, { label: "Enquiries" }]} />
-
-      <div className="flex justify-between mb-6">
-        <h1 className="text-2xl font-bold">Enquiries</h1>
+    <div className="admin-page mb-10">
+      <div className="mb-6 flex items-end justify-between"><div><p className="text-sm font-medium text-green-700">Inbox</p><h1 className="text-2xl font-bold text-slate-900">Enquiries</h1><p className="mt-1 text-sm text-slate-500">Follow up on messages sent from the public site.</p></div><span className="rounded-full bg-emerald-50 px-3 py-1 text-sm font-semibold text-green-700">{enquiries.length} total</span>
       </div>
 
       {/* Search */}
@@ -44,7 +40,7 @@ export default function EnquiryPage() {
       />
 
       {/* Table */}
-      <div className="overflow-x-auto">
+      <div className="admin-table-shell">
         <table className="min-w-full border border-gray-200 rounded-lg">
           <thead className="bg-gray-100">
             <tr>

@@ -21,8 +21,8 @@ const buttonVariants = cva(
         green: "bg-green-700 text-primary-foreground shadow-xs hover:bg-green-600",
       },
       size: {
-        default: "h-12 px-6 py-2 has-[>svg]:px-3",
-        sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
+        default: "h-12 px-4 py-2 has-[>svg]:px-3 rounded-full",
+        sm: "h-8 rounded-lg gap-1.5 px-3 has-[>svg]:px-2.5",
         lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
         icon: "size-9",
       },
@@ -63,9 +63,7 @@ function Button({
       {...props}
     >
       {loading && (
-        <span
-          className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin"
-        ></span>
+        <span className="flex items-center gap-1" aria-label="Loading"><span className="h-2 w-2 rounded-full bg-current animate-pulse" /><span className="h-2 w-2 rounded-full bg-current animate-pulse [animation-delay:150ms]" /><span className="h-2 w-2 rounded-full bg-current animate-pulse [animation-delay:300ms]" /></span>
       )}
       {!loading && children}
     </Comp>

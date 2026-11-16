@@ -8,7 +8,7 @@ export async function GET(request) {
   try {
 
     const user = getTokenValue(request);
-    if (!user?.organisationId) {
+    if (!user?.organisationId && user?.role !== UserRoles.ADMIN) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
     await connectMongoDB();
@@ -39,11 +39,11 @@ export async function PUT(request) {
   await connectMongoDB();
 
   const user = getTokenValue(request);
-  if (!user?.organisationId) {
+  if (!user?.organisationId && user?.role !== UserRoles.ADMIN) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
 
-  if (user.role !== UserRoles.OWNER) {
+  if (user.role !== UserRoles.OWNER && user.role !== UserRoles.ADMIN) {
     return NextResponse.json({ message: "Forbidden" }, { status: 403 });
   }
   const id = user.organisationId;

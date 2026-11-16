@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { apiFetch } from "@/lib/api";
-import Breadcrumbs from "@/components/Breadcrumbs";
+import { PageSkeleton } from "@/components/Loader";
 import { Button } from "@/components/ui/button";
 import LeadForm from "./LeadForm";
 
@@ -11,12 +11,11 @@ export default function LeadsPage() {
   const [editData, setEditData] = useState(null);
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
   const size = 10;
 
   const fetchLeads = async () => {
-    const res = await apiFetch("/api/admin/lead");
-    const data = await res.json();
-    setLeads(Array.isArray(data) ? data : []);
+    try { const res = await apiFetch("/api/admin/lead"); const data = await res.json(); setLeads(Array.isArray(data) ? data : []); } finally { setLoading(false); }
   };
 
   useEffect(() => {
@@ -30,12 +29,10 @@ export default function LeadsPage() {
   const totalPages = Math.ceil(filtered.length / size);
   const paginated = filtered.slice((page - 1) * size, page * size);
 
+  if (loading) return <PageSkeleton rows={6} />;
   return (
-    <div className="p-5 md:pt-10 md:px-32 mb-10">
-      <Breadcrumbs items={[{ label: "Home", href: "/owner" }, { label: "Leads" }]} />
-
-      <div className="flex justify-between mb-6">
-        <h1 className="text-2xl font-bold">Leads</h1>
+    <div className="admin-page mb-10">
+      <div className="mb-6 flex items-end justify-between"><div><p className="text-sm font-medium text-green-700">Pipeline</p><h1 className="text-2xl font-bold text-slate-900">Leads</h1><p className="mt-1 text-sm text-slate-500">Capture, qualify, and keep prospect conversations moving.</p></div><span className="rounded-full bg-emerald-50 px-3 py-1 text-sm font-semibold text-green-700">{leads.length} total</span>
       </div>
 
    <div className="flex justify-between mb-4">
@@ -57,7 +54,7 @@ export default function LeadsPage() {
    </div>
 
       {/* Table */}
-      <div className="overflow-x-auto">
+      <div className="admin-table-shell">
         <table className="min-w-full border border-gray-200 rounded-lg">
           <thead className="bg-gray-100 text-left">
             <tr>

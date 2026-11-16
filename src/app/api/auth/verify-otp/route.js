@@ -44,11 +44,9 @@ export async function POST(req) {
 
   const token = setTokenValue(user);
 
-  return new NextResponse(JSON.stringify({ message: "Login successful", role: user.role }), {
-    status: 200,
-    headers: {
-      "Set-Cookie": `ARP_Token=${token}; HttpOnly; Path=/; Max-Age=604800; SameSite=Strict; Secure`,
-    },
-  });
+  const response = NextResponse.json({ message: "Login successful", role: user.role });
+  const secure = new URL(req.url).protocol === "https:" || req.headers.get("x-forwarded-proto") === "https";
+  response.cookies.set("ARP_Token", token, { httpOnly: true, path: "/", maxAge: 604800, sameSite: "lax", secure });
+  return response;
 }
 

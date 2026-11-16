@@ -11,10 +11,6 @@ export async function GET(request) {
     await connectMongoDB();
     const user = getTokenValue(request);
 
-    if (!user?.organisationId) {
-      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-    }
-
     if (user.role != UserRoles.ADMIN) {
     return NextResponse.json({ message: "Forbidden" }, { status: 403 });
     }

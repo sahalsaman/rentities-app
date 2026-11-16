@@ -33,11 +33,11 @@ export default function BookingListPage() {
   if (loader) return <FullscreenLoader />;
 
   return (
-    <div className="p-5 md:pt-10 md:px-32 mb-10">
+    <div className="p-4 pt-5 md:px-12 lg:px-20 mb-10">
       {/* Unit Header */}
       <div className="flex justify-between items-center  mb-6">
-        <div>
-          <h1 className="text-2xl font-bold">Bookings</h1>
+        <div><p className="text-sm font-medium text-green-700">Occupancy</p>
+          <h1 className="text-2xl font-bold">Bookings</h1><p className="mt-1 text-sm text-slate-500">Keep track of everyone currently staying with you.</p>
           {/* <p className="text-gray-600">Capacity: {unit.capacity}</p>
           <p className="text-gray-600">Price: ${unit.price}</p> */}
         </div>

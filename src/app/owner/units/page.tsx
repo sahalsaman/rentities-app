@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { IUnit } from "@/app/types";
 import { Badge } from "@/components/ui/badge";
 import { apiFetch } from "@/lib/api";
-import Breadcrumbs from "@/components/Breadcrumbs";
 import UnitCard from "@/components/UnitCard";
 import localStorageServiceSelectedOptions from "@/utils/localStorageHandler";
 import UnitAddEditModal from "@/components/UnitFormModal";
@@ -38,8 +37,6 @@ export default function UnitListPage() {
     { label: property?.name || "Property" },
   ];
 
-  if (!units?.length) return <FullscreenLoader />;
-
   return (
     <div className="">
       {/* Property Header */}
@@ -71,16 +68,15 @@ export default function UnitListPage() {
             </Button></div>
         </div>
       </div> */}
-      <div className="p-5 md:pt-10 md:px-32 mb-10">
-        <div className="flex justify-between  items-center  mb-5">
-          <h1 className="text-2xl font-bold">Units</h1>
+      <div className="p-4 pt-5 md:px-12 lg:px-20 mb-10">
+        <div className="mb-5 flex items-end justify-between gap-3"><div><h1 className="text-2xl font-bold">Units</h1><p className="mt-1 text-sm text-slate-500">Add and organise rentable spaces.</p></div>
           <Button onClick={() => setShowUnitModal(true)} variant="green" className="whitespace-nowrap ">
             + Add Unit
           </Button>
         </div>
         {/* Units Grid */}
         {units.length === 0 ? (
-          <p className="text-gray-500 text-center">No units/space found. <br />Add a unit/space to get started.</p>
+          <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center"><p className="font-semibold text-slate-800">No units or rooms yet</p><p className="mt-1 text-sm text-slate-500">Add a unit or room to start accepting bookings.</p></div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {units.map(unit => (

@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import { apiFetch } from "@/lib/api";
-import Breadcrumbs from "@/components/Breadcrumbs";
 import { FullscreenLoader } from "@/components/Loader";
 import { Badge } from "@/components/ui/badge";
 import { useRouter } from 'next/navigation';

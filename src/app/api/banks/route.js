@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getTokenValue, IPayload } from "@/utils/tokenHandler";
 import connectMongoDB from "../../../../database/db";
 import { SelfRecieveBankOrUpiModel } from "../../../../models/SelfRecieveBankOrUpi";
-import { uploadToImgbb } from "@/utils/upload_image";
+import { uploadToCloudinary } from "@/utils/upload_image";
 import { env } from "../../../../environment";
 import { PaymentRecieverOptions } from "@/utils/contants";
 
@@ -33,7 +33,7 @@ export async function POST(req) {
     const body = await req.json();
 
     if (body.paymentRecieverOption == PaymentRecieverOptions.UPIQR) {
-      const image = await uploadToImgbb(body?.qrImage, env.IMAGE_UPI_QR)
+      const image = await uploadToCloudinary(body?.qrImage, env.IMAGE_UPI_QR)
       body.value=image.url
       body.image=image
     }
