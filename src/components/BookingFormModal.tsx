@@ -49,8 +49,18 @@ export default function BookingAddEditModal({ open, onClose, onSave, editData, u
 
   const fetchUnits = () => {
     apiFetch(`/api/unit?propertyId=${property?._id}`)
-      .then((res) => res.json())
-      .then(setUnits);
+      .then(async (res) => {
+        const body = await res.text();
+        if (!res.ok || !body.trim()) return [];
+        try {
+          const data = JSON.parse(body);
+          return Array.isArray(data) ? data : [];
+        } catch {
+          return [];
+        }
+      })
+      .then(setUnits)
+      .catch(() => setUnits([]));
   };
 
   useEffect(() => {

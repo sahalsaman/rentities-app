@@ -140,6 +140,7 @@ export interface IProperty {
   address: string;
   city: string;
   state: string;
+  floor?: string;
   country?: string;
   zipCode?: string;
   status: PropertyStatus;
@@ -160,6 +161,7 @@ export interface IUnit {
   businessId?: any;
   propertyId?: any;
   name?: string;
+  floor?: string;
   type?: string;
   amount?: number;
   advanceAmount?: number;

@@ -80,7 +80,7 @@ export async function POST(request) {
 
     const newUnits = [];
     for (let i = 0; i < (body.numberOfUnits || 1); i++) {
-      const unitData = { ...body, businessId: user.businessId, name: `Unit - ${i + 1}` };
+      const unitData = { ...body, businessId: user.businessId, name: `${i + 1}` };
       delete unitData.isMultipleUnit;
       delete unitData.numberOfUnits;
       const unit = await UnitModel.create(unitData);

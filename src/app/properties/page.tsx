@@ -1,13 +1,12 @@
 "use client";
 
-import { Search, MapPin, X, Menu } from "lucide-react";
+import { Search, MapPin, X, Menu, Building2, Home, Hotel, BriefcaseBusiness, Trees, Dumbbell, Landmark, LayoutGrid } from "lucide-react";
 import { useState, useEffect } from "react";
 import PropertyPublicCard from "@/components/PropertyPublicCard";
 import Image from "next/image";
 import Link from "next/link";
 import { app_config } from "../../../app-config";
 import dummy_image from "../../../public/dummy-property.jpg";
-import { useRouter } from "next/navigation";
 import PropertyTypeSlider from "@/components/PropertiesSlider";
 
 export default function PropertiesPage() {
@@ -15,17 +14,18 @@ export default function PropertiesPage() {
   const [properties, setProperties] = useState<any[]>([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const propertyTypes = [
-    { name: "Flat / Apartment" },
-    { name: "PG / Hostel / Lodge" },
-    { name: "House" },
-    { name: "Co-working" },
-    { name: "Office Space" },
-    { name: "Resort" },
-    { name: "Turf" },
-    { name: "Auditorium" },
+    { name: "Flat / Apartment", icon: Building2 },
+    { name: "PG / Hostel", icon: Hotel },
+    { name: "House", icon: Home },
+    { name: "Co-working", icon: BriefcaseBusiness },
+    { name: "Office Space", icon: Landmark },
+    { name: "Resort", icon: Trees },
+    // { name: "Turf", icon: Dumbbell },
+    // { name: "Auditorium", icon: LayoutGrid },
   ];
 
   // 🔹 Fetch properties from API
@@ -46,6 +46,10 @@ export default function PropertiesPage() {
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    fetchProperties();
+  }, []);
 
 
   // 🔹 Handle search button click
@@ -108,46 +112,54 @@ export default function PropertiesPage() {
       </div>
 
       {/* Search Section */}
-      <div className="bg-white shadow-md rounded-2xl p-4 flex flex-col md:flex-row md:items-center md:justify-between max-w-3xl mx-auto mt-[-50px] relative z-10">
-        <div className="flex flex-wrap md:flex-nowrap gap-4 w-full">
-          <select
-            className=" px-4 py-2 border rounded-xl text-gray-600 md:max-w-40"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option>All</option>
-            {propertyTypes.map((i) => (
-              <option key={i.name}>{i.name}</option>
-            ))}
-          </select>
-          <div className="flex items-center border rounded-xl px-3 py-2 w-full">
-            <MapPin className="text-gray-400 mr-2" size={18} />
+      <div className="relative z-10 mx-3 -mt-12 max-w-4xl rounded-3xl border border-slate-100 bg-white p-4 shadow-xl sm:mx-auto sm:p-5">
+        <div className="flex w-full flex-col gap-4">
+          <div className="flex w-full gap-2 overflow-x-auto pb-1 [scrollbar-width:none]">
+            <button type="button" onClick={() => setCategory("")} className={`flex shrink-0 items-center gap-1.5 rounded-full px-3 py-2 text-xs font-semibold ${!category ? "bg-blue-700 text-white" : "bg-slate-100 text-slate-600"}`}><LayoutGrid size={14} />All</button>
+            {propertyTypes.map((item) => {
+              const Icon = item.icon;
+              return <button type="button" key={item.name} onClick={() => setCategory(item.name)} className={`flex shrink-0 items-center gap-1.5 rounded-full px-3 py-2 text-xs font-semibold ${category === item.name ? "bg-blue-700 text-white" : "bg-slate-100 text-slate-600"}`}><Icon size={14} />{item.name}</button>;
+            })}
+          </div>
+          <div className="flex w-full gap-2">
+
+          <div className="relative flex w-full items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 focus-within:border-blue-500 focus-within:ring-4 focus-within:ring-blue-100">
+            <MapPin className="shrink-0 text-blue-600" size={19} />
             <input
               type="text"
-              placeholder='Search "Kozhikode"'
-              className="outline-none text-gray-700 w-full"
+              placeholder='Search by city, area or property name'
+              className="w-full bg-transparent text-sm text-slate-800 outline-none placeholder:text-slate-400"
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onFocus={() => setShowSuggestions(true)}
+              onChange={(e) => { setSearch(e.target.value); setShowSuggestions(true); }}
             />
+            {showSuggestions && (() => {
+              const suggestions = [...new Set(properties.map((property) => property.city).filter(Boolean))]
+                .filter((item) => item.toLowerCase().includes(search.toLowerCase())).sort().slice(0, 8);
+              return suggestions.length ? <div className="absolute left-0 right-0 top-[calc(100%+0.5rem)] z-30 overflow-hidden rounded-2xl border border-slate-200 bg-white p-1.5 shadow-xl">
+                {suggestions.map((item) => <button type="button" key={item} onMouseDown={(event) => event.preventDefault()} onClick={() => { setSearch(item); setShowSuggestions(false); }} className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm text-slate-700 transition hover:bg-blue-50 hover:text-blue-700"><MapPin size={16} className="text-blue-500" />{item}</button>)}
+              </div> : null;
+            })()}
           </div>
           <button
             onClick={handleSearch}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl flex items-center"
+            className="flex min-h-12 w-full items-center justify-center rounded-2xl bg-blue-700 px-5 py-3 font-semibold text-white shadow-sm transition hover:bg-blue-800 md:w-auto"
           >
             <Search className="mr-2" size={18} /> Search
           </button>
+          </div>
         </div>
       </div>
 
       {/* Property List */}
       <section className="py-12 ">
-        <div className="max-w-6xl mx-auto px-4">
-          {properties?.length ? <h2 className="text-2xl font-bold mb-6 text-gray-800">Available Properties</h2> : ""}
+        <div className="mx-auto max-w-6xl px-4">
+          {properties?.length ? <h2 className="mb-6 text-xl font-bold text-slate-900 sm:text-2xl">Available Properties</h2> : ""}
 
           {loading ? (
             <p className="text-gray-500 text-center">Loading properties...</p>
           ) : properties?.length  ?   (
-            <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-6">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {properties?.map((p: any, i) => (
                 <PropertyPublicCard
                   key={p._id || i}

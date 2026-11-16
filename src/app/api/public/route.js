@@ -17,6 +17,7 @@ export async function GET(req) {
     const id = searchParams.get("id"); // for detail page
     const search = searchParams.get("search")?.trim() || "";
     const category = searchParams.get("category")?.trim() || "";
+    const city = searchParams.get("city")?.trim() || "";
     const page = parseInt(searchParams.get("page") || "1");
     const limit = parseInt(searchParams.get("limit") || "10");
 
@@ -34,7 +35,7 @@ export async function GET(req) {
         return NextResponse.json(data);
       }
 
-      const data = await getProperties(search, category, page, limit);
+      const data = await getProperties(search, category, city, page, limit);
       return NextResponse.json(data);
     }
     return NextResponse.json(
@@ -110,10 +111,11 @@ async function getRecieveAccountDetail(id) {
 }
 
 
-async function getProperties(search, category, page, limit) {
+async function getProperties(search, category, city, page, limit) {
   const query = { deleted: false, disabled: false };
 
   if (category) query.category = category;
+  if (city) query.city = new RegExp(`^${city.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\\\$&")}$`, "i");
 
   if (search) {
     const regex = new RegExp(search, "i"); // case-insensitive search
@@ -138,6 +140,8 @@ async function getProperties(search, category, page, limit) {
       address: 1,
       amenities: 1,
       services: 1,
+      city: 1,
+      state: 1,
     })
       .sort({ createdAt: -1 })
       .skip(skip)

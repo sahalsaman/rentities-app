@@ -19,12 +19,6 @@ export async function apiFetch(url: string, options: RequestInit = {}) {
     credentials: "include", // send cookies
   });
 
-  if (res.status === 401) {
-    if (typeof window !== "undefined") {
-      window.location.href = "/auth/login";
-    }
-  }
-
   return res;
 }
 

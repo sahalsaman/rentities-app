@@ -1,14 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import { IInvoice } from "@/app/types";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import InvoiceFormModal from "../../../components/InvoiceFormModal";
 import { apiFetch } from "@/lib/api";
 import InvoiceCard from "@/components/InvoiceCard";
-import { FullscreenLoader } from "@/components/Loader";
+import { PageSkeleton } from "@/components/Loader";
 import localStorageServiceSelectedOptions from "@/utils/localStorageHandler";
 import { InvoiceStatus } from "@/utils/contants";
 
@@ -19,12 +16,17 @@ export default function Invoices() {
   const [showDelete, setShowDelete] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [loader, setLoader] = useState(false);
-  const property = localStorageServiceSelectedOptions.getItem()?.property;
+  const [property, setProperty] = useState<any>(null);
+  const [propertyLoading, setPropertyLoading] = useState(true);
   const [selectedFilter, setselectedFilter] = useState("");
 
   const fetchInvoices = (status:string) => {
     setLoader(true);
-    apiFetch(`/api/list?page=invoice&&propertyId=${property?._id}${status?'&&status='+status:''}`)
+    if (!property?._id) {
+      setLoader(false);
+      return;
+    }
+    apiFetch(`/api/list?page=invoice&propertyId=${property._id}${status ? '&status=' + encodeURIComponent(status) : ''}`)
       .then(res => {
         if (!res.ok) throw new Error("Failed to fetch invoices");
         return res.json();
@@ -46,10 +48,28 @@ export default function Invoices() {
   };
 
   useEffect(() => {
-    fetchInvoices("");
+    const syncProperty = () => setProperty(localStorageServiceSelectedOptions.getItem()?.property || null);
+    syncProperty();
+    const timer = window.setInterval(syncProperty, 250);
+    const settle = window.setTimeout(() => setPropertyLoading(false), 2000);
+    return () => { window.clearInterval(timer); window.clearTimeout(settle); };
   }, []);
 
-  if (loader) return <FullscreenLoader />;
+  useEffect(() => {
+    if (property?._id) fetchInvoices("");
+  }, [property?._id]);
+
+  if (loader || propertyLoading) return <PageSkeleton rows={4} />;
+
+  if (!property?._id) return (
+    <div className="p-4 pt-5 md:px-12 lg:px-20">
+      <h1 className="text-2xl font-bold">Invoices</h1>
+      <div className="mt-6 rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center">
+        <p className="font-semibold text-slate-800">No property selected</p>
+        <p className="mt-1 text-sm text-slate-500">Add or select a property from Business to view invoices.</p>
+      </div>
+    </div>
+  );
 
   return (
     <div className="p-4 pt-5 md:px-12 lg:px-20 mb-10">

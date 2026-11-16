@@ -18,29 +18,29 @@ interface UnitCardProps {
 export default function UnitCard({ unit, property, onEdit, onDelete, onBook }: UnitCardProps) {
   const router = useRouter();
   return (
-    <Card className="shadow-md py-3" onClick={() => router.push(`/owner/units/${unit._id}`)}>
+    <Card className={`cursor-pointer border-2 py-2 shadow-sm transition-colors ${unit.status === "Booked" ? "border-emerald-200 bg-emerald-100" : unit.status === "Maintenance" ? "border-amber-200 bg-amber-100" : "border-slate-200 bg-slate-50"}`} onClick={() => router.push(`/owner/units/${unit._id}`)}>
 
-      <CardContent className="px-3 ">
+      <CardContent className="px-2 sm:px-3">
 
-        <CardTitle className="flex justify-between items-center">
+        <CardTitle className="">
           <span
             className={`px-2 py-1 rounded-md text-xs font-medium ${statusColorMap[unit.status] || "bg-gray-100 text-gray-800"
               }`}
           >
             {unit.status}
           </span>
-          <p className="font-bold">
+          <p className="text-xs font-bold sm:text-base mt-2">
             {property?.currency}{unit.amount?.toLocaleString()}
           </p>
         </CardTitle>
-        <h2 className="font-bold mt-1">{unit.name}</h2>
+        <h2 className="mt-1 truncate text-xs font-bold sm:text-base">{unit.name}</h2>
 
         {/* <p className="text-gray-700">{unit.description}</p> */}
 
-        {unit.type && <p className="text-sm text-gray-500">Type: {unit.type}</p>}
+        {unit.type && <p className="hidden text-sm text-gray-500 sm:block">Type: {unit.type}</p>}
 
 
-        <div className="flex justify-between gap-2 mt-4">
+        <div className="flex justify-between items-center gap-2">
           {/* <Button variant="secondary" onClick={() => onEdit(unit)}>
             <Pencil className="w-4 h-4 mr-1" /> Edit
           </Button> */}
@@ -51,10 +51,11 @@ export default function UnitCard({ unit, property, onEdit, onDelete, onBook }: U
             Add Enrolment
           </Button> */}
        
-        {unit.noOfSlots > 1 ? <p className="text-sm text-gray-500">Slots: {(unit?.currentBooking ?? 0)}/{unit.noOfSlots}</p>:<p></p>}
+        {unit.noOfSlots > 1 ? <p className="text-[10px] text-gray-500 sm:text-sm">{(unit?.currentBooking ?? 0)}/{unit.noOfSlots}</p>:<p></p>}
           <button className='hover:text-gray-700 transition flex items-center gap-1 cursor-pointer '
             onClick={() => router.push(`/owner/properties/${property._id}/${unit._id}`)}
-          >  <span className="text-sm">View Details</span>
+          >
+            <span className="text-sm">View Details</span>
             <ArrowRight size={18} />
           </button>
 

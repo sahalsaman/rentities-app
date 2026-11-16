@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { apiFetch } from "@/lib/api";
-import { FullscreenLoader } from "@/components/Loader";
+import { PageSkeleton } from "@/components/Loader";
 import { Badge } from "@/components/ui/badge";
 import { useRouter } from 'next/navigation';
 import { UserRoles } from "@/utils/contants";
@@ -39,15 +39,15 @@ export default function PropertiesPage() {
     { label: "Home", href: "/owner" },
     { label: "Profile" },
   ];
-  if (!user) return <FullscreenLoader />;
+  if (!user) return <PageSkeleton rows={4} />;
 
   return (
-    <div>
-      <div className="flex flex-col justify-between items-start md:items-center gap-3 bg-slate-100 md:p-14 md:px-32 p-8 shadow-sm">
+    <div className="mx-auto w-full max-w-3xl px-3 py-3 sm:px-5">
+      <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
         {/* <Breadcrumbs items={breadcrumbItems} /> */}
         <div className="w-full flex justify-between ">
           <div className="w-full flex flex-col md:flex-row md:gap-4 gap-2">
-            <div className="w-18 h-18 bg-blue-200 rounded-full flex items-center justify-center text-gray-500 text-2xl font-bold">
+            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-blue-100 text-xl font-bold text-blue-700">
               {user?.firstName?.slice(0, 2).toUpperCase()}
             </div>
             <div >
@@ -62,7 +62,7 @@ export default function PropertiesPage() {
           </Button>
         </div>
       </div>
-      <div className="flex flex-col text-md m-4 md:mx-32">
+      <div className="mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-white text-sm shadow-sm">
         <a className="p-4 border-b-1 border-b-gray-200 flex justify-between items-center" href='/privacy'
           target="_blank">
           Privacy and policy <ChevronRight/>
@@ -79,10 +79,10 @@ export default function PropertiesPage() {
           target="_blank">
           Help & Support <ChevronRight/>
         </a>
-        <a onClick={() => { logout(); }}
+        <button onClick={() => { logout(); }}
           className="p-4 border-b-1 border-b-gray-200 text-red-600 cursor-pointer">
           Logout
-        </a>
+        </button>
       </div>
     </div>
   );

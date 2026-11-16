@@ -78,7 +78,7 @@ export default function SubscriptionPlan() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <section id="pricing" className="py-6 md:py-24 md:px-32 px-5 bg-slate-50 text-left">
+      <div id="pricing" className="py-6 md:py-24 md:px-32 px-5 bg-slate-50 text-left">
         <h2 className="text-xl sm:text-2xl font-bold mb-4">Pricing Plans</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 max-w-4xl sm:max-w-6xl mx-auto">
           {subscriptionPlans.map((plan, index) => (
@@ -109,7 +109,7 @@ export default function SubscriptionPlan() {
             </div>
           ))}
         </div>
-      </section>
+      </div>
 
       <Dialog open={openDetailPopup} onOpenChange={setOpenDetailPopup}>
         <DialogContent>

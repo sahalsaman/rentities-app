@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { apiFetch } from "@/lib/api";
-import { FullscreenLoader } from "@/components/Loader";
+import { PageSkeleton } from "@/components/Loader";
 import { ArrowRight, BadgeIndianRupee, Building, ChevronRight, CircleDollarSign, Crown, Edit, Globe, Landmark, MapPin, Receipt, Users } from "lucide-react";
 import { UserRoles } from "@/utils/contants";
 import { IUser } from "@/app/types";
@@ -38,7 +38,7 @@ export default function PropertiesPage() {
     { label: "Home", href: "/owner" },
     { label: "Business" },
   ];
-  if (!business) return <FullscreenLoader />;
+  if (!business) return <PageSkeleton rows={5} />;
 
   const ownerOptions = [
     {
@@ -69,12 +69,12 @@ export default function PropertiesPage() {
 
 
   return (
-    <div>
-      <div className=" bg-slate-100 md:p-14 md:px-32 p-5 shadow-sm">
+    <div className="mx-auto w-full max-w-3xl px-3 py-3 sm:px-5">
+      <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
         {/* <Breadcrumbs items={breadcrumbItems} /> */}
         <div className="w-full flex justify-between ">
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-blue-200 rounded-md flex items-center justify-center text-gray-500 text-2xl">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-blue-100 text-2xl font-bold text-blue-700">
               {business?.name?.charAt(0).toUpperCase()}
             </div>
             <div >
@@ -91,7 +91,7 @@ export default function PropertiesPage() {
           {business?.website ? <p className="flex gap-1 items-center"><Globe size={14} />{business?.website}</p> : ""}
         </div>
       </div>
-      <div className=" p-1 md:pt-10 md:px-32 mb-10">
+      <div className="mt-4 mb-10 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
 
 
         <div className="flex flex-col text-md">

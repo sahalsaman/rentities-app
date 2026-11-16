@@ -21,7 +21,7 @@ const sections = [
   { id: "cover", label: "RENTITIES", page: 1 },
   { id: "auth", label: "Auth", page: 2 },
   { id: "dashboard", label: "Dashboard", page: 3 },
-  { id: "org", label: "Organization", page: 4 },
+  { id: "org", label: "Business", page: 4 },
   { id: "property", label: "Property", page: 5 },
   { id: "units", label: "Units", page: 6 },
   { id: "bookings", label: "Bookings", page: 7 },
@@ -119,7 +119,7 @@ export default function RentitiesDocumentation() {
 
       {/* MAIN CONTENT */}
       <main className="flex-1 min-w-0 w-full">
-        <div className=" py-8 lg:py-12 space-y-12 lg:space-y-24 pb-24">
+        <div className="px-3 py-6 sm:px-5 lg:px-8 lg:py-12 space-y-12 lg:space-y-24 pb-24">
           <section id="cover" className="scroll-mt-24"><CoverSlidePage /></section>
           <section id="auth" className="scroll-mt-24"><AuthenticationFlowPage /></section>
           <section id="dashboard" className="scroll-mt-24"><DashboardOverviewPage /></section>

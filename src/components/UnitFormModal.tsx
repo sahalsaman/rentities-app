@@ -117,17 +117,22 @@ export default function UnitAddEditModal({ property, open, onClose, onSave, edit
             </>
           ) : (
             <>
-              <Label>Number of Units*</Label>
+            <Label>Number of Units*</Label>
               <Input
                 name="numberOfUnits"
                 type="number"
-                placeholder="eg: 5"
+                placeholder="eg: 5 (creates units 1, 2, 3...)"
                 value={formData.numberOfUnits || ""}
                 onChange={handleChange}
                 required
               />
             </>
           )}
+          <Label>Floor*</Label>
+          <select name="floor" value={formData.floor || "Ground"} onChange={handleChange} required>
+            <option value="Ground">Ground floor</option>
+            {Array.from({ length: 20 }, (_, index) => <option key={index + 1} value={String(index + 1)}>Floor {index + 1}</option>)}
+          </select>
           <Label>Description</Label>
           <Textarea
             name="description"

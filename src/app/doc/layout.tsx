@@ -41,7 +41,7 @@ export default function RootLayout({
               RENTITIES Documentation
             </div>
             <div className="text-sm opacity-80 hidden md:block">
-              Owner App Guide • Version 1.0
+              Owner App Guide • Version 1.1
             </div>
           </div>
         </div>

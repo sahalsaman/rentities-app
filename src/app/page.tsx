@@ -94,7 +94,7 @@ export default function Home() {
       <div className="bg-white  px-6 py-4 space-y-8 text-xl text-center flex flex-col">
         <div className="flex justify-between mb-8 mt-4">
           <div className="flex items-center gap-3">
-            <Image src={app_config.APP_LOGO} alt="Logo" width={30} className='cursor-pointer' />
+            <Image src={app_config.APP_LOGO} alt="Logo" height={26} className='cursor-pointer' />
           </div>
           <button className="" onClick={() => setMenuOpen(!menuOpen)}>
             <X className="h-8 w-8 text-gray-700 font-light" />
@@ -119,9 +119,9 @@ export default function Home() {
     <main className="public-site min-h-screen bg-white text-gray-800 ">
       {/* Navbar */}
 
-      <header className="flex justify-between items-center px-4 md:px-24 py-5  shadow-md bg-white sticky top-0 z-50">
+      <header className="flex justify-between items-center px-4 md:px-24 py-5  bg-white sticky top-0 z-50">
         <div className="flex items-center gap-3">
-          <Image src={app_config.LOGO_WITH_NAME} alt="Logo" height={32} className=' cursor-pointer' />
+          <Image src={app_config.LOGO_WITH_NAME} alt="Logo" height={26} className=' cursor-pointer' />
         </div>
         <nav className="hidden md:flex space-x-4 md:space-x-6 items-center text-sm md:text-base">
           <Link href="#setup-guide">Setup Guide</Link>
@@ -152,7 +152,7 @@ export default function Home() {
               transition={{ duration: 0.4, delay: 0 }}
               className="text-4xl md:text-6xl font-extrabold leading-tight mb-4 animate-fade-in-up"
             >
-              Discover & Manage  <span className="text-sky-100">Your Rental Assets Effortlessly</span>
+              Discover & Manage  <span className="">Your Rental Assets Effortlessly</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -178,7 +178,7 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0 }}
-                  className="bg-blue-700 border border-white text-white font-semibold rounded-full px-8 py-3 hover:bg-blue-100 hover:text-blue-700 transition"
+                  className="bg-blue-700  border-white text-white font-semibold rounded-full px-8 py-3 hover:bg-blue-100 hover:text-blue-700 transition"
                 >
                   Setup Guide
                 </motion.button>

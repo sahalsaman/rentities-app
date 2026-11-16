@@ -41,7 +41,7 @@ export default function PropertiesPage() {
     <div className="p-4 pt-5 md:px-12 lg:px-20 mb-10">
       <div className="mb-6 flex items-end justify-between gap-3"><div><p className="text-sm font-medium text-blue-700">Your portfolio</p><h1 className="text-2xl font-bold">Properties</h1><p className="mt-1 text-sm text-slate-500">Manage spaces your tenants call home.</p></div>
         {business?.subscription && <Button onClick={() => { setAddEditOpen(true); setSelectedProperty(null); }} variant="blue">
-          <span className="hidden sm:inline">Add Property</span><span className="sm:hidden">+ Add</span>
+          <span className="hidden sm:inline">Add Property</span><span className="sm:hidden">+ Add Property</span>
         </Button>}
       </div>
 

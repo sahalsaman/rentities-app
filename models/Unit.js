@@ -6,6 +6,7 @@ const UnitSchema = new Schema(
     businessId: { type: Types.ObjectId, ref: "Business", required: true },
     propertyId: { type: Types.ObjectId, ref: "Property", required: true },
     name: String,
+    floor: { type: String, default: "Ground" },
     type: String, // Example: 2BHK, 4 Bed
     amount: Number,
     advanceAmount: Number,

@@ -20,7 +20,7 @@ const SubscriptionPaymentSchema = new Schema(
   { timestamps: true }
 );
 
-const OrgSubscriptionSchema = new Schema({
+const BusinessSubscriptionSchema = new Schema({
   plan: { type: String, enum:SubscritptionPlan, required: true },
   planId: { type: String, required: true,default:"arp_subscription_trial" },
   status: { type: String, enum: Object.values(SubscritptionStatus), default: SubscritptionStatus.FREE },
@@ -64,7 +64,7 @@ const BusinessSchema = new Schema(
     logo: String,
     owner: { type: Types.ObjectId, ref: "User", required: true },
     website: String,
-    subscription: OrgSubscriptionSchema,
+    subscription: BusinessSubscriptionSchema,
     vendorRazerpayAccount: vendorRazerpayAccountSchema,
     selctedSelfRecieveBankOrUpi: { type: Types.ObjectId, ref: "SelfRecieveBankOrUpi" },
     is_paymentRecieveSelf: { type: Boolean },

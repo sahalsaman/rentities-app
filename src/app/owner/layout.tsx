@@ -1,7 +1,7 @@
 'use client';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import { User, Home, Building2, Store, Building, Lamp, Bell, Users, ReceiptText, BriefcaseBusiness, BedIcon } from 'lucide-react';
+import { User, Home, Building, Bell, Users, ReceiptText, BriefcaseBusiness, BedIcon } from 'lucide-react';
 import localStorageServiceSelectedOptions from '@/utils/localStorageHandler';
 import Image from 'next/image';
 import { apiFetch } from '@/lib/api';
@@ -103,15 +103,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <div className="flex items-center gap-2" 
                 onClick={() => router.push('/owner/dashboard')} >
               <Image src={app_config.APP_LOGO} alt="Logo" height={32} className='cursor-pointer'/>
-              <Image src={app_config.LOGO_NAME} alt="Logo" height={32} className='cursor-pointer'/>
             </div>
 
           </div>
           <div className="hidden lg:flex items-center gap-4">
             <div className="flex items-center gap-4" 
                 onClick={() => router.push('/owner/dashboard')}>
-              <Image src={app_config.APP_LOGO} alt="Logo" height={30} className='cursor-pointer' />
-              <Image src={app_config.LOGO_NAME} alt="Logo" height={30} className='cursor-pointer' /></div>
+              <Image src={app_config.APP_LOGO} alt="Logo" height={30} className='cursor-pointer' /></div>
             {options.map((card, idx) => (
               <div
                 key={idx}
@@ -151,7 +149,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 </div> :
                   business?.subscription ?
                     <Button className=" w-full text-white bg-blue-700 font-semibold text-md rounded-xl px-8 py-6 hover:bg-blue-100 transition" onClick={() => router.push('/owner/properties')}>
-                      Add Property
+                      + Add Property
                     </Button> :
                     <Button className=" w-full text-white bg-blue-700 font-semibold text-md rounded-xl px-8 py-6 hover:bg-blue-100 transition" onClick={() => router.push('/owner/subscription-plan')}>
                       Start Free Trial
@@ -192,9 +190,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             :
             business?.subscription ?
               <Button className=" w-full bg-blue-700 text-white font-semibold text-md rounded-xl px-8 py-6 hover:bg-blue-100 transition" onClick={() => router.push('/owner/properties')}>
-                Add Property
+                + Add Property
               </Button> :
-              <Button className=" w-full bg-white text-blue-700 font-semibold text-md rounded-xl px-8 py-6 hover:bg-blue-100 transition" onClick={() => router.push('/owner/subscription-plan')}>
+              <Button className=" w-full bg-blue-700 text-white font-semibold text-md rounded-xl px-8 py-6 hover:bg-blue-100 transition" onClick={() => router.push('/owner/subscription-plan')}>
                 Start Free Trial
               </Button>
           }

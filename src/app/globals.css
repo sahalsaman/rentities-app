@@ -135,6 +135,41 @@ select {
   @apply w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500;
 }
 
+/* Shared non-admin form language: inputs, selects and textareas should feel like one control. */
+.owner-shell input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+.owner-shell select,
+.owner-shell textarea,
+body:has([data-slot="dialog-content"]) input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+body:has([data-slot="dialog-content"]) select,
+body:has([data-slot="dialog-content"]) textarea {
+  min-height: 3rem;
+  border: 1px solid #dbe4f0;
+  border-radius: 0.75rem;
+  background: #ffffff;
+  padding: 0.75rem 0.875rem;
+  color: #17243d;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  outline: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.owner-shell input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):focus,
+.owner-shell select:focus,
+.owner-shell textarea:focus,
+body:has([data-slot="dialog-content"]) input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):focus,
+body:has([data-slot="dialog-content"]) select:focus,
+body:has([data-slot="dialog-content"]) textarea:focus {
+  border-color: #1677e8;
+  box-shadow: 0 0 0 4px rgb(22 119 232 / 0.12);
+}
+
+.owner-shell textarea,
+body:has([data-slot="dialog-content"]) textarea {
+  min-height: 6rem;
+  resize: vertical;
+}
+
 /* Font variables are already set via next/font */
 .font-poppins {
   font-family: var(--font-poppins), system-ui, sans-serif;

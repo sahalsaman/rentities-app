@@ -16,10 +16,6 @@ export async function GET(request) {
 
     const user = getTokenValue(request);
 
-    if (!user?.businessId && user?.role !== UserRoles.ADMIN) {
-      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-    }
-
     if (!user?.id) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
@@ -46,7 +42,7 @@ export async function PUT(request) {
 
     const user = getTokenValue(request);
 
-    if ((!user?.businessId && user?.role !== UserRoles.ADMIN) || !user?.id) {
+    if (!user?.id || (!user?.businessId && user?.role !== UserRoles.ADMIN)) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 

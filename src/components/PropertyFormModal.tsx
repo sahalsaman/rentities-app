@@ -15,12 +15,13 @@ import { CurrencyType, PaymentRecieverOptions, PropertyStatus, PropertyType } fr
 import { Textarea } from './ui/textarea';
 import { Switch } from './ui/switch';
 import { apiFetch } from '@/lib/api';
-import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { propertyAmenities, propertyServices } from '@/utils/data';
 import MultiSelect from './ui/multiselect';
 import Image from 'next/image';
 import imageCompression from "browser-image-compression";
+import BankFormModal from './BankFormModal';
+import { countries } from '@/utils/countries';
 
 interface PropertyFormModalProps {
   open: boolean;
@@ -44,6 +45,7 @@ const [formData, setFormData] = useState<IProperty>({
   category: PropertyType.FLAT_APARTMENT,
   status: PropertyStatus.ACTIVE,
   state: '',
+  floor: '',
   country: '',
   zipCode: '',
   images: [],
@@ -58,7 +60,11 @@ const [formData, setFormData] = useState<IProperty>({
   const [banksList, setBanksList] = useState([]);
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [existingImages, setExistingImages] = useState([]);
-  const router = useRouter()
+  const [bankModalOpen, setBankModalOpen] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [showCountrySuggestions, setShowCountrySuggestions] = useState(false);
+  const [showCitySuggestions, setShowCitySuggestions] = useState(false);
+  const [showStateSuggestions, setShowStateSuggestions] = useState(false);
   const fetchBanks = async () => {
     const res = await apiFetch("/api/banks");
     const data = await res.json();
@@ -79,6 +85,7 @@ const [formData, setFormData] = useState<IProperty>({
         name: '',
         address: '',
         city: '',
+        floor: '',
       }));
     }
   }, [initialData]);
@@ -109,6 +116,7 @@ const [formData, setFormData] = useState<IProperty>({
         category: PropertyType.FLAT_APARTMENT,
         status: PropertyStatus.ACTIVE,
         state: "",
+        floor: '',
         country: '',
         zipCode: '',
         images: [],
@@ -124,6 +132,8 @@ const [formData, setFormData] = useState<IProperty>({
 
 
   const handleSave = async (formData: any) => {
+    if (saving) return;
+    setSaving(true);
     try {
       let res;
       let base64Images: string[] = [];
@@ -173,6 +183,8 @@ const [formData, setFormData] = useState<IProperty>({
     } catch (error: any) {
       console.error("Save error:", error);
       toast.error(error.message || "Something went wrong. Please try again.");
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -216,7 +228,7 @@ const [formData, setFormData] = useState<IProperty>({
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto overscroll-contain p-6">
+      <DialogContent className="max-h-[92vh] w-[calc(100%-1rem)] max-w-2xl overflow-y-auto overscroll-contain rounded-2xl p-4 sm:p-6">
         <DialogHeader>
           <DialogTitle>{initialData ? 'Edit' : 'Add'} Property</DialogTitle>
         </DialogHeader>
@@ -242,7 +254,7 @@ const [formData, setFormData] = useState<IProperty>({
                     className="relative w-full h-24 border rounded-lg overflow-hidden group"
                   >
                     <Image src={image?.url} alt={`Existing ${i}`} fill className="object-cover" />
-                    <button
+              <button
                       type="button"
                       onClick={() =>
                         setExistingImages((prev) => prev.filter((_, index) => index !== i))
@@ -326,7 +338,7 @@ const [formData, setFormData] = useState<IProperty>({
                 {/* Add Bank Button */}
                 <button
                   type="button"
-                  onClick={() => router.push("/owner/bank-upi-list")}
+                  onClick={() => setBankModalOpen(true)}
                   className="px-3 py-1 bg-blue-700 text-xs text-white rounded hover:bg-blue-800"
                 >
                   Add Bank/UPI
@@ -359,24 +371,30 @@ const [formData, setFormData] = useState<IProperty>({
             onChange={handleChange}
             placeholder="Address"
             required
-          />
-          <Label>City*</Label>
-          <Input
-            name="city"
-            value={formData.city}
-            onChange={handleChange}
-            placeholder="City"
-            required
-          />
+          />      <div>
+            <Label htmlFor="property-country">Country*</Label>
+            <div className="relative">
+              <Input id="property-country" name="country" value={formData.country} onFocus={() => setShowCountrySuggestions(true)} onChange={(event) => { handleChange(event); setShowCountrySuggestions(true); }} placeholder="Search country" required />
+              {showCountrySuggestions && (() => { const matches = countries.filter((item) => item.name.toLowerCase().includes((formData.country || "").toLowerCase())).slice(0, 8); return matches.length ? <div className="absolute left-0 right-0 top-full z-50 mt-1 max-h-52 overflow-y-auto rounded-xl border border-slate-200 bg-white p-1 shadow-xl">{matches.map((item) => <button type="button" key={item.name} className="block w-full rounded-lg px-3 py-2 text-left text-sm hover:bg-blue-50" onClick={() => { setFormData((prev) => ({ ...prev, country: item.name, city: "" })); setShowCountrySuggestions(false); }}>{item.name}</button>)}</div> : null; })()}
+            </div>
+          </div>
 
-          <Label>State*</Label>
-          <Input
-            name="state"
-            value={formData.state}
-            onChange={handleChange}
-            placeholder="State"
-            required
-          />
+          <div className="relative">
+            <Label htmlFor="property-state">State*</Label>
+            <Input id="property-state" name="state" value={formData.state} onFocus={() => setShowStateSuggestions(true)} onChange={(event) => { handleChange(event); setShowStateSuggestions(true); }} placeholder={formData.country ? `Search states in ${formData.country}` : "Select country first"} required />
+            {showStateSuggestions && (() => { const country = countries.find((item) => item.name === formData.country); const matches = (country?.states || []).filter((item) => item.toLowerCase().includes((formData.state || "").toLowerCase())).slice(0, 8); return matches.length ? <div className="absolute left-0 right-0 top-full z-50 mt-1 max-h-52 overflow-y-auto rounded-xl border border-slate-200 bg-white p-1 shadow-xl">{matches.map((item) => <button type="button" key={item} className="block w-full rounded-lg px-3 py-2 text-left text-sm hover:bg-blue-50" onClick={() => { setFormData((prev) => ({ ...prev, state: item })); setShowStateSuggestions(false); }}>{item}</button>)}</div> : null; })()}
+          </div>
+          <div className="relative">
+            <Label htmlFor="property-city">City*</Label>
+            <Input id="property-city" name="city" value={formData.city} onFocus={() => setShowCitySuggestions(true)} onChange={(event) => { handleChange(event); setShowCitySuggestions(true); }} placeholder={formData.country ? `Search cities in ${formData.country}` : "Select country first"} required />
+            {showCitySuggestions && formData.country && (() => {
+              const country = countries.find((item) => item.name === formData.country);
+              const cityList = country ? [...country.cities.tier1, ...country.cities.tier2, ...country.cities.tier3] : [];
+              const matches = cityList.filter((item) => item.toLowerCase().includes((formData.city || "").toLowerCase())).slice(0, 8);
+              return matches.length ? <div className="absolute left-0 right-0 top-full z-50 mt-1 max-h-52 overflow-y-auto rounded-xl border border-slate-200 bg-white p-1 shadow-xl">{matches.map((item) => <button type="button" key={item} className="block w-full rounded-lg px-3 py-2 text-left text-sm hover:bg-blue-50" onClick={() => { setFormData((prev) => ({ ...prev, city: item })); setShowCitySuggestions(false); }}>{item}</button>)}</div> : null;
+            })()}
+          </div>
+
           <Label>Amenities</Label>
                 <MultiSelect
   options={propertyAmenities.map((a) => ({
@@ -457,12 +475,13 @@ const [formData, setFormData] = useState<IProperty>({
             <Button type="button" variant="secondary" onClick={onClose}>
               Cancel
             </Button>
-            <Button type="submit" className='w-full' variant="blue">
+            <Button type="submit" className='w-full' variant="blue" loading={saving}>
               {initialData ? 'Update' : 'Submit'}
             </Button>
           </div>
         </form>
       </DialogContent>
+      <BankFormModal open={bankModalOpen} onClose={() => setBankModalOpen(false)} onSave={() => { setBankModalOpen(false); fetchBanks(); }} />
     </Dialog >
   );
 }

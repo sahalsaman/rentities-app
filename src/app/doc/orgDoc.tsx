@@ -11,7 +11,7 @@ export default function OrganizationManagementPage() {
         <div className="border-b border-gray-100 pb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
             <h1 className="text-3xl md:text-4xl font-bold font-montserrat text-blue-700">
-              Organization Management
+              Business Management
             </h1>
             <p className="text-lg text-gray-500 mt-2">
               Centralized control for multi-property portfolios
@@ -35,7 +35,7 @@ export default function OrganizationManagementPage() {
                   <Building2 className="w-8 h-8" />
                 </div>
                 <p className="font-montserrat font-bold text-lg">
-                  Global Estates LLC
+                  Global Estates Business
                 </p>
                 <span className="inline-block mt-2 text-xs font-semibold bg-amber-500 px-3 py-1 rounded-full uppercase">
                   Pro Plan
@@ -52,7 +52,7 @@ export default function OrganizationManagementPage() {
               {/* List */}
               <OrgItem icon={<CreditCard className="w-5 h-5" />} title="Billing & Subscription" desc="Manage plan and invoices" />
               <OrgItem icon={<Wallet className="w-5 h-5" />} title="Payment Methods" desc="Configure payout accounts" bg="bg-blue-100" color="text-blue-600" />
-              <OrgItem icon={<Settings className="w-5 h-5" />} title="Org Settings" desc="General preferences" bg="bg-gray-100" color="text-gray-600" />
+                <OrgItem icon={<Settings className="w-5 h-5" />} title="Business Settings" desc="General preferences" bg="bg-gray-100" color="text-gray-600" />
             </div>
           </div>
 
@@ -62,19 +62,19 @@ export default function OrganizationManagementPage() {
             <div className="mb-10">
               <h3 className="flex items-center gap-3 text-2xl font-bold font-montserrat text-gray-800 mb-4">
                 <Map className="text-blue-700 w-6 h-6" />
-                Unified Organization Structure
+                Unified Business Structure
               </h3>
               <ul className="space-y-4 text-gray-600 text-base leading-relaxed">
                 <li className="flex items-start gap-3">
                   <CircleCheck className="text-blue-400 mt-1 flex-shrink-0" size={20} />
                   <span>
-                    <strong>Single Sign-On Access:</strong> Manage multiple properties under one organization without switching logins.
+                    <strong>Single Sign-On Access:</strong> Manage multiple properties under one business without switching logins.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CircleCheck className="text-blue-400 mt-1 flex-shrink-0" size={20} />
                   <span>
-                    <strong>Centralized Dashboard:</strong> Aggregated views at organization level with property-wise control.
+                    <strong>Centralized Dashboard:</strong> Aggregated views at business level with property-wise control.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
@@ -96,7 +96,7 @@ export default function OrganizationManagementPage() {
                 <li className="flex items-start gap-3">
                   <CircleCheck className="text-blue-400 mt-1 flex-shrink-0" size={20} />
                   <span>
-                    <strong>Organization-Level Billing:</strong> One subscription covers all linked properties.
+                    <strong>Business-Level Billing:</strong> One subscription covers all linked properties.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
@@ -112,7 +112,7 @@ export default function OrganizationManagementPage() {
                 <p className="text-sky-700 text-sm flex items-start gap-2">
                   <Info className="flex-shrink-0 mt-0.5" size={16} />
                   <span>
-                    <strong>Pro Tip:</strong> Upgrading the organization plan instantly unlocks premium features for all properties.
+                    <strong>Pro Tip:</strong> Upgrading the business plan instantly unlocks premium features for all properties.
                   </span>
                 </p>
               </div>
