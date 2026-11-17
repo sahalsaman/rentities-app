@@ -106,7 +106,7 @@ export default function UnitListPage() {
                 </button>
                 {isOpen && <div className="grid grid-cols-3 gap-2 border-t border-slate-100 p-2 sm:grid-cols-2 md:grid-cols-8 md:gap-4 md:p-4">
                   {floorUnits.map(unit => <UnitCard key={unit._id} unit={unit} property={property} onEdit={(item) => { setEditUnitData(item); setShowUnitModal(true); }} onDelete={() => fetchUnits()} onBook={(item) => { setSelectedUnit(item); setShowBookingModal(true); }} />)}
-                  <button type="button" onClick={() => setShowUnitModal(true)} className="flex min-h-24 flex-col items-center justify-center rounded-xl border border-dashed border-slate-300 bg-slate-50 text-xs font-semibold text-slate-500 "  style={{minHeight:"100px"}}><Plus size={18} />Add unit</button>
+                  {/* <button type="button" onClick={() => setShowUnitModal(true)} className="flex min-h-24 flex-col items-center justify-center rounded-xl border border-dashed border-slate-300 bg-slate-50 text-xs font-semibold text-slate-500 "  style={{minHeight:"0px"}}><Plus size={18} />Add unit</button> */}
                 </div>}
               </section>;
             })}

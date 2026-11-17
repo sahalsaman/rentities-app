@@ -21,6 +21,7 @@ import MultiSelect from './ui/multiselect';
 import Image from 'next/image';
 import imageCompression from "browser-image-compression";
 import BankFormModal from './BankFormModal';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { countries } from '@/utils/countries';
 
 interface PropertyFormModalProps {
@@ -424,52 +425,14 @@ const [formData, setFormData] = useState<IProperty>({
 
 
           <Label>Status*</Label>
-          <select
-            name="status"
-            value={formData.status || ""}
-            onChange={handleChange}
-            className="w-full h-12 border border-gray-300 rounded px-3 py-2"
-            required
-          >
-            <option value="">Select a status</option>
-            {Object.values(PropertyStatus).map((type) => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
-          </select>
+          <Select value={formData.status || undefined} onValueChange={(value) => setFormData((prev) => ({ ...prev, status: value as PropertyStatus }))}><SelectTrigger><SelectValue placeholder="Select a status" /></SelectTrigger><SelectContent>{Object.values(PropertyStatus).map((type) => <SelectItem key={type} value={type}>{type}</SelectItem>)}</SelectContent></Select>
 
 
           <Label>Category*</Label>
-          <select
-            name="category"
-            value={formData.category || ""}
-            onChange={handleChange}
-            className="w-full h-12 border border-gray-300 rounded px-3 py-2"
-            required
-          >
-            <option value="">Select a category</option>
-            {Object.values(PropertyType).map((type) => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
-          </select>
+          <Select value={formData.category || undefined} onValueChange={(value) => setFormData((prev) => ({ ...prev, category: value as PropertyType }))}><SelectTrigger><SelectValue placeholder="Select a category" /></SelectTrigger><SelectContent>{Object.values(PropertyType).map((type) => <SelectItem key={type} value={type}>{type}</SelectItem>)}</SelectContent></Select>
 
           <Label>Currency*</Label>
-          <select
-            name="currency"
-            value={formData.currency || "₹"}
-            onChange={handleChange}
-            className="w-full h-12 border border-gray-300 rounded px-3 py-2"
-            required
-          >
-            {Object.entries(CurrencyType).map(([code, symbol]) => (
-              <option key={code} value={symbol}>
-                {code} - {symbol}
-              </option>
-            ))}
-          </select>
+          <Select value={formData.currency || "₹"} onValueChange={(value) => setFormData((prev) => ({ ...prev, currency: value as CurrencyType }))}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{Object.entries(CurrencyType).map(([code, symbol]) => <SelectItem key={code} value={symbol}>{code} - {symbol}</SelectItem>)}</SelectContent></Select>
 
           <div className="w-full grid grid-cols-2 gap-2">
             <Button type="button" variant="secondary" onClick={onClose}>

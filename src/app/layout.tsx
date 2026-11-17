@@ -1,7 +1,7 @@
 
 
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Roboto } from "next/font/google";
 import "./globals.css";
 import { Toaster } from 'react-hot-toast'
 import { Analytics } from "@vercel/analytics/next"
@@ -17,6 +17,7 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+const roboto = Roboto({ variable: "--font-roboto", subsets: ["latin"], weight: ["400", "500", "700"] });
 
 
 export const metadata: Metadata = {
@@ -67,13 +68,13 @@ export const metadata: Metadata = {
     title: "Rentities | Rent Collection & Property Management App",
     description:
       "Simplify rent collection and tenant management with Rentities. For landlords, PGs, and hostel owners.",
-    images: ["https://rentities.in/app-banner.webp"], 
+    images: ["/app-banner.webp"],
     creator: "@webcos",
   },
    icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
+    icon: "/app%20logo-white.png",
+    shortcut: "/app%20logo-white.png",
+    apple: "/app%20logo-white.png",
   },
 };
 
@@ -122,7 +123,7 @@ export default function RootLayout({
       
       </Head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable} font-roboto antialiased`}
       >{children}
         <Analytics />
         <Toaster />

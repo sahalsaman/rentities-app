@@ -16,6 +16,8 @@ export default function PropertiesPage() {
   const [category, setCategory] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
 
   const propertyTypes = [
     { name: "Flat / Apartment", icon: Building2 },
@@ -29,17 +31,22 @@ export default function PropertiesPage() {
   ];
 
   // 🔹 Fetch properties from API
-  async function fetchProperties(search?: string, category?: string) {
+  async function fetchProperties(search?: string, category?: string, nextPage = 1, append = false) {
     try {
       setLoading(true);
       const params = new URLSearchParams();
       params.append("type", "property");
+      params.append("page", String(nextPage));
+      params.append("limit", "12");
       if (search) params.append("search", search);
       if (category && category !== "All") params.append("category", category);
 
       const res = await fetch(`/api/public?${params.toString()}`);
       const data = await res.json();
-      setProperties(data.data);
+      const rows = Array.isArray(data.data) ? data.data : [];
+      setProperties((current) => append ? [...current, ...rows] : rows);
+      setPage(nextPage);
+      setHasMore(rows.length === 12);
     } catch (err) {
       console.error("Failed to fetch properties", err);
     } finally {
@@ -49,6 +56,12 @@ export default function PropertiesPage() {
 
   useEffect(() => {
     fetchProperties();
+  }, []);
+
+  useEffect(() => {
+    const closeSuggestions = () => setShowSuggestions(false);
+    document.addEventListener("mousedown", closeSuggestions);
+    return () => document.removeEventListener("mousedown", closeSuggestions);
   }, []);
 
 
@@ -107,13 +120,13 @@ export default function PropertiesPage() {
       {/* Banner */}
       <div className="relative h-64 bg-gradient-to-br from-blue-500 to-blue-700">
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center text-white text-3xl font-bold">
-          <h1 className="mb-5">Find Your Perfect Rental Property</h1>
+          <h1 className="mb-5 text-center">Find Your Perfect Rental Property</h1>
         </div>
       </div>
 
       {/* Search Section */}
       <div className="relative z-10 mx-3 -mt-12 max-w-4xl rounded-3xl border border-slate-100 bg-white p-4 shadow-xl sm:mx-auto sm:p-5">
-        <div className="flex w-full flex-col gap-4">
+        <div className="flex w-full flex-col gap-4" onMouseDown={(event) => event.stopPropagation()}>
           <div className="flex w-full gap-2 overflow-x-auto pb-1 [scrollbar-width:none]">
             <button type="button" onClick={() => setCategory("")} className={`flex shrink-0 items-center gap-1.5 rounded-full px-3 py-2 text-xs font-semibold ${!category ? "bg-blue-700 text-white" : "bg-slate-100 text-slate-600"}`}><LayoutGrid size={14} />All</button>
             {propertyTypes.map((item) => {
@@ -174,6 +187,7 @@ export default function PropertiesPage() {
           ):(
             <p className="text-center">No property available</p>
           )}
+          {!loading && properties.length > 0 && hasMore && <div className="mt-8 flex justify-center"><button type="button" onClick={() => fetchProperties(search, category, page + 1, true)} className="rounded-2xl border border-blue-200 bg-white px-6 py-3 text-sm font-semibold text-blue-700 shadow-sm transition hover:bg-blue-50">View more properties</button></div>}
         </div>
       </section>
 

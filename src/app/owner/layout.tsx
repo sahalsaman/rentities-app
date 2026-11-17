@@ -1,7 +1,7 @@
 'use client';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import { User, Home, Building, Bell, Users, ReceiptText, BriefcaseBusiness, BedIcon } from 'lucide-react';
+import { User, Home, Building, Bell, Users, ReceiptText, BriefcaseBusiness,Lamp } from 'lucide-react';
 import localStorageServiceSelectedOptions from '@/utils/localStorageHandler';
 import Image from 'next/image';
 import { apiFetch } from '@/lib/api';
@@ -10,6 +10,7 @@ import { PropertyStatus, SubscritptionStatus, UserRoles } from '@/utils/contants
 import SubscriptionPlan from './subscription-plan/page';
 import { Button } from '@/components/ui/button';
 import { app_config } from '../../../app-config';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const prop = localStorageServiceSelectedOptions.getItem()?.property;
@@ -32,7 +33,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const mobileMenu = [
     { title: 'Home', path: '/owner/dashboard', icon: <Home size={21} /> },
     { title: 'Invoices', path: '/owner/invoices', icon: <ReceiptText size={21} /> },
-    { title: 'Units', path: '/owner/units', icon: <BedIcon size={21} /> },
+    { title: 'Units', path: '/owner/units', icon: <Lamp size={21} /> },
     { title: 'Tenants', path: '/owner/tenants', icon: <Users size={21} /> },
     { title: 'Business', path: '/owner/business', icon: <BriefcaseBusiness size={21} /> },
   ];
@@ -92,6 +93,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     window.location.reload();
   };
 
+  const handlePropertySelect = (value: string) => {
+    const prop = properties.find((item) => item._id === value);
+    setSelectedPropertyId(value);
+    localStorageServiceSelectedOptions.setItem({ property: prop });
+    window.location.reload();
+  };
+
 
 
   return (
@@ -102,14 +110,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div className="mr-5 block lg:hidden">
             <div className="flex items-center gap-2" 
                 onClick={() => router.push('/owner/dashboard')} >
-              <Image src={app_config.APP_LOGO} alt="Logo" height={32} className='cursor-pointer'/>
+              <Image src={app_config.APP_LOGO} alt="Logo" height={32} className='cursor-pointer md:hidden block'/>
+              <Image src={app_config.LOGO_WITH_NAME} alt="Logo" height={32} className='cursor-pointer md:block hidden'/>
             </div>
 
           </div>
           <div className="hidden lg:flex items-center gap-4">
             <div className="flex items-center gap-4" 
                 onClick={() => router.push('/owner/dashboard')}>
-              <Image src={app_config.APP_LOGO} alt="Logo" height={30} className='cursor-pointer' /></div>
+              <Image src={app_config.APP_LOGO} alt="Logo" height={30} className='cursor-pointer md:hidden block'/>
+              <Image src={app_config.LOGO_WITH_NAME} alt="Logo" height={30} className='cursor-pointer md:block hidden'/></div>
             {options.map((card, idx) => (
               <div
                 key={idx}
@@ -130,21 +140,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   {/* <p className='text-white'>Current Property</p> */}
                   <div className='w-full rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-between pr-2'>
                     <Building className='ml-4 text-slate-500' />
-                    <select
-                      name="frequency"
-                      value={selectedPropertyId || ""}
-                      onChange={handleChange}
-                      className="bg-transparent text-slate-700 focus:outline-none border-0 outline-0 pr-2"
-                      style={{ minWidth: "220px", border: "0px", height: "48px" }}
-                      required
-                    >
-                      <option value=""> Select Property</option>
-                      {properties.map((property: any) => (
-                        <option key={property?._id} value={property?._id}>
-                          {property?.name} - {property?.category}
-                        </option>
-                      ))}
-                    </select>
+                    <Select value={selectedPropertyId || undefined} onValueChange={handlePropertySelect}>
+                      <SelectTrigger className="h-12 w-full min-w-[220px] border-0 bg-transparent shadow-none"><SelectValue placeholder="Select Property" /></SelectTrigger>
+                      <SelectContent>{properties.map((property: any) => <SelectItem key={property?._id} value={property?._id}>{property?.name} - {property?.category}</SelectItem>)}</SelectContent>
+                    </Select>
                   </div>
                 </div> :
                   business?.subscription ?
@@ -171,21 +170,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           {properties?.length ?
             <div className='w-full rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-between pr-2'>
               <Building className='ml-3 text-slate-500' />
-              <select
-                name="frequency"
-                value={selectedPropertyId || ""}
-                onChange={handleChange}
-                className="bg-transparent text-slate-700 focus:outline-none border-0 outline-0 pr-2"
-                style={{ minWidth: "220px", border: "0px", height: "48px" }}
-                required
-              >
-                <option value=""> Select Property</option>
-                {properties.map((property: any) => (
-                  <option key={property?._id} value={property?._id}>
-                    {property?.name} - {property?.category}
-                  </option>
-                ))}
-              </select>
+              <Select value={selectedPropertyId || undefined} onValueChange={handlePropertySelect}>
+                <SelectTrigger className="h-12 w-full min-w-[220px] border-0 bg-transparent shadow-none"><SelectValue placeholder="Select Property" /></SelectTrigger>
+                <SelectContent>{properties.map((property: any) => <SelectItem key={property?._id} value={property?._id}>{property?.name} - {property?.category}</SelectItem>)}</SelectContent>
+              </Select>
             </div>
             :
             business?.subscription ?
@@ -199,7 +187,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div> : ""}
       </header>
       {business?.subscription?.status && business?.subscription?.status !== SubscritptionStatus.ACTIVE ? <div className="bg-amber-100 py-2.5 px-5 text-center text-sm font-medium text-amber-900 md:px-20">
-        {business?.subscription?.status === SubscritptionStatus.FREE ? 'Your subscription is free' : business?.subscription?.status === SubscritptionStatus.EXPIRED ? 'Your subscription has expired. Please renew to continue using our services.' : business?.subscription?.status === SubscritptionStatus.CANCELLED ? 'Your subscription has been cancelled. Please contact support for more information.' : ''}
+        {business?.subscription?.status === SubscritptionStatus.FREE ? 'Free plan · Upgrade anytime' : business?.subscription?.status === SubscritptionStatus.EXPIRED ? 'Your subscription has expired. Please renew to continue using our services.' : business?.subscription?.status === SubscritptionStatus.CANCELLED ? 'Your subscription has been cancelled. Please contact support for more information.' : ''}
       </div> : ""}
 
       {business?.subscription?.status === SubscritptionStatus.EXPIRED ? <SubscriptionPlan /> : <main className="owner-surface">{children}</main>}
@@ -214,7 +202,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               }`}
           >
             {item.icon}
-            <span>{item.title}</span>
+            <span className='text-xs'>{item.title}</span>
           </button>
         ))}
       </div>

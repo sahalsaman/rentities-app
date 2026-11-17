@@ -10,6 +10,7 @@ import { Label } from "@radix-ui/react-label";
 import { Switch } from "./ui/switch";
 import { Textarea } from "./ui/textarea";
 import toast from "react-hot-toast";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface Props {
   property: IProperty | null;
@@ -89,50 +90,38 @@ export default function UnitAddEditModal({ property, open, onClose, onSave, edit
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent>
+      <DialogContent className="max-h-[92vh] w-[calc(100%-1rem)] overflow-y-auto rounded-2xl p-4 sm:p-6">
         <DialogHeader>
           <DialogTitle>{editData ? "Edit Unit" : "Add Unit"}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-3">
-          <div className="flex items-center space-x-2">
-            <Switch
-              id="multiple-unit"
-              checked={isMultipleUnit}
-              onCheckedChange={(checked) => setIsMultipleUnit(checked)}
-            />
-            <Label htmlFor="multiple-unit">Multiple Units (Same Details)</Label>
-          </div>
 
-          {/* Conditionally show Unit Number or Number of Units */}
-          {!isMultipleUnit ? (
+          <Label>Floor*</Label>
+          <Select value={formData.floor || "Ground"} onValueChange={(value) => setFormData((prev) => ({ ...prev, floor: value }))}><SelectTrigger><SelectValue placeholder="Select floor" /></SelectTrigger><SelectContent><SelectItem value="Ground">Ground floor</SelectItem>{Array.from({ length: 20 }, (_, index) => <SelectItem key={index + 1} value={String(index + 1)}>Floor {index + 1}</SelectItem>)}</SelectContent>
+          </Select>
+
+          <Label>Number of Units*</Label>
+          <Input
+            name="numberOfUnits"
+            type="number"
+            placeholder="eg: 5 (creates units 1, 2, 3...)"
+            value={formData.numberOfUnits || ""}
+            onChange={handleChange}
+            required
+          />
+                {isHostelOrPG && (
             <>
-              <Label>Unit Number*</Label>
+              <Label>Number of Slots</Label>
               <Input
-                name="name"
-                placeholder="eg : Unit 101"
-                value={formData.name || ""}
-                onChange={handleChange}
-                required
-              />
-            </>
-          ) : (
-            <>
-            <Label>Number of Units*</Label>
-              <Input
-                name="numberOfUnits"
+                name="noOfSlots"
                 type="number"
-                placeholder="eg: 5 (creates units 1, 2, 3...)"
-                value={formData.numberOfUnits || ""}
+                placeholder="eg: 3"
+                value={formData.noOfSlots || ""}
                 onChange={handleChange}
-                required
+                required={isHostelOrPG ? true : false}
               />
             </>
           )}
-          <Label>Floor*</Label>
-          <select name="floor" value={formData.floor || "Ground"} onChange={handleChange} required>
-            <option value="Ground">Ground floor</option>
-            {Array.from({ length: 20 }, (_, index) => <option key={index + 1} value={String(index + 1)}>Floor {index + 1}</option>)}
-          </select>
           <Label>Description</Label>
           <Textarea
             name="description"
@@ -154,53 +143,15 @@ export default function UnitAddEditModal({ property, open, onClose, onSave, edit
             />
           </div>
           <Label>Select Rent Duration*</Label>
-          <select
-            name="frequency"
-            value={formData.frequency || ""}
-            onChange={handleChange}
-            className="w-full h-12 border border-gray-300 rounded px-3 py-2"
-            required
-          >
-            <option value="">Select Rent Duration</option>
-            {Object.values(RentFrequency).map((type) => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
-          </select>
+          <Select value={formData.frequency || undefined} onValueChange={(value) => setFormData((prev) => ({ ...prev, frequency: value as RentFrequency }))}><SelectTrigger><SelectValue placeholder="Select Rent Duration" /></SelectTrigger><SelectContent>{Object.values(RentFrequency).map((type) => <SelectItem key={type} value={type}>{type}</SelectItem>)}</SelectContent></Select>
 
 
           {isFlatOrApartment && (
             <>   <Label>Select Unit Type*</Label>
-              <select
-                name="type"
-                value={formData.type || ""}
-                onChange={handleChange}
-                className="w-full h-12 border border-gray-300 rounded px-3 py-2"
-                required
-              >
-                <option value="">Select Unit Type</option>
-                {FLAT_TYPES.map(flat => (
-                  <option key={flat} value={flat}>
-                    {flat}
-                  </option>
-                ))}
-              </select></>
+              <Select value={formData.type || undefined} onValueChange={(value) => setFormData((prev) => ({ ...prev, type: value }))}><SelectTrigger><SelectValue placeholder="Select Unit Type" /></SelectTrigger><SelectContent>{FLAT_TYPES.map((flat) => <SelectItem key={flat} value={flat}>{flat}</SelectItem>)}</SelectContent></Select></>
           )}
 
-          {isHostelOrPG && (
-            <>
-              <Label>Number of Slots</Label>
-              <Input
-                name="noOfSlots"
-                type="number"
-                placeholder="eg: 3"
-                value={formData.noOfSlots || ""}
-                onChange={handleChange}
-                required={isHostelOrPG?true:false}
-              />
-            </>
-          )}
+    
 
           <Label>Advance Amount</Label>
           <div className="flex items-center gap-1">
@@ -214,20 +165,7 @@ export default function UnitAddEditModal({ property, open, onClose, onSave, edit
             /></div>
 
           <Label>Status*</Label>
-          <select
-            name="status"
-            value={formData.status || ""}
-            onChange={handleChange}
-            className="w-full h-12 border border-gray-300 rounded px-3 py-2"
-            required
-          >
-            <option value="">Select unit status</option>
-            {Object.values(UnitStatus).map((status) => (
-              <option key={status} value={status}>
-                {status}
-              </option>
-            ))}
-          </select>
+          <Select value={formData.status || undefined} onValueChange={(value) => setFormData((prev) => ({ ...prev, status: value as UnitStatus }))}><SelectTrigger><SelectValue placeholder="Select unit status" /></SelectTrigger><SelectContent>{Object.values(UnitStatus).map((status) => <SelectItem key={status} value={status}>{status}</SelectItem>)}</SelectContent></Select>
           <div className="w-full grid grid-cols-2 gap-2">
             <Button type="button" variant="secondary" onClick={onClose}>
               Cancel

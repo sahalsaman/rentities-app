@@ -132,7 +132,20 @@ body {
 }
 
 select {
-  @apply w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500;
+  @apply w-full border border-gray-300 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500;
+  min-height: 3rem;
+  appearance: none;
+  background-color: #fff;
+  background-image: linear-gradient(45deg, transparent 50%, #64748b 50%), linear-gradient(135deg, #64748b 50%, transparent 50%);
+  background-position: calc(100% - 18px) 50%, calc(100% - 12px) 50%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 2.5rem;
+}
+
+@media (max-width: 767px) {
+  select { font-size: 16px; }
+  .owner-shell select { position: relative; z-index: 10; }
 }
 
 /* Shared non-admin form language: inputs, selects and textareas should feel like one control. */
@@ -177,6 +190,10 @@ body:has([data-slot="dialog-content"]) textarea {
 
 .font-montserrat {
   font-family: var(--font-montserrat), system-ui, sans-serif;
+}
+
+.font-roboto {
+  font-family: var(--font-roboto), Arial, sans-serif;
 }
 
 /* Optional: your custom clip-path utilities */

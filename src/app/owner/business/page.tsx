@@ -47,7 +47,7 @@ export default function PropertiesPage() {
       icon: <Building className="w-6 h-6 md:w-8 md:h-8 min-w-6 min-h-6" />,
     },  {
       title: "Managers",
-      path: "/owner/properties",
+      path: "/owner/managers",
       icon: <Users className="w-6 h-6 md:w-8 md:h-8 min-w-6 min-h-6" />,
     },
     {
@@ -61,8 +61,8 @@ export default function PropertiesPage() {
       icon: <Crown className="w-6 h-6 md:w-8 md:h-8 min-w-6 min-h-6" />,
     },
     {
-      title: "Subscription Payments",
-      path: "/owner/subcription-payments",
+      title: "Subscription Invoices",
+      path: "/owner/subcription-invoices",
       icon: <BadgeIndianRupee className="w-6 h-6 md:w-8 md:h-8 min-w-6 min-h-6" />,
     },
   ];

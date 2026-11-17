@@ -5,6 +5,7 @@ import { apiFetch } from "@/lib/api";
 import { FullscreenLoader } from "@/components/Loader";
 import SubscriptionPaymentCard from "@/components/SubscriptionPaymentCard";
 import localStorageServiceSelectedOptions from "@/utils/localStorageHandler";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export default function SubscriptionPayments() {
   const [subscriptionPayments, setSubscriptionPayments] = useState([]);
@@ -38,28 +39,16 @@ export default function SubscriptionPayments() {
 
   return (
     <div className="p-4 pt-5 md:px-12 lg:px-20 mb-10">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Subscription Payments</h1>
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-2xl font-bold">Subscription Invoices</h1>
+
+      <div className="flex items-center gap-3">
+        <label htmlFor="subscription-year" className="text-sm font-medium text-slate-500">Year</label>
+        <Select value={String(selectedYear)} onValueChange={(value) => setSelectedYear(Number(value))}>
+          <SelectTrigger className="h-11 w-32 rounded-xl border-slate-200 bg-white text-sm font-medium shadow-sm"><SelectValue /></SelectTrigger>
+          <SelectContent>{Array.from({ length: 5 }).map((_, i) => { const year = new Date().getFullYear() - i; return <SelectItem key={year} value={String(year)}>{year}</SelectItem>; })}</SelectContent>
+        </Select>
       </div>
-
-      {/* Filters */}
-      <div className="flex gap-4 mb-6">
-
-        <select
-          className="border px-3 py-2 rounded w-fit"
-          style={{maxWidth: '100px',borderRadius: '0.5rem'}}
-          value={selectedYear}
-          onChange={(e) => setSelectedYear(Number(e.target.value))}
-        >
-          {Array.from({ length: 5 }).map((_, i) => {
-            const year = new Date().getFullYear() - i;
-            return (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            );
-          })}
-        </select>
       </div>
 
       {/* Listing */}
