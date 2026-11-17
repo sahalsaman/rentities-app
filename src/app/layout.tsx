@@ -42,15 +42,15 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://rentities.in",
+    canonical: "https://app.rentities.in",
     languages: {
-      "en-IN": "https://rentities.in/en-IN",
+      "en-IN": "https://app.rentities.in/en-IN",
     },
   },
   openGraph: {
     title: 'Rental Property Management - Maximize Rental Income',
     description: 'Professional rental property management application. From tenant screening to rent collection, we handle it all for landlords and property owners.',
-    url: 'https://rentities.in',
+    url: 'https://app.rentities.in',
      siteName: "Rentities",
     images: [
       {
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     title: "Rentities | Rent Collection & Property Management App",
     description:
       "Simplify rent collection and tenant management with Rentities. For landlords, PGs, and hostel owners.",
-    images: ["/app-banner.webp"],
+    images: ["/logo.png"],
     creator: "@webcos",
   },
    icons: {
