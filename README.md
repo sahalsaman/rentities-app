@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Deployment boundary
+
+Deploy this project at `app.rentities.in`. It owns authentication, the admin console, owner/manager workspace, user workspace, and the API. Set `NEXT_PUBLIC_SITE_URL=https://rentities.in`; legacy public URLs redirect to the website.
+
 ## Getting Started
 
 First, run the development server:
