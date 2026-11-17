@@ -1,24 +1,11 @@
 
 
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Roboto } from "next/font/google";
 import "./globals.css";
 import { Toaster } from 'react-hot-toast'
 import { Analytics } from "@vercel/analytics/next"
 import { app_config } from "../../app-config";
 import Head from "next/head";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-const roboto = Roboto({ variable: "--font-roboto", subsets: ["latin"], weight: ["400", "500", "700"] });
-
 
 export const metadata: Metadata = {
    title: {
@@ -123,7 +110,7 @@ export default function RootLayout({
       
       </Head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable} font-roboto antialiased`}
+        className="antialiased"
       >{children}
         <Analytics />
         <Toaster />
