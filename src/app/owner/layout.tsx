@@ -155,7 +155,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     </Button>
                 }
               </div> : ""}
-            <button aria-label="Notifications" className="flex h-10 w-10 items-center justify-center rounded-xl text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"><Bell size={20} /></button><div className="relative" ref={dropdownRef}>
+            <button onClick={() => router.push('/owner/notifications')} aria-label="Notifications" className="flex h-10 w-10 items-center justify-center rounded-xl text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"><Bell size={20} /></button><div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => router.push('/owner/profile')}
                 className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-xl bg-blue-900 text-white cursor-pointer transition hover:bg-blue-700"
@@ -190,7 +190,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         {business?.subscription?.status === SubscritptionStatus.FREE ? 'Free plan · Upgrade anytime' : business?.subscription?.status === SubscritptionStatus.EXPIRED ? 'Your subscription has expired. Please renew to continue using our services.' : business?.subscription?.status === SubscritptionStatus.CANCELLED ? 'Your subscription has been cancelled. Please contact support for more information.' : ''}
       </div> : ""}
 
-      {business?.subscription?.status === SubscritptionStatus.EXPIRED ? <SubscriptionPlan /> : <main className="owner-surface">{children}</main>}
+      {business?.subscription?.status === SubscritptionStatus.EXPIRED ? <SubscriptionPlan /> : <main className="owner-surface" style={{padding:"0"}}>{children}</main>}
 
       {/* Mobile Bottom Menu */}
       <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-evenly border-t border-slate-200 bg-white/95 px-4 py-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] shadow-[0_-6px_20px_rgba(15,23,42,0.08)] backdrop-blur lg:hidden">

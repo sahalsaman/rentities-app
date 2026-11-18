@@ -24,7 +24,7 @@ export default function UnitCard({ unit, property, onEdit, onDelete, onBook }: U
 
         <div className="flex justify-center my-6">
           <span
-            className={`px-2 py-1 rounded-md text-xs font-medium ${statusColorMap[unit.status] || "bg-gray-100 text-gray-800"
+            className={`px-2 py-1 rounded-md text-xs font-medium text-center ${statusColorMap[unit.status] || "bg-gray-100 text-gray-800"
               }`}
           >
             {unit.status}

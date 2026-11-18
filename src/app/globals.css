@@ -263,7 +263,7 @@ body:has([data-slot="input-otp"]) .text-blue-700 { color: #1268ce !important; }
 /* Public/auth surfaces follow the reference's blue-glass visual language. */
 .public-site > section:first-of-type,
 .auth-theme section:first-of-type,
-main > div > section:first-of-type { background-image: linear-gradient(135deg, #78a7d6 0%, #4b89cf 52%, #1d72da 100%) !important; }
+.gradient-bg { background-image: linear-gradient(135deg, #78a7d6 0%, #4b89cf 52%, #1d72da 100%) !important; }
 .public-site > section:first-of-type .bg-blue-700, .public-site > section:first-of-type .bg-green-700 { background-color: #1476e8 !important; }
 .public-site section, .auth-theme section { border-radius: 1.5rem; }
 .public-site .shadow-2xl, .auth-theme .shadow-2xl { box-shadow: 0 24px 70px rgb(34 91 145 / 0.16) !important; }

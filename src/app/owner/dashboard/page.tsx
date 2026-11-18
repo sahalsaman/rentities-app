@@ -1,6 +1,6 @@
 "use client";
 
-import { Building2, Users, DollarSign, Calendar, NotepadTextDashed, Megaphone, PlusIcon, BadgeDollarSign, QrCodeIcon, Headset, Tickets, Paperclip, Bed, Share, Crown, MessageCircleMore, Lamp } from "lucide-react";
+import { Building2, Users, DollarSign, Calendar, BellRing, Megaphone, PlusIcon, BadgeDollarSign, QrCodeIcon, Headset, Tickets, Paperclip, Bed, Share, MessageCircleMore, Lamp, ChartNoAxesCombined } from "lucide-react";
 import { QRCodeCanvas } from "qrcode.react";
 import { IProperty } from "@/app/types";
 import { useState, useEffect } from "react";
@@ -105,12 +105,12 @@ export default function OwnerDashboard() {
 
   const options = [
     { title: 'New Booking', path: 'BOOKING_FORM', icon: <PlusIcon className="w-6 h-6 md:w-10 md:h-10 min-w-6 min-h-6" /> },
-    { title: 'Booking QR', path: 'BOOKING_QR', icon: <QrCodeIcon className="w-6 h-6 md:w-10 md:h-10 min-w-6 min-h-6" /> }, { title: 'Subscription', path: '/owner/subscription-plan', icon: <Crown className="w-6 h-6 md:w-10 md:h-10 min-w-6 min-h-6" /> },
-    { title: 'Units', path: '/owner/units', icon: <Building2 className="w-6 h-6 md:w-10 md:h-10 min-w-6 min-h-6" /> },
+    { title: 'Booking QR', path: 'BOOKING_QR', icon: <QrCodeIcon className="w-6 h-6 md:w-10 md:h-10 min-w-6 min-h-6" /> }, { title: 'Calendar', path: '/owner/calendar', icon: <Calendar className="w-6 h-6 md:w-10 md:h-10 min-w-6 min-h-6" /> },
+    { title: 'Dashboard', path: '/owner/analytics', icon: <ChartNoAxesCombined className="w-6 h-6 md:w-10 md:h-10 min-w-6 min-h-6" /> },
     { title: 'Broadcast', path: '/owner/announcement', icon: <MessageCircleMore className="w-6 h-6 md:w-10 md:h-10 min-w-6 min-h-6" /> },
     { title: 'Complaints', path: '/owner/announcement', icon: <Paperclip className="w-6 h-6 md:w-10 md:h-10 min-w-6 min-h-6" /> },
-    { title: 'Notices', path: '/owner/announcement', icon: <NotepadTextDashed className="w-6 h-6 md:w-10 md:h-10 min-w-6 min-h-6" /> },
-    { title: 'Finance', path: '/owner/payments', icon: <BadgeDollarSign className="w-6 h-6 md:w-10 md:h-10 min-w-6 min-h-6" /> },
+    { title: 'Reminders', path: '/owner/reminders', icon: <BellRing className="w-6 h-6 md:w-10 md:h-10 min-w-6 min-h-6" /> },
+    { title: 'Finance', path: '/owner/finance', icon: <BadgeDollarSign className="w-6 h-6 md:w-10 md:h-10 min-w-6 min-h-6" /> },
   ];
 
   if (loader) return <FullscreenLoader />;
